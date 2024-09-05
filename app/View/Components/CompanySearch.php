@@ -8,6 +8,9 @@ use Illuminate\View\Component;
 
 class CompanySearch extends Component
 {
+
+    // changes made here
+
     /**
      * Create a new component instance.
      */
