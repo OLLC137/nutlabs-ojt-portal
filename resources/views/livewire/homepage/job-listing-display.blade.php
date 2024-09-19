@@ -20,20 +20,7 @@
             </div>
 
             <div class="display-box-status">
-                <div class="display-box-sign">
-                    <p class="display-box-signage">
-                        @switch($jobList->job_status)
-                            @case(1)
-                                <p style="color: green; font-weight:bold;">OPEN</p>
-                                @break
-                            @case(0)
-                                <p style="color: red; font-weight:bold;">CLOSED</p>
-                                @break
-                            @default
-                                <!-- Handle any unexpected values here -->
-                        @endswitch
-                    </p>
-                </div>
+
                 <div class="d-flex flex-column justify-center mt-3">
                     <h6>{{ $jobList->job_ref }}</h6>
                 </div>
