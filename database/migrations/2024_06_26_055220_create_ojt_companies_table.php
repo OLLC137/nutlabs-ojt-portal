@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('ojt_companies', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); 
             $table->string('co_name');
             $table->string('co_address');
             $table->string('co_contact_number');
