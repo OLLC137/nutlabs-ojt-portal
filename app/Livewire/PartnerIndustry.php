@@ -3,7 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\Public\OjtJobListing;
+use App\Models\OjtJobListing;
 use Illuminate\Support\Facades\DB;
 
 class PartnerIndustry extends Component

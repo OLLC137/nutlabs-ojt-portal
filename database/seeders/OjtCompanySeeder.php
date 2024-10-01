@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Public\OjtCompany;
+use App\Models\OjtCompany;
 use Illuminate\Database\Seeder;
 
 class OjtCompanySeeder extends Seeder

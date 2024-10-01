@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\Public\OjtCompany;
+use App\Models\OjtCompany;
 use App\Models\OjtContactPerson;
 use Livewire\Component;
 

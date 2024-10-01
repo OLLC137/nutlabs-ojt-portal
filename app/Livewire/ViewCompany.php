@@ -3,7 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\OjtContactPerson;
-use App\Models\Public\OjtCompany;
+use App\Models\OjtCompany;
 use Livewire\Component;
 use Livewire\WithPagination;
 

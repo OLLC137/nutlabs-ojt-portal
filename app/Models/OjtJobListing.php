@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Public;
+namespace App\Models;
 
 use App\Models\OjtContactPerson;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,14 +11,13 @@ class OjtJobListing extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    
+
     protected $fillable = [
         'company_id',
         'job_ref',
         'job_list',
         'job_desc',
         'job_category',
-        'job_person',
         'job_status',
     ];
 

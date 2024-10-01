@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Existing users
+        // Seed superadmin user
         User::factory()->create([
             'name' => 'super admin user',
             'username' => 'superadmin',
@@ -25,46 +25,27 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@example.com',
             'role' => 1
         ]);
+        // Seed Ojt Head User
         User::factory()->create([
             'name' => 'ojt head user',
             'username' => 'ojthead',
             'email' => 'ojthead@example.com',
             'role' => 2
         ]);
+        // Seed Ojt Coordinator User
         User::factory()->create([
             'name' => 'ojt coordinator user',
             'username' => 'ojtcoordinator',
             'email' => 'ojtcoordinator@example.com',
             'role' => 3
         ]);
-
-        User::factory()->create([
-            'name' => 'student 1',
-            'username' => 'student',
-            'email' => 'student1@example.com',
-            'role' => 20
-        ]);
-        User::factory()->create([
-            'name' => 'student 2',
-            'username' => 'student2',
-            'email' => 'student2@example.com',
-            'role' => 20
-        ]);
-        User::factory()->create([
-            'name' => 'student 3',
-            'username' => 'student3',
-            'email' => 'student3@example.com',
-            'role' => 20
-        ]);
-
+        // Seed Company Users
         $companyUser = User::factory()->create([
             'name' => 'company user',
             'username' => 'companyuser',
             'email' => 'companyuser@example.com',
             'role' => 4
         ]);
-
-
         OjtCompany::create([
             'user_id' => $companyUser->id,
             'co_name' => 'Example Company',
@@ -75,16 +56,8 @@ class DatabaseSeeder extends Seeder
             'co_isactive' => true,
         ]);
 
-
-
-
-
-        $this->call(OjtCompanySeeder::class);
-        $this->call(OjtContactPersonSeeder::class);
         $this->call(OjtJobListCategorySeeder::class);
         $this->call(OjtJobListingSeeder::class);
-        //FOR REQS
-        $this->call(OjtStudentSeeder::class);
-        // $this->call(OjtRequirementSeeder::class);
+        $this->call(OjtRequirementSeeder::class);
     }
 }

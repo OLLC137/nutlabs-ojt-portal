@@ -1,15 +1,15 @@
 <?php
 
-namespace Database\Factories\Public;
+namespace Database\Factories;
 
 use App\Models\OjtContactPerson;
 use App\Models\OjtJobListCategory;
-use App\Models\Public\OjtCompany;
-use App\Models\Public\OjtJobListing;
+use App\Models\OjtCompany;
+use App\Models\OjtJobListing;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Public\OjtJobListings>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\OjtJobListings>
  */
 class OjtJobListingFactory extends Factory
 {
@@ -19,7 +19,6 @@ class OjtJobListingFactory extends Factory
     public function definition()
     {
         $companyIds = OjtCompany::pluck('id')->toArray();
-        $contactIds = OjtContactPerson::pluck('id')->toArray();
         $companyCategories = OjtJobListCategory::pluck('id')->toArray();
 
         $companyId = $this->faker->randomElement($companyIds);
@@ -32,7 +31,6 @@ class OjtJobListingFactory extends Factory
             'job_list' => $this->faker->jobTitle,
             'job_desc' => $this->faker->paragraph(10),
             'job_category' => $this->faker->randomElement($companyCategories),
-            'job_person' => $this->faker->randomElement($contactIds),
             'job_status' => $this->faker->boolean(50),
         ];
     }
