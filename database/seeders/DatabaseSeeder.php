@@ -1,10 +1,9 @@
 <?php
-
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\OjtCompany;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,50 +12,71 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
+        // Existing users
         User::factory()->create([
             'name' => 'super admin user',
-            'username'=>'superadmin',
+            'username' => 'superadmin',
             'email' => 'superadmin@example.com',
             'role' => 0
         ]);
         User::factory()->create([
             'name' => 'admin user',
-            'username'=>'admin',
+            'username' => 'admin',
             'email' => 'admin@example.com',
             'role' => 1
         ]);
         User::factory()->create([
             'name' => 'ojt head user',
-            'username'=>'ojthead',
+            'username' => 'ojthead',
             'email' => 'ojthead@example.com',
             'role' => 2
         ]);
         User::factory()->create([
             'name' => 'ojt coordinator user',
-            'username'=>'ojtcoordinator',
+            'username' => 'ojtcoordinator',
             'email' => 'ojtcoordinator@example.com',
             'role' => 3
         ]);
+
         User::factory()->create([
             'name' => 'student 1',
-            'username'=>'student',
+            'username' => 'student',
             'email' => 'student1@example.com',
             'role' => 20
         ]);
         User::factory()->create([
             'name' => 'student 2',
-            'username'=>'student2',
+            'username' => 'student2',
             'email' => 'student2@example.com',
             'role' => 20
         ]);
         User::factory()->create([
             'name' => 'student 3',
-            'username'=>'student3',
-            'email' => 'studemt3@example.com',
+            'username' => 'student3',
+            'email' => 'student3@example.com',
             'role' => 20
         ]);
+
+        $companyUser = User::factory()->create([
+            'name' => 'company user',
+            'username' => 'companyuser',
+            'email' => 'companyuser@example.com',
+            'role' => 4
+        ]);
+
+
+        OjtCompany::create([
+            'user_id' => $companyUser->id,
+            'co_name' => 'Example Company',
+            'co_address' => '123 Example St',
+            'co_contact_number' => '123-456-7890',
+            'co_email' => 'company@example.com',
+            'co_website' => 'www.examplecompany.com',
+            'co_isactive' => true,
+        ]);
+
+
+
 
 
         $this->call(OjtCompanySeeder::class);

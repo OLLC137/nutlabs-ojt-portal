@@ -69,4 +69,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(OjtStudent::class);
     }
+
+    public function company()
+    {
+        return $this->hasOne(OjtCompany::class);
+    }
+
+
 }
