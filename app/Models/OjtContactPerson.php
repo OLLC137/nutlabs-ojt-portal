@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\OjtCompany;
-use App\Models\OjtJobListing;
+use App\Models\Public\OjtCompany;
+use App\Models\Public\OjtJobListing;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Public;
 
-use App\Models\OjtCompany;
+use App\Models\Public\OjtCompany;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

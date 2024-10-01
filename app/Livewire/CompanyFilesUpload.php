@@ -6,7 +6,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 use App\Models\OjtCompanyFile;
-use App\Models\OjtCompany;
+use App\Models\Public\OjtCompany;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;

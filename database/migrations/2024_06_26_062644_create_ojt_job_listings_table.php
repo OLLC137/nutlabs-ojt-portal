@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('job_list');
             $table->text('job_desc');
             $table->integer('job_category');
+            $table->integer('job_person');
             $table->boolean('job_status')->default(true);
             $table->timestamps();
         });

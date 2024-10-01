@@ -2,17 +2,18 @@
 
 namespace Database\Seeders;
 
-use App\Models\Public\OjtJobListing;
+use App\Models\OjtContactPerson;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class OjtJobListingSeeder extends Seeder
+class OjtContactPersonSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        OjtJobListing::factory()->count(150)->create();
+        OjtContactPerson::factory()->count(150)->create();
+
     }
 }
