@@ -79,7 +79,7 @@ class DatabaseSeeder extends Seeder
 
 
 
-        $this->call(OjtCompanySeeder::class);
+        // $this->call(OjtCompanySeeder::class);
         $this->call(OjtContactPersonSeeder::class);
         $this->call(OjtJobListCategorySeeder::class);
         $this->call(OjtJobListingSeeder::class);
