@@ -39,25 +39,25 @@ class DatabaseSeeder extends Seeder
             'email' => 'ojtcoordinator@example.com',
             'role' => 3
         ]);
-        // Seed Company Users
-        $companyUser = User::factory()->create([
-            'name' => 'company user',
-            'username' => 'companyuser',
-            'email' => 'companyuser@example.com',
-            'role' => 4
-        ]);
-        OjtCompany::create([
-            'user_id' => $companyUser->id,
-            'co_name' => 'Example Company',
-            'co_address' => '123 Example St',
-            'co_contact_number' => '123-456-7890',
-            'co_email' => 'company@example.com',
-            'co_website' => 'www.examplecompany.com',
-            'co_isactive' => true,
-        ]);
+        // Seed 50 Company Users
+        for ($i = 1; $i <= 50; $i++) {
+            User::factory()->create([
+                'username' => 'company' . $i,
+                'role' => 4
+            ]);
+        }
+        //Seed 100 Student Users
+        for ($i = 1; $i <= 100; $i++) {
+            User::factory()->create([
+                'username' => 'student' . $i,
+                'role' => 20
+            ]);
+        }
 
+        $this->call(OjtCompanySeeder::class);
         $this->call(OjtJobListCategorySeeder::class);
         $this->call(OjtJobListingSeeder::class);
+        $this->call(OjtStudentSeeder::class);
         $this->call(OjtRequirementSeeder::class);
     }
 }
