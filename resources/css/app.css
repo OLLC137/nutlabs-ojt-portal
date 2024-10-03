@@ -522,9 +522,9 @@
 
 .display-box-disp {
     font-weight: bold;
+    font-size: 12pt;
     height: 70px;
     margin-bottom: 10px;
-    width: 200px;
     overflow-y: hidden;
     display: flex;
     align-items: center;
