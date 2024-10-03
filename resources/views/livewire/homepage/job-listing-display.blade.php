@@ -12,7 +12,7 @@
                 <p class="display-box-company" >{{ $jobList->company_name }}</p>
                 <p class="display-box-loc">{{ $jobList->location }}</p>
             </div>
-            
+
             <div class="display-box-body">
                 <p class="display-box-bodytext">
                     {{ $jobList->job_desc }}
@@ -40,33 +40,6 @@
         } else if (jobStatus == 1) {
             Livewire.dispatch('viewJob', [jobId]); // Emit Livewire event for desktop view
         }
-        
+
     }
-
-    function adjustFontSize() {
-            const elements = document.getElementsByClassName('display-box-disp');
-            const maxFontSize = 25; // Maximum font size in pixels (you can adjust this value)
-            for (let element of elements) {
-                const parentWidth = element.clientWidth;
-                const parentHeight = element.clientHeight;
-                let fontSize = 10; // Start with a base font size
-                element.style.fontSize = `${fontSize}px`;
-
-                while ((element.scrollWidth <= parentWidth && element.scrollHeight <= parentHeight) && fontSize < maxFontSize) {
-                    fontSize += 1;
-                    element.style.fontSize = `${fontSize}px`;
-                }
-
-                // If the font size exceeds the maxFontSize, reset it to maxFontSize
-                if (fontSize > maxFontSize) {
-                    fontSize = maxFontSize;
-                } else {
-                    fontSize -= 0.5; // Adjust the last increment
-                }
-                element.style.fontSize = `${fontSize}px`;
-            }
-        }
-
-        window.addEventListener('load', adjustFontSize);
-        window.addEventListener('resize', adjustFontSize);
 </script>
