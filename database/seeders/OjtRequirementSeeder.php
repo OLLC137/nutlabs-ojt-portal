@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\OjtStudent;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -9,8 +10,7 @@ class OjtRequirementSeeder extends Seeder
 {
     public function run()
     {
-        // Assumes that 20 students exist in the database
-        $students = range(1, 10);
+        $students = OjtStudent::pluck('id')->toArray();
         $requirements = range(1, 10); // IDs of required documents
 
         foreach ($students as $studentId) {

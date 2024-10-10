@@ -27,9 +27,9 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => env('ADMIN_NAME', fake()->name()),
-            'username' => env('ADMIN_USERNAME', fake()->name()),
-            'email' => env('ADMIN_EMAIL', fake()->unique()->safeEmail()),
+            'name' => fake()->name(),
+            'username' => fake()->name(),
+            'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= env('ADMIN_PASSWORD', Hash::make('password')),
             'role' => 0,
@@ -39,36 +39,5 @@ class UserFactory extends Factory
             'profile_photo_path' => null,
             'current_team_id' => null,
         ];
-    }
-
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    public function unverified(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
-    }
-
-    /**
-     * Indicate that the user should have a personal team.
-     */
-    public function withPersonalTeam(callable $callback = null): static
-    {
-        if (!Features::hasTeamFeatures()) {
-            return $this->state([]);
-        }
-
-        return $this->has(
-            Team::factory()
-                ->state(fn (array $attributes, User $user) => [
-                    'name' => $user->name . '\'s Team',
-                    'user_id' => $user->id,
-                    'personal_team' => true,
-                ])
-                ->when(is_callable($callback), $callback),
-            'ownedTeams'
-        );
     }
 }
