@@ -15,6 +15,7 @@ class JobListingDisplay extends Component
         $this->jobListings = DB::table('ojt_job_listings')
             ->join('ojt_companies', 'ojt_job_listings.company_id', '=', 'ojt_companies.id')
             ->join('ojt_job_list_categories', 'ojt_job_listings.job_category', '=', 'ojt_job_list_categories.id')
+
             ->select(
                 'ojt_job_listings.id as job_id',
                 'ojt_job_listings.job_list as job_list',

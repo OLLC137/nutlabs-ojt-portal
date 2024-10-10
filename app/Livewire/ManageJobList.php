@@ -86,14 +86,12 @@ class ManageJobList extends Component
         }
         if($this->company){
             $query = OjtJobListing::query()
-            ->join('ojt_contact_people', 'ojt_job_listings.job_person', '=','ojt_contact_people.id')
             ->join('ojt_job_list_categories', 'ojt_job_listings.job_category', '=', 'ojt_job_list_categories.id')
             ->select(
                 'ojt_job_listings.id',
                 'job_ref',
                 'job_list',
                 'ojt_job_list_categories.cat_name as job_category',
-                'ojt_contact_people.contact_name as job_person',
                 'job_status')
             ->orderBy('job_ref','asc')
             ->where('ojt_job_listings.company_id', $this->company);
@@ -110,7 +108,6 @@ class ManageJobList extends Component
         if(!$this->byCompany){
             $query = OjtJobListing::query()
             ->join('ojt_companies','ojt_companies.id','=','ojt_job_listings.company_id')
-            ->join('ojt_contact_people', 'ojt_job_listings.job_person', '=','ojt_contact_people.id')
             ->join('ojt_job_list_categories', 'ojt_job_listings.job_category', '=', 'ojt_job_list_categories.id')
             ->select(
                 'ojt_job_listings.id',
@@ -118,7 +115,6 @@ class ManageJobList extends Component
                 'co_name',
                 'job_list',
                 'ojt_job_list_categories.cat_name as job_category',
-                'ojt_contact_people.contact_name as job_person',
                 'job_status')
             ->orderBy('job_ref','asc');
 

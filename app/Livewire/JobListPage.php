@@ -7,7 +7,6 @@ use Livewire\Attributes\Url;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
-
 class JobListPage extends Component
 {
     use WithPagination;
@@ -42,7 +41,8 @@ class JobListPage extends Component
             $searchTerm = '%' . strtolower($this->search) . '%';
             $query->where(function ($query) use ($searchTerm) {
                 $query->whereRaw('LOWER(ojt_job_listings.job_list) LIKE ?', [$searchTerm])
-                        ->orWhereRaw('LOWER(ojt_companies.co_name) LIKE ?', [$searchTerm]);            });
+                        ->orWhereRaw('LOWER(ojt_companies.co_name) LIKE ?', [$searchTerm]);
+            });
         }
         if ($this->location) {
             $query->whereRaw('LOWER(ojt_companies.co_address) LIKE ?', ['%' . strtolower($this->location) . '%']);
@@ -91,7 +91,6 @@ class JobListPage extends Component
         $this->id = null;
 
         $this->resetPage(); // Reset pagination to show results from page 1
-
     }
 
     public function updateJobInfo($jobId){
