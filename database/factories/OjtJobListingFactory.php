@@ -2,14 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\OjtContactPerson;
 use App\Models\OjtJobListCategory;
 use App\Models\OjtCompany;
 use App\Models\OjtJobListing;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\OjtJobListings>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\OjtJobListings
  */
 class OjtJobListingFactory extends Factory
 {
