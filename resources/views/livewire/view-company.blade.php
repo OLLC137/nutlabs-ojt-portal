@@ -96,9 +96,6 @@
                 </x-template.card-body>
             </x-template.card>
         </div>
-        <!-- Include the AddContactPerson component and pass the selectedCompanyId -->
-        <livewire:add-contact-person :companyId="$selectedCompanyId" />
-
     </div>
         <div>
             <x-template.button color="secondary" wire:click="resetCompanyDetail">Back to List</x-template.button>
