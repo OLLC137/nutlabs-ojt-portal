@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\OjtCompany;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class OjtCompanySeeder extends Seeder
@@ -12,8 +13,13 @@ class OjtCompanySeeder extends Seeder
      *
      * @return void
      */
+
     public function run()
     {
-        OjtCompany::factory()->count(50)->create();
+        $userIds = User::where('role',4)->pluck('id')->toArray();
+
+        foreach ($userIds as $id) {
+            OjtCompany::factory()->create(['user_id' => $id]);
+        }
     }
 }

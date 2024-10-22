@@ -20,6 +20,7 @@ class JobListPage extends Component
 
     public function render()
     {
+
         // Initial query without search filters
         $query = DB::table('ojt_job_listings')
         ->join('ojt_companies', 'ojt_job_listings.company_id', '=', 'ojt_companies.id')
