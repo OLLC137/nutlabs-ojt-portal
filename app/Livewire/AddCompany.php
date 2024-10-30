@@ -3,7 +3,6 @@
 namespace App\Livewire;
 
 use App\Models\OjtCompany;
-use App\Models\OjtContactPerson;
 use Livewire\Component;
 
 class AddCompany extends Component
