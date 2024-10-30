@@ -1,24 +1,29 @@
 <div>
     @if ($selectedCompanyId == null)
-    <div>
-    <h3 class="mb-4 page-title"> Partner Industry List </h3>
-    </div>
+        <div>
+            <h3 class="mb-4 page-title"> Partner Industry List </h3>
+        </div>
         <div class="row">
 
             <div class="col-md-6 grid-margin" role="search">
                 <div class="input-group">
-                    <input type="text" wire:model="searchQuery" placeholder="Search Company Name..." class="mb-2 form-control" id="searchInput">
+                    <input type="text" wire:model="searchQuery" placeholder="Search Company Name..."
+                        class="mb-2 form-control" id="searchInput">
                     <div class="input-group-append">
-                        <x-template.button color="primary" wire:click="triggerSearch"><i class="mdi mdi-magnify"></i></x-template.button>
+                        <x-template.button color="primary" wire:click="triggerSearch"><i
+                                class="mdi mdi-magnify"></i></x-template.button>
                     </div>
                 </div>
             </div>
 
             <div class="mb-3 col-md-6 d-flex justify-content-end">
                 <div>
-                    <x-template.button variant="inverse" :rounded="true" color="primary" wire:click="setFilter(null)">All</x-template.button>
-                    <x-template.button variant="inverse" :rounded="true" color="primary" wire:click="setFilter(1)">Active</x-template.button>
-                    <x-template.button variant="inverse" :rounded="true" color="primary" wire:click="setFilter(0)">Inactive</x-template.button>
+                    <x-template.button variant="inverse" :rounded="true" color="primary"
+                        wire:click="setFilter(null)">All</x-template.button>
+                    <x-template.button variant="inverse" :rounded="true" color="primary"
+                        wire:click="setFilter(1)">Active</x-template.button>
+                    <x-template.button variant="inverse" :rounded="true" color="primary"
+                        wire:click="setFilter(0)">Inactive</x-template.button>
                 </div>
             </div>
 
@@ -46,88 +51,89 @@
             {{ $companies->links() }}
         </div>
     @else
-    <div>
-    <h3 class="mb-4 page-title"> {{ $co_name }} </h3>
-    </div>
-
-    <!-- Button trigger modal -->
-    <div class="mb-3 d-flex justify-content-end">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Add Contact Person
-    </button>
-    </div>
-
-    <div class="row">
-        <div class="mt-2 mb-2 col-md-6 stretch-card">
-            <x-template.card>
-                <x-template.card-body>
-                    <x-slot name="title">View & Edit Company Information</x-slot>
-                    <x-template.table>
-                        <tr>
-                            <td><strong>Company Name</td>
-                            <td><input type="text" wire:model="co_name" class="form-control"></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Company Address</td>
-                            <td><input type="text" wire:model="co_address" class="form-control"></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Company Tel. No.</td>
-                            <td><input type="text" wire:model="co_contact_number" class="form-control"></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Company Email</td>
-                            <td><input type="text" wire:model="co_email" class="form-control"></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Company Status</td>
-                            <td>
-                                <select wire:model="co_isactive" class="form-control">
-                                    <option value="1">Active</option>
-                                    <option value="0">Inactive</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Company Website</td>
-                            <td><input type="text" wire:model="co_website" class="form-control"></td>
-                        </tr>
-                    </x-template.table>
-                </x-template.card-body>
-            </x-template.card>
+        <div>
+            <h3 class="mb-4 page-title"> {{ $co_name }} </h3>
         </div>
-        <!-- Include the AddContactPerson component and pass the selectedCompanyId -->
-        <livewire:add-contact-person :companyId="$selectedCompanyId" />
 
-    </div>
+        <!-- Button trigger modal -->
+        <div class="mb-3 d-flex justify-content-end">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Add Contact Person
+            </button>
+        </div>
+
+        <div class="row">
+            <div class="mt-2 mb-2 col-md-6 stretch-card">
+                <x-template.card>
+                    <x-template.card-body>
+                        <x-slot name="title">View & Edit Company Information</x-slot>
+                        <x-template.table>
+                            <tr>
+                                <td><strong>Company Name</td>
+                                <td><input type="text" wire:model="co_name" class="form-control"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Company Address</td>
+                                <td><input type="text" wire:model="co_address" class="form-control"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Company Tel. No.</td>
+                                <td><input type="text" wire:model="co_contact_number" class="form-control"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Company Email</td>
+                                <td><input type="text" wire:model="co_email" class="form-control"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Company Status</td>
+                                <td>
+                                    <select wire:model="co_isactive" class="form-control">
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Company Website</td>
+                                <td><input type="text" wire:model="co_website" class="form-control"></td>
+                            </tr>
+                        </x-template.table>
+                    </x-template.card-body>
+                </x-template.card>
+            </div>
+        </div>
         <div>
             <x-template.button color="secondary" wire:click="resetCompanyDetail">Back to List</x-template.button>
             <x-template.button color="primary" wire:click="saveCompanyDetails">Save</x-template.button>
-            <button wire:click.stop type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#deleteModal">
+            <button wire:click.stop type="button" class="btn btn-success" data-bs-toggle="modal"
+                data-bs-target="#deleteModal">
                 Archive
             </button>
         </div>
-        <div wire:ignore.self class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="deleteModalLabel">Are you sure you want to Archive the record of this Company?</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    @if (session('status'))
-                        <div id="flash-message" class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" wire:click.stop="delete({{ $selectedCompanyId }})"  class="btn btn-primary">Yes</button>
+        <div wire:ignore.self class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="deleteModalLabel">Are you sure you want to Archive the record
+                            of this Company?</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @if (session('status'))
+                            <div id="flash-message" class="alert alert-success">
+                                {{ session('status') }}
+                            </div>
+                        @endif
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" wire:click.stop="delete({{ $selectedCompanyId }})"
+                            class="btn btn-primary">Yes</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
     @endif
 
