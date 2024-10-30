@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use App\Models\OjtContactPerson;
 use App\Models\OjtJobListCategory;
 use App\Models\OjtCompany;
 use App\Models\OjtJobListing;
@@ -66,10 +65,7 @@ class ManageJobList extends Component
             ->select('id as id', "co_name as name")
             ->whereRaw('LOWER(co_name) like ?', ['%' . strtolower($this->companySearchTerm) . '%'])
             ->get();
-            $this->contactPeople = OjtContactPerson::query()
-            ->where('company_id', $this->selectedCompanyId)
-            ->select('contact_name as name', 'id as id')
-            ->get();
+
 
             return view('livewire.manage-job-list');
         }
@@ -80,10 +76,7 @@ class ManageJobList extends Component
             ->where('id',$this->company)
             ->select('co_name')
             ->first()->co_name;
-            $this->contactPeople = OjtContactPerson::query()
-            ->where('company_id', $this->selectedCompanyId)
-            ->select('contact_name as name', 'id as id')
-            ->get();
+
             $this->categoryGroup = OjtJobListCategory::query()
             ->select('id as id', "cat_name as name")
             ->whereRaw('LOWER(cat_name) like ?', ['%' . strtolower($this->categorySearchTerm) . '%'])
@@ -93,14 +86,12 @@ class ManageJobList extends Component
         }
         if($this->company){
             $query = OjtJobListing::query()
-            ->join('ojt_contact_people', 'ojt_job_listings.job_person', '=','ojt_contact_people.id')
             ->join('ojt_job_list_categories', 'ojt_job_listings.job_category', '=', 'ojt_job_list_categories.id')
             ->select(
                 'ojt_job_listings.id',
                 'job_ref',
                 'job_list',
                 'ojt_job_list_categories.cat_name as job_category',
-                'ojt_contact_people.contact_name as job_person',
                 'job_status')
             ->orderBy('job_ref','asc')
             ->where('ojt_job_listings.company_id', $this->company);
@@ -117,7 +108,6 @@ class ManageJobList extends Component
         if(!$this->byCompany){
             $query = OjtJobListing::query()
             ->join('ojt_companies','ojt_companies.id','=','ojt_job_listings.company_id')
-            ->join('ojt_contact_people', 'ojt_job_listings.job_person', '=','ojt_contact_people.id')
             ->join('ojt_job_list_categories', 'ojt_job_listings.job_category', '=', 'ojt_job_list_categories.id')
             ->select(
                 'ojt_job_listings.id',
@@ -125,7 +115,6 @@ class ManageJobList extends Component
                 'co_name',
                 'job_list',
                 'ojt_job_list_categories.cat_name as job_category',
-                'ojt_contact_people.contact_name as job_person',
                 'job_status')
             ->orderBy('job_ref','asc');
 
@@ -147,10 +136,6 @@ class ManageJobList extends Component
             $this->companyGroup = OjtCompany::query()
             ->select('id as id', "co_name as name")
             ->whereRaw('LOWER(co_name) like ?', ['%' . strtolower($this->companySearchTerm) . '%'])
-            ->get();
-            $this->contactPeople = OjtContactPerson::query()
-            ->where('company_id', $this->selectedCompanyId)
-            ->select('contact_name as name', 'id as id')
             ->get();
             return view('livewire.manage-job-list');
 

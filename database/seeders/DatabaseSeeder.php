@@ -59,5 +59,7 @@ class DatabaseSeeder extends Seeder
         $this->call(OjtJobListingSeeder::class);
         $this->call(OjtStudentSeeder::class);
         $this->call(OjtRequirementSeeder::class);
+        $this->call(OjtStudentSeeder::class);
+        $this->call(OjtApplicantSeeder::class);
     }
 }
