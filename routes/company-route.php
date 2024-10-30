@@ -7,5 +7,5 @@ Route::middleware([
     'role:4,0'
 ])->group(function () {
     Route::get('/view-applicants', fn() => view('pages.view-applicants'))->name('view-applicants');
-    Route::get('/edit', fn() => view('pages.company-edit-info'))->name('edit');
+    Route::get('/edit', fn() => view('pages.company-edit-info-page'))->name('edit');
 });
