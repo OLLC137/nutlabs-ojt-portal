@@ -1,10 +1,10 @@
 <div>
     <div class="container">
         <div class="row">
+            <livewire:requirement-card reqId=3>
             <h1>Pre-Ojt Requirements</h1>
             <livewire:requirement-card reqId=1>
             <livewire:requirement-card reqId=2>
-            <livewire:requirement-card reqId=3>
             <livewire:requirement-card reqId=4>
             <livewire:requirement-card reqId=5>
             <livewire:requirement-card reqId=6>
