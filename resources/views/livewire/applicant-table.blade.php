@@ -2,8 +2,12 @@
     <table id="nameTable">
         <thead>
             <tr>
-                <th>#</th>
-                <th>Full Name</th>
+                <th>Sr-Code</th>
+                <th>First Name</th>
+                <th>M.I.</th>
+                <th>Last Name</th>
+                <th>Suffix</th>
+                <th>Department</th>
             </tr>
         </thead>
         <tbody id="tableBody">
@@ -14,17 +18,24 @@
 <script>
     function populateDefaultData() {
         const defaultData = [
-            { name: 'John Doe' },
-            { name: 'Jane Smith' },
-            { name: 'Alice Johnson' },
-            { name: 'Bob Brown' },
-            { name: 'Charlie Davis' }
+            { srCode: '001', firstName: 'John', middleInitial: 'A', lastName: 'Doe', suffix: '', department: 'Engineering' },
+            { srCode: '002', firstName: 'Jane', middleInitial: 'B', lastName: 'Smith', suffix: '', department: 'Marketing' },
+            { srCode: '003', firstName: 'Alice', middleInitial: 'C', lastName: 'Johnson', suffix: '', department: 'HR' },
+            { srCode: '004', firstName: 'Bob', middleInitial: 'D', lastName: 'Brown', suffix: '', department: 'Finance' },
+            { srCode: '005', firstName: 'Charlie', middleInitial: 'E', lastName: 'Davis', suffix: '', department: 'IT' }
         ];
 
         const tableBody = document.getElementById('tableBody');
         defaultData.forEach((applicant, index) => {
             const row = document.createElement('tr');
-            row.innerHTML = `<td>${index + 1}</td><td>${applicant.name}</td>`;
+            row.innerHTML = `
+                <td>${applicant.srCode}</td>
+                <td>${applicant.firstName}</td>
+                <td>${applicant.middleInitial}</td>
+                <td>${applicant.lastName}</td>
+                <td>${applicant.suffix}</td>
+                <td>${applicant.department}</td>
+            `;
             tableBody.appendChild(row);
         });
     }
@@ -35,9 +46,16 @@
             .then(data => {
                 const tableBody = document.getElementById('tableBody');
                 tableBody.innerHTML = '';
-                data.forEach((applicant, index) => {
+                data.forEach((applicant) => {
                     const row = document.createElement('tr');
-                    row.innerHTML = `<td>${index + 1}</td><td>${applicant.name}</td>`;
+                    row.innerHTML = `
+                        <td>${applicant.srCode}</td>
+                        <td>${applicant.firstName}</td>
+                        <td>${applicant.middleInitial}</td>
+                        <td>${applicant.lastName}</td>
+                        <td>${applicant.suffix}</td>
+                        <td>${applicant.department}</td>
+                    `;
                     tableBody.appendChild(row);
                 });
             })
@@ -52,8 +70,12 @@
         rows.forEach(row => {
             const cells = row.querySelectorAll('td');
             const rowData = {
-                id: cells[0].innerText,
-                name: cells[1].innerText
+                srCode: cells[0].innerText,
+                firstName: cells[1].innerText,
+                middleInitial: cells[2].innerText,
+                lastName: cells[3].innerText,
+                suffix: cells[4].innerText,
+                department: cells[5].innerText
             };
             tableData.push(rowData);
         });
@@ -73,7 +95,6 @@
             console.error('Error:', error);
         });
     }
-
 
     populateDefaultData();
     fetchNames();
