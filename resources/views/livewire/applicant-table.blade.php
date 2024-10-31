@@ -1,149 +1,108 @@
-<div class="table-container">
-    <table id="nameTable">
-        <thead>
-            <tr>
-                <th>Sr-Code</th>
-                <th>First Name</th>
-                <th>M.I.</th>
-                <th>Last Name</th>
-                <th>Suffix</th>
-                <th>Department</th>
-            </tr>
-        </thead>
-        <tbody id="tableBody">
-        </tbody>
-    </table>
+<div>
+        <!-- Search bar placed above the applicant list card -->
+        <div class="mb-3">
+            <div class="input-group" role="search">
+                <input type="text" id="searchInput" placeholder="Search by SR-Code or Name" class="form-control">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" onclick="triggerSearch()">
+                        <i class="mdi mdi-magnify"></i>
+                    </button>
+                </div>
+                <button class="btn btn-sm clear-button" onclick="clearSearch()">
+                    <i class="mdi mdi-close"></i>
+                </button>
+            </div>
+        </div>
+
+    <div class="col-md-12 grid-margin stretch-card">
+    <!-- Applicant List Card -->
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Applicant List</h4>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>SR-Code</th>
+                            <th>First Name</th>
+                            <th>M.I.</th>
+                            <th>Last Name</th>
+                            <th>Suffix</th>
+                            <th>Department</th>
+                        </tr>
+                    </thead>
+                    <tbody id="applicant-list">
+                        <!-- Applicant list will be inserted here by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination-controls">
+                <!-- Pagination controls would go here if needed -->
+            </div>
+        </div>
+    </div>
+    </div>
+
 </div>
 
 <script>
-    function populateDefaultData() {
-        const defaultData = [
-            { srCode: '001', firstName: 'John', middleInitial: 'A', lastName: 'Doe', suffix: '', department: 'Engineering' },
-            { srCode: '002', firstName: 'Jane', middleInitial: 'B', lastName: 'Smith', suffix: '', department: 'Marketing' },
-            { srCode: '003', firstName: 'Alice', middleInitial: 'C', lastName: 'Johnson', suffix: '', department: 'HR' },
-            { srCode: '004', firstName: 'Bob', middleInitial: 'D', lastName: 'Brown', suffix: '', department: 'Finance' },
-            { srCode: '005', firstName: 'Charlie', middleInitial: 'E', lastName: 'Davis', suffix: '', department: 'IT' }
-        ];
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(() => {
+            const flashMessage = document.getElementById('flash-message');
+            if (flashMessage) {
+                flashMessage.style.transition = "opacity 0.5s";
+                flashMessage.style.opacity = 0;
+                setTimeout(() => flashMessage.remove(), 500);
+            }
+        }, 3000);
 
-        const tableBody = document.getElementById('tableBody');
-        defaultData.forEach((applicant, index) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${applicant.srCode}</td>
-                <td>${applicant.firstName}</td>
-                <td>${applicant.middleInitial}</td>
-                <td>${applicant.lastName}</td>
-                <td>${applicant.suffix}</td>
-                <td>${applicant.department}</td>
-            `;
-            tableBody.appendChild(row);
-        });
-    }
-
-    function fetchNames() {
-        fetch('https://example.com/api/getNames')
-            .then(response => response.json())
-            .then(data => {
-                const tableBody = document.getElementById('tableBody');
-                tableBody.innerHTML = '';
-                data.forEach((applicant) => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${applicant.srCode}</td>
-                        <td>${applicant.firstName}</td>
-                        <td>${applicant.middleInitial}</td>
-                        <td>${applicant.lastName}</td>
-                        <td>${applicant.suffix}</td>
-                        <td>${applicant.department}</td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-            })
-            .catch((error) => {
-                console.error('Error fetching names:', error);
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    triggerSearch();
+                }
             });
+        }
+    });
+
+    function triggerSearch() {
+        const query = document.getElementById('searchInput').value;
+        // Logic to search for applicants based on query and display them in the applicant-list element
+        displayApplicants(applicants);
     }
 
-    function updateDatabase() {
-        const tableData = [];
-        const rows = document.querySelectorAll('#nameTable tbody tr');
-        rows.forEach(row => {
-            const cells = row.querySelectorAll('td');
-            const rowData = {
-                srCode: cells[0].innerText,
-                firstName: cells[1].innerText,
-                middleInitial: cells[2].innerText,
-                lastName: cells[3].innerText,
-                suffix: cells[4].innerText,
-                department: cells[5].innerText
-            };
-            tableData.push(rowData);
-        });
+    function clearSearch() {
+        document.getElementById('searchInput').value = '';
+        // Logic to clear the search results
+        displayApplicants(applicants); // Display all applicants when cleared
+    }
 
-        fetch('https://example.com/api/updateNames', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(tableData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
+    // Mock data and display logic
+    const applicants = [
+        { sr_code: '12345', first_name: 'John', middle_initial: 'D', last_name: 'Doe', suffix: '', department: 'Engineering' },
+        { sr_code: '67890', first_name: 'Jane', middle_initial: 'A', last_name: 'Smith', suffix: 'Jr', department: 'Science' }
+    ];
+
+    function displayApplicants(data) {
+        const applicantList = document.getElementById('applicant-list');
+        applicantList.innerHTML = '';  // Clear existing data
+        data.forEach(applicant => {
+            const row = `
+                <tr>
+                    <td>${applicant.sr_code}</td>
+                    <td>${applicant.first_name}</td>
+                    <td>${applicant.middle_initial}</td>
+                    <td>${applicant.last_name}</td>
+                    <td>${applicant.suffix}</td>
+                    <td>${applicant.department}</td>
+                </tr>
+            `;
+            applicantList.insertAdjacentHTML('beforeend', row);
         });
     }
 
-    populateDefaultData();
-    fetchNames();
+    // Initialize display
+    displayApplicants(applicants);
 </script>
-
-@assets
-<style>
-    .table-container {
-        max-height: 500px;
-        overflow-y: auto;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        border-radius: 10px;
-        overflow: hidden;
-        background-color: white;
-    }
-    th, td {
-        border: 1px solid #ccc;
-        padding: 12px;
-        text-align: left;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-    }
-    th {
-        background-color: #DCDCDC;
-        color: black;
-    }
-    tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
-    tr:hover td {
-        background-color: #e0e7ff;
-    }
-    tr:first-child th:first-child {
-        border-top-left-radius: 10px;
-    }
-    tr:first-child th:last-child {
-        border-top-right-radius: 10px;
-    }
-    tr:last-child td:first-child {
-        border-bottom-left-radius: 10px;
-    }
-    tr:last-child td:last-child {
-        border-bottom-right-radius: 10px;
-    }
-</style>
-@endassets
