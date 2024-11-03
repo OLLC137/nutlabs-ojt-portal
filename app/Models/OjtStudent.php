@@ -34,6 +34,7 @@ class OjtStudent extends Model
         'stud_junior_high_school',
         'stud_senior_high_school',
         'stud_university',
+        'stud_year_level',
         'stud_sr_code',
         'stud_department',
         'stud_expected_graduation',
@@ -60,5 +61,3 @@ class OjtStudent extends Model
     }
 
 }
-
-

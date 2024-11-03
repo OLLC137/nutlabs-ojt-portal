@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Livewire;
 
@@ -22,6 +22,7 @@ class CvProfile extends Component
     public $stud_junior_high_school;
     public $stud_senior_high_school;
     public $stud_university;
+    public $stud_year_level;
     public $stud_sr_code;
     public $stud_department = '';
     public $stud_expected_graduation;
@@ -39,6 +40,7 @@ class CvProfile extends Component
         'stud_junior_high_school' => 'required',
         'stud_senior_high_school' => 'required',
         'stud_university' => 'required',
+        'stud_year_level' => 'required',
         'stud_sr_code' => 'required',
         'stud_department' => 'required',
         'stud_expected_graduation' => 'required',
@@ -54,7 +56,7 @@ class CvProfile extends Component
     {
         // Trim any white spaces, convert to upper case, and add a dot if not present
         $this->stud_middle_initial = trim($this->stud_middle_initial);
-    
+
         if (!empty($this->stud_middle_initial)) {
             $this->stud_middle_initial = strtoupper($this->stud_middle_initial);
             if (substr($this->stud_middle_initial, -1) !== '.') {
@@ -65,7 +67,7 @@ class CvProfile extends Component
 
     public function saveStudent()
     {
-        
+
         $this->middle_initial_dot();
 
         $this->validate([
@@ -82,10 +84,11 @@ class CvProfile extends Component
             'stud_junior_high_school' => 'required|string|max:255',
             'stud_senior_high_school' => 'required|string|max:255',
             'stud_university' => 'required|string|max:255',
+            'stud_year_level' => 'required|string|max:255',
             'stud_sr_code' => 'required|string|max:255',
             'stud_department' => 'required|string|max:255',
             'stud_expected_graduation' => 'required|string|max:255',
-        ]); 
+        ]);
 
         // Get the authenticated user
         $currentUserId = auth()->user();
@@ -109,6 +112,7 @@ class CvProfile extends Component
             'stud_junior_high_school' => $this->stud_junior_high_school,
             'stud_senior_high_school' => $this->stud_senior_high_school,
             'stud_university' => $this->stud_university,
+            'stud_year_level' => $this->stud_year_level,
             'stud_sr_code' => $this->stud_sr_code,
             'stud_department' => $this->stud_department,
             'stud_expected_graduation' => $this->stud_expected_graduation,
@@ -140,6 +144,7 @@ class CvProfile extends Component
             'stud_junior_high_school.required' => 'Please enter your junior high school',
             'stud_senior_high_school.required' => 'Please enter your senior high school ',
             'stud_university.required' => 'Please enter your university campus.',
+            'stud_year_level.required' => 'Please enter your year level.',
             'stud_sr_code.required' => 'Please enter your SR-Code.',
             'stud_department.required' => 'Please select your department.',
             'stud_expected_graduation.required' => 'Please enter your expected graduation date.',
