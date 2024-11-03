@@ -7,15 +7,17 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LoginController;
 use App\Http\Middleware\CheckRole;
 
-require_once __DIR__.'/ojt-coordinator-route.php'; 
+require_once __DIR__.'/ojt-coordinator-route.php';
 
-require_once __DIR__.'/ojt-head-route.php'; 
+require_once __DIR__.'/ojt-head-route.php';
 
-require_once __DIR__.'/admin-route.php'; 
+require_once __DIR__.'/admin-route.php';
 
-require_once __DIR__.'/student-route.php'; 
+require_once __DIR__.'/student-route.php';
 
-require_once __DIR__.'/shared-route.php'; 
+require_once __DIR__.'/shared-route.php';
+
+require_once __DIR__.'/company-route.php';
 
 
 Route::get('/', function () {return redirect()->route('landingpage');});

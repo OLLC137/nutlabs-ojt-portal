@@ -10,5 +10,4 @@ Route::middleware([
     Route::get('/managejobs', fn () => view('pages.ojt-coordinator.manage-job-page'))->name('managejobs');
     Route::get('/company-file-upload', fn () => view('pages.company-files-upload'))->name('company-file-upload');
     Route::get('/manage-student-files', fn () => view('pages.manage-student-files-page'))->name('manage-student-files');
-
 });
