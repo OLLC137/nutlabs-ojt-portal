@@ -2,8 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\OjtContactPerson;
-use App\Models\Public\OjtCompany;
+use App\Models\OjtCompany;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -157,13 +156,5 @@ class ViewCompany extends Component
     {
         $company = OjtCompany::find($companyId);
 
-        if ($company) {
-            OjtContactPerson::where('company_id', $company->id)->delete();
-            $company->delete();
-
-            session()->flash('status', 'Company Successfully Deleted.');
-
-            return $this->redirect('/view-company-page');
-        }
     }
 }

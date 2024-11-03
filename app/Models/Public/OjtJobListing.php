@@ -2,7 +2,7 @@
 
 namespace App\Models\Public;
 
-use App\Models\OjtContactPerson;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -25,9 +25,5 @@ class OjtJobListing extends Model
     public function company()
     {
         return $this->belongsTo(OjtCompany::class, 'company_id');
-    }
-    public function contactPerson()
-    {
-        return $this->hasOne(OjtContactPerson::class, 'job_person');
     }
 }

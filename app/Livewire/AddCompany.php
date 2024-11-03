@@ -2,8 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\Public\OjtCompany;
-use App\Models\OjtContactPerson;
+use App\Models\OjtCompany;
 use Livewire\Component;
 
 class AddCompany extends Component
