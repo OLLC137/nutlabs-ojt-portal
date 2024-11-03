@@ -23,9 +23,9 @@ class OjtApplicantSeeder extends Seeder
 
         foreach ($shuffledStudents as $student) {
             Applicant::create([
-                'student_id' => $student->id, // Student ID for each applicant
-                'application_date' => now()->subDays(rand(1, 30)), // Random application date within the last 30 days
-                'status' => rand(0, 1), // Random status (Pending = 0 or Approved = 1)
+                'student_id' => $student->id,
+                'application_date' => now()->subDays(rand(1, 30)),
+                'status' => 0, // Set status to 0 by default
             ]);
         }
     }

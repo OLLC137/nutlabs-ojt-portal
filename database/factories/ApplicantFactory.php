@@ -13,9 +13,9 @@ class ApplicantFactory extends Factory
     public function definition()
     {
         return [
-            'student_id' => OjtStudent::inRandomOrder()->first()->id, // Random existing student
+            'student_id' => OjtStudent::inRandomOrder()->first()->id,
             'application_date' => $this->faker->date(),
-            'status' => $this->faker->numberBetween(0, 1), // Random status (Pending = 0 or Approved = 1)
+            'status' => 0, // Set status to 0 by default
             'created_at' => now(),
             'updated_at' => now(),
         ];
