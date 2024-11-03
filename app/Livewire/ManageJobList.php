@@ -20,14 +20,12 @@ class ManageJobList extends Component
     public $byCompany = true;
     #[Url]public $addJobList = false;
     public $editJobList = 0;
-
-    public $contactPeople = [];
+    public $selectedContact = [];
 
     public $inputJobList;
     public $selectedCategoryId;
     public $inputDescription;
     public $selectedCompanyId;
-    public $selectedContact;
     public $jobActiveStatus;
 
     public $confirmDeletion = false;
@@ -44,7 +42,6 @@ class ManageJobList extends Component
             $this->inputDescription = $jobList->job_desc;
             $this->selectedCompanyId = $jobList->company_id;
             $this->selectedCompanyName = $jobList->co_name;
-            $this->selectedContact = $jobList->job_person;
             $this->jobActiveStatus = $jobList->job_status;
         } else {
             $this->resetPage(pageName: 'jobListPage');
@@ -178,7 +175,6 @@ class ManageJobList extends Component
         $this->reset('inputDescription');
         $this->reset('selectedCompanyId');
         $this->reset('selectedContact');
-        $this->reset('contactPeople');
         $this->selectedCompanyName = "";
         $this->selectedCategoryName = "";
         $this->closeCategory();

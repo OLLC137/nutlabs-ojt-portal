@@ -55,12 +55,6 @@
             <h3 class="mb-4 page-title"> {{ $co_name }} </h3>
         </div>
 
-        <!-- Button trigger modal -->
-        <div class="mb-3 d-flex justify-content-end">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Add Contact Person
-            </button>
-        </div>
 
         <div class="row">
             <div class="mt-2 mb-2 col-md-6 stretch-card">
