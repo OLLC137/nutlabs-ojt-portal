@@ -76,7 +76,8 @@
     @role(COMPANY)
     <li class="nav-item">
         <a class="nav-link" href="{{ route('applicant-dashboard') }}">
-            <x-template.icon class="menu-icon"> dashboard </x-template.icon>
+            <a class="nav-link" href="{{ route('ojt-head-dashboard') }}">
+                <x-template.icon class="menu-icon"> view-dashboard </x-template.icon>
             <span class="menu-title">Applicant Dashboard</span>
         </a>
     </li>
