@@ -9,5 +9,5 @@ Route::middleware([
 ])->group(function () {
     Route::get('/view-applicants', fn() => view('pages.view-applicants'))->name('view-applicants');
     Route::get('/edit', fn() => view('pages.company-edit-info-page'))->name('edit');
-    Route::get('/applicant-dashboard', ApplicantDashboard::class)->name('applicant-dashboard');
+    Route::get('/applicant-dashboard', fn() => view('livewire.applicant-dashboard'))->name('applicant-dashboard');
 });
