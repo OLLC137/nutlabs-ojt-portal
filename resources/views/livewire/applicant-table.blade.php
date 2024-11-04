@@ -1,6 +1,6 @@
 <div>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    
     <!-- Search bar -->
     <div class="mb-3">
         <div class="input-group" role="search">
@@ -17,7 +17,6 @@
     </div>
 
     <div class="col-md-12 grid-margin stretch-card">
-        <!-- Applicant List Card -->
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Applicant List</h4>
@@ -56,19 +55,17 @@
         </div>
     </div>
 
-    <!-- Confirmation Modals for Accept and Delete -->
+    <!-- Confirmation Modal -->
     <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="confirmationModalLabel">Confirm Action</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <!-- Removed the close (X) button -->
                 </div>
                 <div class="modal-body" id="confirmationModalBody">Are you sure you want to perform this action?</div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" id="cancelButton">Cancel</button>
                     <button type="button" class="btn btn-primary" id="confirmButton">Confirm</button>
                 </div>
             </div>
@@ -104,6 +101,10 @@
             $('#confirmationModal').modal('show');
         }
 
+        document.getElementById('cancelButton').addEventListener('click', function () {
+            $('#confirmationModal').modal('hide'); // Close the modal using jQuery
+        });
+
         document.getElementById('confirmButton').addEventListener('click', function () {
             if (!selectedApplicantId) return;
 
@@ -121,13 +122,12 @@
             })
             .then(response => response.json())
             .then(data => {
-            $('#confirmationModal').modal('hide');
-            // Show the notification and wait longer before reloading
-            showCenteredAlert(data.message || (actionType === 'accept' ? 'Applicant accepted.' : 'Applicant deleted.'));
-            setTimeout(() => {
-            location.reload(); }, 5000); // Adjust this value to 5000 milliseconds (5 seconds) or longer as needed
-})
-
+                $('#confirmationModal').modal('hide');
+                showCenteredAlert(data.message || (actionType === 'accept' ? 'Applicant accepted.' : 'Applicant deleted.'));
+                setTimeout(() => {
+                    location.reload();
+                }, 2000);
+            })
             .catch(error => {
                 console.error('Error:', error);
                 showCenteredAlert('An error occurred. Please try again.', 'danger');
