@@ -16,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
         'ADM' => 1,
         'HEAD' => 2,
         'COORDINATOR' => 3,
+        'COMPANY' => 4,
         'STUDENT' => 20
     ];
 

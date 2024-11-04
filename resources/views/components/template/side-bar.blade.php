@@ -73,6 +73,27 @@
     </li>
     @endrole()
 
+    @role(COMPANY)
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('applicant-dashboard') }}">
+            <x-template.icon class="menu-icon"> dashboard </x-template.icon>
+            <span class="menu-title">Applicant Dashboard</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('view-applicants') }}">
+            <x-template.icon class="menu-icon"> account-multiple </x-template.icon>
+            <span class="menu-title">View Applicants</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('edit') }}">
+            <x-template.icon class="menu-icon"> pencil </x-template.icon>
+            <span class="menu-title">Edit Company Info</span>
+        </a>
+    </li>
+    @endrole()
+
     @role(STUDENT)
     <li class="nav-item">
         <a class="nav-link" href="{{ route('landing-page') }}">
@@ -223,5 +244,7 @@
         </span>
     </li>
     @endrole()
+
+
 </ul>
 </nav>
