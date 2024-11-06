@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LoginController;
 use App\Http\Middleware\CheckRole;
+use App\Models\Applicant;
 
 require_once __DIR__.'/ojt-coordinator-route.php';
 
@@ -32,3 +33,14 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', [LoginController::class, 'redirectAfterLogin'])->name('dashboard');
 });
+
+Route::post('/applicants/{applicant}/accept', function (Applicant $applicant) {
+    $applicant->update(['status' => 1]); // Update the status to 1
+    return response()->json(['message' => 'Applicant status updated successfully.'], 200);
+})->name('applicants.accept');
+
+Route::delete('/applicants/{applicant}', function (Applicant $applicant) {
+    $applicant->delete(); // Delete the applicant
+    return response()->json(['message' => 'Applicant deleted successfully.'], 200);
+})->name('applicants.delete');
+
