@@ -104,6 +104,12 @@
                         <span class="menu-title">Edit Company Info</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('uplaod-files') }}">
+                        <x-template.icon class="menu-icon"> paperclip </x-template.icon>
+                        <span class="menu-title">Upload Company Files</span>
+                    </a>
+                </li>
             @endrole()
 
             @role(STUDENT)
