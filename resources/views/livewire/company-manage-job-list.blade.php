@@ -12,8 +12,13 @@
         <div class="card my-4 py-2 px-2">
             <div class="card-body">
                 <div class="card-title">
-                    <h2>Add a new job list</h2>
+                    @if ($joblist === true)
+                        <h2>Add a new job list</h2>
+                    @else
+                        <h2>Edit job list</h2>
+                    @endif
                 </div>
+
                 <div class="row">
                     <div class="col-lg-6">
                         <h4 class="mb-0">Job Information</h4>
