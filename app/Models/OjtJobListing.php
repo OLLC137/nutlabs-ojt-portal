@@ -18,6 +18,7 @@ class OjtJobListing extends Model
         'job_list',
         'job_desc',
         'job_category',
+        'job_status',
     ];
 
     public function company()

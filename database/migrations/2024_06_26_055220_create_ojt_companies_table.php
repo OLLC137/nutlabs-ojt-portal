@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('co_contact_number');
             $table->string('co_email')->unique();
             $table->string('co_website')->nullable();
+            $table->boolean('co_isactive')->default(true);
             $table->timestamps();
         });
     }
