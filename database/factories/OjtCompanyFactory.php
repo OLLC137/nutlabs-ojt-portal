@@ -20,7 +20,6 @@ class OjtCompanyFactory extends Factory
             'co_contact_number' => $this->faker->phoneNumber,
             'co_email' => $this->faker->unique()->safeEmail(),
             'co_website' => $this->faker->url,
-            'co_isactive' => $this->faker->boolean(50),
         ];
     }
 }

@@ -30,7 +30,6 @@ class OjtJobListingFactory extends Factory
             'job_list' => $this->faker->jobTitle,
             'job_desc' => $this->faker->paragraph(10),
             'job_category' => $this->faker->randomElement($companyCategories),
-            'job_status' => $this->faker->boolean(50),
         ];
     }
 }

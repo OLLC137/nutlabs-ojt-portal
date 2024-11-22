@@ -21,7 +21,6 @@ class OjtCompany extends Model
         'co_contact_number',
         'co_email',
         'co_website',
-        'co_isactive',
     ];
 
     public function jobListing()
@@ -38,4 +37,3 @@ class OjtCompany extends Model
         return $this->belongsTo(User::class);
     }
 }
-
