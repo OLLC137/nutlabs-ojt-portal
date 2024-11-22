@@ -82,6 +82,10 @@
                                         <td>{{ $student->stud_university }}</td>
                                     </tr>
                                     <tr>
+                                        <td><strong>Year Level</strong></td>
+                                        <td>{{ $student->stud_year_level }}</td>
+                                    </tr>
+                                    <tr>
                                         <td><strong>SR-Code</td>
                                         <td>{{ $student->stud_sr_code }}</td>
                                     </tr>
@@ -113,7 +117,7 @@
         <div class="col-md-5 grid-margin" role="search">
                 <div class="input-group">
                     <input type="text" wire:model="searchQuery" placeholder="Search Student Name/SR-Code" class="mb-2 form-control" id="searchInput">
-                    <div class="input-group-append"> 
+                    <div class="input-group-append">
                         <x-template.button color="primary" wire:click="triggerSearch"><i class="mdi mdi-magnify"></i></x-template.button>
                     </div>
                     <button class="btn-sm clear-button" wire:click="clearSearch"><i class="mdi mdi-close"></i></button>
@@ -162,7 +166,7 @@
         <div class="col-md-5 grid-margin" role="search">
                 <div class="input-group">
                     <input type="text" wire:model="searchQuery" placeholder="Search Student Name/SR-Code" class="mb-2 form-control" id="searchInput">
-                    <div class="input-group-append"> 
+                    <div class="input-group-append">
                         <x-template.button color="primary" wire:click="triggerSearch"><i class="mdi mdi-magnify"></i></x-template.button>
                     </div>
                     <button class="btn-sm clear-button" wire:click="clearSearch"><i class="mdi mdi-close"></i></button>
