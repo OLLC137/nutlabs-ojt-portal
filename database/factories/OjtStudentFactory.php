@@ -35,6 +35,7 @@ class OjtStudentFactory extends Factory
             'stud_senior_high_school' => 'SHS',
             'stud_university' => 'Alangilan',
             'stud_sr_code' => 'SR_Code',
+            'stud_year_level' => 4,
             'stud_department' => $this->faker->randomElement(['CIT', 'CAFAD', 'CICS', 'COE']),
             'stud_expected_graduation' => now()->addYears(2)->toDateString(),
         ];
