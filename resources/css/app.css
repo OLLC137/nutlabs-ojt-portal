@@ -829,13 +829,13 @@
         align-self: start;
         border-radius: 5px;
     }
-    .joblist-job-info-contact {
-        p {
-            margin: 0 10px;
-        }
-        svg {
-            margin: 0;
-        }
+    .joblist-job-info-apply {
+        color: white;
+        padding: 8px 7px 4px;
+        justify-content: center;
+        align-self: start;
+        border-radius: 5px;
+        background-color: #fa575a;
     }
 }
 

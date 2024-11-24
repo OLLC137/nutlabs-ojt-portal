@@ -93,6 +93,10 @@ class JobListPage extends Component
         $this->resetPage(); // Reset pagination to show results from page 1
     }
 
+    public function applyJob($id){
+        return redirect()->route('student-joblist', ['id' => $id]);
+    }
+
     public function updateJobInfo($jobId){
         $this->jobInfo = DB::table('ojt_job_listings')
         ->join('ojt_companies', 'ojt_job_listings.company_id', '=', 'ojt_companies.id')
