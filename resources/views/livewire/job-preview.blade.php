@@ -23,7 +23,15 @@
         </div>
         <div class="joblist-job-info-body">
             <p>{!! $jobInfo->job_desc !!}</p>
-            <div style="display: flex; justify-content: space-between;">
+                <p><b>Recommended Programs</b></p>
+            <div style="margin-top: 20px; display: flex; flex-direction: row; flex-wrap: wrap">
+                @foreach ($jobPrograms as $program)
+                    <div><button style="margin-right: 4px" wire:click="searchProgram('{{ $program }}')"
+                            class="joblist-job-info-program"><x-template.icon>tag-outline</x-template.icon>{{ $program }}</button>
+                    </div>
+                @endforeach
+            </div>
+                            <div style="display: flex; justify-content: space-between; margin-top: 20px">
                 @if ((Auth::check() && Auth::user()->role == 20) || !Auth::check())
                     <button class="joblist-job-info-apply" wire:click="applyJob({{ $jobInfo->job_id }})">
                         <h3>APPLY NOW</h3>
