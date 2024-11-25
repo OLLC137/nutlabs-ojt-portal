@@ -1,13 +1,15 @@
 <div>
     <div class="container">
         <div class="row">
-            <livewire:requirement-card reqId=3>
             <h1>Pre-Ojt Requirements</h1>
+            <h4>OJT Requirements</h4>
+            <livewire:requirement-card reqId=3>
             <livewire:requirement-card reqId=1>
             <livewire:requirement-card reqId=2>
             <livewire:requirement-card reqId=4>
             <livewire:requirement-card reqId=5>
             <livewire:requirement-card reqId=6>
+            <h4>Company Related Requirements</h4>
             <livewire:requirement-card reqId=7>
             <livewire:requirement-card reqId=8>
             <livewire:requirement-card reqId=9>
