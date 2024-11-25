@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Public\OjtJobListing;
+use App\Models\OjtJobListing;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

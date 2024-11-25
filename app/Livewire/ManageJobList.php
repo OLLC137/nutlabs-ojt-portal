@@ -3,8 +3,8 @@
 namespace App\Livewire;
 
 use App\Models\OjtJobListCategory;
-use App\Models\Public\OjtCompany;
-use App\Models\Public\OjtJobListing;
+use App\Models\OjtCompany;
+use App\Models\OjtJobListing;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -123,9 +123,9 @@ class ManageJobList extends Component
                     $query->whereRaw('LOWER(job_ref) LIKE ?', [$searchTerm])
                     ->orWhereRaw('LOWER(job_list) LIKE ?', [$searchTerm]);
                 }
-        
+
             $jobListings = $query->paginate(20, pageName: 'page');
-        
+
             return view('livewire.manage-job-list', ['jobListings'=>$jobListings]);
         }
         if($this->addJobList){
@@ -187,7 +187,7 @@ class ManageJobList extends Component
         $this->editJobList=false;
         $this->addJobList=false;
     }
-    
+
     public function createJobList(){
         $this->validate([
             'inputJobList' => 'required|string|max:225',
@@ -235,7 +235,7 @@ class ManageJobList extends Component
 
         $this->addJobList=false;
         $this->mount();
-        
+
         session()->flash('status', 'Information successfully saved.');
     }
 

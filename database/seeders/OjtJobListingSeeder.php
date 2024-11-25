@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Public\OjtJobListing;
+use App\Models\OjtJobListing;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
