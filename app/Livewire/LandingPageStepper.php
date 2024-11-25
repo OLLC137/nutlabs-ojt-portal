@@ -22,7 +22,7 @@ class LandingPageStepper extends Component
 
     public function nextStep()
     {
-        $this->currentStep = min($this->currentStep + 1, 3); // Adjust the maximum step count as needed
+        $this->currentStep = min($this->currentStep + 1, 4); // Adjust the maximum step count as needed
     }
 
     public function goToStep($step)
