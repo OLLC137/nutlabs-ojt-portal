@@ -132,6 +132,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('student-joblist') }}">
+                        <x-template.icon class="menu-icon"> format-list-bulleted </x-template.icon>
+                        <span class="menu-title">Job Listing</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
                         aria-controls="ui-basic">
                         <x-template.icon class="menu-icon"> book </x-template.icon>
