@@ -18,6 +18,7 @@ class CompanyManageJobList extends Component
     public $inputJobList;
     public $selectedCategoryId;
     public $inputDescription;
+    public $inputPrograms;
 
     public $confirmDeletion = false;
 
@@ -65,6 +66,7 @@ class CompanyManageJobList extends Component
         $this->inputJobList = $jobList->job_list;
         $this->selectedCategoryId = $jobList->job_category;
         $this->selectedCategoryName = $jobList->cat_name;
+        $this->inputPrograms = $jobList->job_programs;
         $this->inputDescription = $jobList->job_desc;
     }
 
@@ -93,6 +95,7 @@ class CompanyManageJobList extends Component
         $this->validate([
             'inputJobList' => 'required|string|max:225',
             'selectedCategoryId' => 'required',
+            'inputPrograms' => 'string|max:1024',
             'inputDescription' => 'required|string|max:1024',
         ]);
 
@@ -101,11 +104,13 @@ class CompanyManageJobList extends Component
                 'company_id' => $this->company_id,
                 'job_list' => $this->inputJobList,
                 'job_desc' => $this->inputDescription,
+                'job_programs' => $this->inputPrograms,
                 'job_category' => $this->selectedCategoryId
             ]);
 
         $this->reset('inputJobList');
         $this->reset('selectedCategoryId');
+        $this->reset('inputPrograms');
         $this->reset('inputDescription');
         $this->selectedCategoryName = '';
 
@@ -122,6 +127,7 @@ class CompanyManageJobList extends Component
             $this->confirmDeletion=false;
             $this->reset('inputJobList');
             $this->reset('selectedCategoryId');
+            $this->reset('inputPrograms');
             $this->reset('inputDescription');
             $this->selectedCategoryName = '';
             $this->joblist = null;
@@ -131,6 +137,7 @@ class CompanyManageJobList extends Component
     public function addJobList(){
         $this->reset('inputJobList');
         $this->reset('selectedCategoryId');
+        $this->reset('inputPrograms');
         $this->reset('inputDescription');
         $this->selectedCategoryName = '';
         $this->joblist = true;
@@ -140,6 +147,7 @@ class CompanyManageJobList extends Component
         $this->validate([
             'inputJobList' => 'required|string|max:225',
             'selectedCategoryId' => 'required',
+            'inputPrograms' => 'string|max:1024',
             'inputDescription' =>'required|string|max:1024',
         ]);
 
@@ -159,6 +167,7 @@ class CompanyManageJobList extends Component
             'company_id' => $this->company_id,
             'job_ref' => "OJT-{$this->company_id}-{$uniqueNumber}",
             'job_list' => $this->inputJobList,
+            'job_programs' => $this->inputPrograms,
             'job_desc' => $this->inputDescription,
             'job_category' => $this->selectedCategoryId
         ];
@@ -167,6 +176,7 @@ class CompanyManageJobList extends Component
 
         $this->reset('inputJobList');
         $this->reset('selectedCategoryId');
+        $this->reset('inputPrograms');
         $this->reset('inputDescription');
         $this->selectedCategoryName = '';
         $this->closeCategory();

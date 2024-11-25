@@ -54,6 +54,11 @@
                             </div>
                         </div>
                         <div class="form-group mb-0">
+                            <label for="" class="col-form-label mb-0">Recommended Programs <span style="font-size: 0.8em;">(Separated by comma)</span></label>
+                            <div class=""><input wire:model="inputPrograms" type="text" class="form-control"
+                                    placeholder=""></div>
+                        </div>
+                        <div class="form-group mb-0">
                             <label for="" class="col-form-label mb-0">Description</label>
                             <x-input.rich-text wire:model.debounce="inputDescription"
                                 :initial-value="$inputDescription"></x-input.rich-text>
