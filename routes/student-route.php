@@ -18,6 +18,7 @@ Route::middleware([
         Route::get('/intern-requirements', fn () => view('pages.intern-requirements-page'))->name('intern-requirements');
         Route::get('/posting', fn () => view('pages.journal.journal-post'))->name('journal.journal-post');
         Route::get('/viewing', fn () => view('pages.journal.journal-view'))->name('journal.journal-view');
+        Route::get('/request', fn () => view('pages.journal.journal-request'))->name('journal.journal-request');
     });
 
     Route::middleware([
@@ -25,5 +26,6 @@ Route::middleware([
     ])->group(function () {
         Route::get('/posting', fn () => view('pages.journal.journal-post'))->name('journal.journal-post');
         Route::get('/viewing', fn () => view('pages.journal.journal-view'))->name('journal.journal-view');
+        Route::get('/request', fn () => view('pages.journal.journal-request'))->name('journal.journal-request');
     });
 });
