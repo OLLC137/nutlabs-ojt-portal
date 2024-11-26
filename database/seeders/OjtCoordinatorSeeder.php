@@ -13,20 +13,24 @@ class OjtCoordinatorSeeder extends Seeder
      */
     public function run(): void
     {
-        // Map user IDs to departments
-        $departmentMapping = [
-            4 => 'CIT',
-            5 => 'COE',
-            6 => 'CICS',
-            7 => 'CAFAD',
+        // Map usernames to departments
+        $usernameToDepartment = [
+            'CITojtcoordinator' => 'CIT',
+            'COEojtcoordinator' => 'COE',
+            'CICSojtcoordinator' => 'CICS',
+            'CAFADojtcoordinator' => 'CAFAD',
         ];
 
-        // Create OjtCoordinator entries based on the mapping
-        foreach ($departmentMapping as $userId => $department) {
-            OjtCoordinator::create([
-                'user_id' => $userId,
-                'department' => $department,
-            ]);
+        // Create OjtCoordinator entries based on the username-to-department mapping
+        foreach ($usernameToDepartment as $username => $department) {
+            $user = User::where('username', $username)->first();
+
+            if ($user) {
+                OjtCoordinator::create([
+                    'user_id' => $user->id,
+                    'department' => $department,
+                ]);
+            }
         }
     }
 }

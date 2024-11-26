@@ -34,13 +34,26 @@ class DatabaseSeeder extends Seeder
             'role' => 2
         ]);
 
-        // Seed 4 OJT Coordinator Users
-        for ($i = 1; $i <= 4; $i++) {
-            User::factory()->create([
-                'username' => 'ojtcoordinator' . $i,
-                'role' => 3
-            ]);
-        }
+        // Seed OJT Coordinator Users with specific usernames
+        User::factory()->create([
+            'username' => 'CITojtcoordinator',
+            'role' => 3
+        ]);
+
+        User::factory()->create([
+            'username' => 'COEojtcoordinator',
+            'role' => 3
+        ]);
+
+        User::factory()->create([
+            'username' => 'CICSojtcoordinator',
+            'role' => 3
+        ]);
+
+        User::factory()->create([
+            'username' => 'CAFADojtcoordinator',
+            'role' => 3
+        ]);
 
         // Seed 50 Company Users
         for ($i = 1; $i <= 50; $i++) {

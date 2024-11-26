@@ -21,4 +21,12 @@ class OjtCoordinator extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Define the relationship with OjtStudent model.
+     */
+    public function students()
+    {
+        return $this->hasMany(OjtStudent::class, 'stud_department', 'department');
+    }
 }
