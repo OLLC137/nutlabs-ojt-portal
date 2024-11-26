@@ -13,6 +13,8 @@ class JournalEditRequest extends Model
         'student_id',
         'requested_date',
         'reason',
-        'status'
+        'status',
+        'acc_accomplishments',
+        'acc_hours'
     ];
 }

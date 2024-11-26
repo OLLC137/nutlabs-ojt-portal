@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('journal_posts', function (Blueprint $table) {
             $table->id();
             $table->date('acc_date');
-            $table->string('acc_accomplishment');
+            $table->string('acc_accomplishments');
             $table->integer('acc_hours');
             $table->timestamps();
         });
