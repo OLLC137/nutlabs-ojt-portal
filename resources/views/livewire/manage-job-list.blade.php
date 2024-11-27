@@ -124,9 +124,7 @@
                 <x-template.button variant="inverse" :rounded="true" color="primary" wire:click="setByCompany(false)">
                     All Job Lists
                 </x-template.button>
-                <x-template.button variant="inverse" :rounded="true" color="primary" wire:click="goToJobList">
-                    Add a Job List <i class="btn-icon-append"><x-template.icon>plus</x-template.icon></i>
-                </x-template.button>
+
 
             </div>
         </div>
