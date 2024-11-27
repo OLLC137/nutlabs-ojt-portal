@@ -60,12 +60,14 @@
                         </div>
                         <div class="joblist-job-info-body">
                             <p>{!! $jobInfo->job_desc !!}</p>
+                            @if(!empty($jobPrograms) && count(array_filter($jobPrograms)) > 0)
                             <div style="margin-top: 20px">
                                 <p><b>Recommended Programs</b></p>
                                 @foreach ($jobPrograms as $program)
                                     <div><button class="joblist-job-info-program" wire:click="searchProgram('{{ $program }}')"><x-template.icon>tag-outline</x-template.icon>{{ $program }}</button></div>
                                 @endforeach
                             </div>
+                            @endif
                             <div style="display: flex; justify-content: space-between; margin-top: 20px">
                                 @if((Auth::check() && Auth::user()->role == 20) || !Auth::check())
                                 <button class="joblist-job-info-apply" wire:click="applyJob({{ $jobInfo->job_id }})"><h3>APPLY NOW</h3></button>

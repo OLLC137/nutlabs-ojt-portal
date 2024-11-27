@@ -23,6 +23,7 @@
                             <div class="mb-4">
                                 {!! $jobInfo->job_desc !!}
                             </div>
+                            @if (!empty($jobPrograms) && count(array_filter($jobPrograms)) > 0)
                             <p class="font-weight-bold">Recommended Programs</p>
                             <div class="d-flex flex-row text-white flex-wrap">
                                 @foreach ($jobPrograms as $program)
@@ -32,61 +33,18 @@
                                     </p>
                                 @endforeach
                             </div>
+                            @endif
                             <div>
                                 <p class="font-weight-bold">Provided Files</p>
                                 <div class="d-block">
-                                    <button class="btn btn-sm btn-info rounded">Requirement.pdf<x-template.icon>download</x-template.icon></button>
-                                    <button class="btn btn-sm btn-info rounded">Requirement.pdf<x-template.icon>download</x-template.icon></button>
+                                    <button
+                                        class="btn btn-sm btn-info rounded">Requirement.pdf<x-template.icon>download</x-template.icon></button>
+                                    <button
+                                        class="btn btn-sm btn-info rounded">Requirement.pdf<x-template.icon>download</x-template.icon></button>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-6 p-4 border">
-                            <h2>Resumé</h2>
-                            <div class="form-check mx-4 my-0">
-                                <input class="form-check-input" type="radio" wire:model="resumeSelect"
-                                    value="useResume" id="useResume">
-                                <label class="form-check-label" for="useResume">
-                                    Use resumé from requirements
-                                </label>
-                            </div>
-                            <div class="form-check mx-4 my-0">
-                                <input class="form-check-input" type="radio" wire:model="resumeSelect"
-                                    value="uploadResume" id="uploadResume">
-                                <label class="form-check-label" for="uploadResume">
-                                    Upload new resumé
-                                </label>
-                            </div>
-                            <div class="form-check mx-4 my-0">
-                                <input class="form-check-input" type="radio" wire:model="resumeSelect"
-                                    value="noResume" id="noResume">
-                                <label class="form-check-label" for="noResume">
-                                    Do not include a resumé
-                                </label>
-                            </div>
 
-                            <h2>Cover Letter</h2>
-                            <div class="form-check mx-4 my-0">
-                                <input class="form-check-input" type="radio" wire:model="coverSelect"
-                                    value="uploadCover" id="uploadCover">
-                                <label class="form-check-label" for="uploadCover">
-                                    Upload Cover Letter
-                                </label>
-                            </div>
-                            <div class="form-check mx-4 my-0">
-                                <input class="form-check-input" type="radio" wire:model="coverSelect"
-                                    value="writeCover" id="writeCover">
-                                <label class="form-check-label" for="writeCover">
-                                    Write a Cover
-                                </label>
-                            </div>
-                            <div class="form-check mx-4 my-0">
-                                <input class="form-check-input" type="radio" wire:model="coverSelect"
-                                    value="noCover" id="noCover">
-                                <label class="form-check-label" for="noCover">
-                                    Do not include a cover letter
-                                </label>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
