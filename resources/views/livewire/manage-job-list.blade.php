@@ -20,10 +20,22 @@
                         <div class="row">
                             <div class="col-xl-6 p-4 border">
 
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h1>{{ $jobInfo->job_list }}</h1>
+                                    <h4 class="bg-primary text-white p-1 rounded">{{ $selectedCategoryName }}</h4>
+                                </div>
+                                <p class="display-5 font-weight-bold mb-0">{{ $selectedCompanyName }}</p>
+                                <p class="">
+                                    <x-template.icon>map-marker-outline</x-template.icon>
+                                    {{ $jobInfo->co_address }}
+                                </p>
+                                <div class="mb-4">
+                                    {!! $jobInfo->job_desc !!}
+                                </div>
 
 
                                 <p class="font-weight-bold">Recommended Programs</p>
-                                <div class="d-flex flex-row text-white flex-wrap">
+
 
 
                                 <div>
