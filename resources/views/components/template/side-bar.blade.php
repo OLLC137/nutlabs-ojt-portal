@@ -153,12 +153,7 @@
             <span class="menu-title">Job Listings</span>
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('company-file-upload') }}">
-        <x-template.icon class="menu-icon"> paperclip </x-template.icon>
-            <span class="menu-title">Upload Company Files</span>
-        </a>
-    </li>
+
     <li class="nav-item">
         <a class="nav-link" href="{{ route('manage-student-files') }}">
         <x-template.icon class="menu-icon"> account-multiple </x-template.icon>
