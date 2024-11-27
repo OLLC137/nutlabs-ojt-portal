@@ -142,17 +142,10 @@
 
     @role(COORDINATOR)
     <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+        <a class="nav-link" href="{{ route('view-company-page') }}">
         <x-template.icon class="menu-icon"> account-multiple-outline </x-template.icon>
             <span class="menu-title">Partner Industries</span>
-
-
         </a>
-        <div class="collapse" id="ui-basic">
-            <ul class="nav flex-column sub-menu">
-
-            </ul>
-        </div>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ route('managejobs') }}">
