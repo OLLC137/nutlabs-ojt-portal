@@ -82,6 +82,10 @@
                                         <td>{{ $student->stud_university }}</td>
                                     </tr>
                                     <tr>
+                                        <td><strong>Year Level</strong></td>
+                                        <td>{{ $student->stud_year_level }}</td>
+                                    </tr>
+                                    <tr>
                                         <td><strong>SR-Code</td>
                                         <td>{{ $student->stud_sr_code }}</td>
                                     </tr>
@@ -113,7 +117,7 @@
         <div class="col-md-5 grid-margin" role="search">
                 <div class="input-group">
                     <input type="text" wire:model="searchQuery" placeholder="Search Student Name/SR-Code" class="mb-2 form-control" id="searchInput">
-                    <div class="input-group-append"> 
+                    <div class="input-group-append">
                         <x-template.button color="primary" wire:click="triggerSearch"><i class="mdi mdi-magnify"></i></x-template.button>
                     </div>
                     <button class="btn-sm clear-button" wire:click="clearSearch"><i class="mdi mdi-close"></i></button>
@@ -162,7 +166,7 @@
         <div class="col-md-5 grid-margin" role="search">
                 <div class="input-group">
                     <input type="text" wire:model="searchQuery" placeholder="Search Student Name/SR-Code" class="mb-2 form-control" id="searchInput">
-                    <div class="input-group-append"> 
+                    <div class="input-group-append">
                         <x-template.button color="primary" wire:click="triggerSearch"><i class="mdi mdi-magnify"></i></x-template.button>
                     </div>
                     <button class="btn-sm clear-button" wire:click="clearSearch"><i class="mdi mdi-close"></i></button>
@@ -174,17 +178,16 @@
                 <x-template.card-body>
                     <x-slot name="title">Student List</x-slot>
                     <div class="table-responsive">
-                        <x-template.table :head="['SR-Code', 'Prefix', 'First Name', 'M.I.', 'Last Name', 'Suffix', 'Department' ]">
+                        <x-template.table :head="['SR-Code', 'First Name', 'Last Name', 'Department', 'Year Level', 'Email' ]">
                             @if ($students && $students->count() > 0)
                                 @foreach ($students as $student)
                                     <tr>
                                         <td>{{ $student->stud_sr_code }}</td>
-                                        <td>{{ $student->stud_prefix }}</td>
                                         <td>{{ $student->stud_first_name }}</td>
-                                        <td>{{ $student->stud_middle_initial }}</td>
                                         <td>{{ $student->stud_last_name }}</td>
-                                        <td>{{ $student->stud_suffix }}</td>
                                         <td>{{ $student->stud_department }}</td>
+                                        <td>{{ $student->stud_year_level }}</td>
+                                        <td>{{ $student->stud_email }}</td>
                                     </tr>
                                 @endforeach
                             @else
