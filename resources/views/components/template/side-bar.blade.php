@@ -59,12 +59,7 @@
             <span class="menu-title">Job Listings</span>
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('company-file-upload') }}">
-        <x-template.icon class="menu-icon"> paperclip </x-template.icon>
-            <span class="menu-title">Upload Company Files</span>
-        </a>
-    </li>
+
     <li class="nav-item">
         <a class="nav-link" href="{{ route('manage-student-files') }}">
         <x-template.icon class="menu-icon"> account-multiple </x-template.icon>
@@ -150,13 +145,12 @@
         <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
         <x-template.icon class="menu-icon"> account-multiple-outline </x-template.icon>
             <span class="menu-title">Partner Industries</span>
-            <i class="menu-arrow"></i>
+
 
         </a>
         <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{{ route('view-company-page') }}">Company List</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{{ route('add-company-page') }}">Add Company</a></li>
+
             </ul>
         </div>
     </li>
