@@ -11,14 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('applicants', function (Blueprint $table) {
+        Schema::create('ojt_applicants', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('student_id');  // Foreign key to ojt_students id
             $table->unsignedBigInteger('company_id');  // Foreign key to ojt_companies id
             $table->date('application_date');
-            $table->integer('status');
-            $table->timestamps();
+            $table->integer('resume_mode'); // Value from 1 - 3
+            $table->string('resume_file_id')->nullable(); // Foreign Key to downloadables which points to resume file
+            $table->integer('cover_mode'); // Value from 1 - 3
+            $table->string('cover_file_id')->nullable(); // Foreign Key to downloadables which points to cover letter file
+            $table->text('cover_text')->nullable(); // Cover letter text
 
+            $table->timestamps();
 
             $table->foreign('student_id')->references('id')->on('ojt_students')->onDelete('cascade');
             $table->foreign('company_id')->references('id')->on('ojt_companies')->onDelete('cascade');
@@ -30,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('applicants');
+        Schema::dropIfExists('ojt_applicants');
     }
 };

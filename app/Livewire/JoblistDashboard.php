@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\Applicant;
+use App\Models\OjtApplicant;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 

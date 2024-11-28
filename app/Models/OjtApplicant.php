@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Applicant extends Model
+class OjtApplicant extends Model
 {
     use HasFactory;
 
@@ -18,7 +18,6 @@ class Applicant extends Model
     public function student(): BelongsTo
     {
         return $this->belongsTo(OjtStudent::class, 'student_id', 'id');
-
     }
 
 }

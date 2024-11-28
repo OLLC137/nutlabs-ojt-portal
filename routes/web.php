@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LoginController;
 use App\Http\Middleware\CheckRole;
-use App\Models\Applicant;
+use App\Models\OjtApplicant;
 
 require_once __DIR__.'/ojt-coordinator-route.php';
 
@@ -43,4 +43,3 @@ Route::delete('/applicants/{applicant}', function (Applicant $applicant) {
     $applicant->delete(); // Delete the applicant
     return response()->json(['message' => 'Applicant deleted successfully.'], 200);
 })->name('applicants.delete');
-

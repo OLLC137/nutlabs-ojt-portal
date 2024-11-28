@@ -3,7 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\Applicant;
+use App\Models\OjtApplicant;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
 
@@ -22,7 +22,7 @@ class ApplicantTable extends Component
 
     public function delete()
     {
-        $applicant = Applicant::find($this->applicantIdToDelete);
+        $applicant = OjtApplicant::find($this->applicantIdToDelete);
 
         if ($applicant) {
             $applicant->delete();
@@ -38,9 +38,9 @@ class ApplicantTable extends Component
 
     // Check if the user is a company user with role 4
     if ($user && $user->role === 4) {
-        $query = Applicant::where('company_id', $user->id);
+        $query = OjtApplicant::where('company_id', $user->id);
     } else {
-        $query = Applicant::query();
+        $query = OjtApplicant::query();
     }
 
     if ($this->searchQuery) {
