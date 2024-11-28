@@ -96,7 +96,7 @@ class CompanyManageJobList extends Component
             'inputJobList' => 'required|string|max:225',
             'selectedCategoryId' => 'required',
             'inputPrograms' => 'string|max:1024',
-            'inputDescription' => 'required|string|max:1024',
+            'inputDescription' => 'required|string|max:5000',
         ]);
 
         OjtJobListing::find($this->joblist)
