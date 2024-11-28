@@ -107,6 +107,9 @@ class StudentJoblist extends Component
             $this->jobPrograms = explode(',', $this->jobInfo->job_programs);
         }
 
-        return view('livewire.student-joblist');
+        return view('livewire.student-joblist', [
+            'jobPrograms' => $this->jobPrograms
+        ]);
     }
+
 }

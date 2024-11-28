@@ -8,6 +8,7 @@ use App\Models\OjtJobListing;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Livewire\StudentJoblist;
 
 class ManageJobList extends Component
 {
@@ -27,6 +28,7 @@ class ManageJobList extends Component
     public $inputDescription;
     public $selectedCompanyId;
     public $jobActiveStatus;
+    public $jobPrograms;
 
     public $confirmDeletion = false;
     public $selectedCompanyLocation;
@@ -58,6 +60,10 @@ class ManageJobList extends Component
 
     public function render()
     {
+
+        $studentJobList = app(StudentJobList::class);
+        $jobPrograms = $studentJobList->jobPrograms ?? [];
+
         if($this->editJobList){
 
             $jobList = OjtJobListing::join('ojt_companies','ojt_companies.id','=','ojt_job_listings.company_id')
@@ -75,7 +81,10 @@ class ManageJobList extends Component
             ->get();
 
 
-            return view('livewire.manage-job-list', ['jobInfo' => $jobList]);
+            return view('livewire.manage-job-list', [
+                'jobInfo' => $jobList,
+                'jobPrograms' => $jobPrograms, // Pass jobPrograms to the view
+            ]);
         }
         if($this->addJobList && $this->company){
             $this->selectedCompanyId = $this->company;
@@ -117,7 +126,12 @@ class ManageJobList extends Component
             ->select('co_name', 'co_address')
             ->first();
 
-            return view('livewire.manage-job-list', ['jobListings'=>$jobListings, 'companyName'=>$companyName->co_name, 'companyLocation' => $companyName->co_address]);
+            return view('livewire.manage-job-list', [
+                'jobListings' => $jobListings,
+                'companyName' => $companyName->co_name,
+                'companyLocation' => $companyName->co_address,
+                'jobPrograms' => $jobPrograms, // Pass jobPrograms to the view
+            ]);
 
         }
         if(!$this->byCompany){
@@ -165,7 +179,10 @@ class ManageJobList extends Component
 
         $companies = $query->paginate(10, pageName: 'page');
 
-        return view('livewire.manage-job-list', ['companies'=>$companies]);
+    return view('livewire.manage-job-list', [
+        'companies' => $companies,
+        'jobPrograms' => $jobPrograms, // Pass jobPrograms to the view
+    ]);
     }
 
     public function doSearch(){

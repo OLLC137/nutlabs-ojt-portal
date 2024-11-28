@@ -32,17 +32,22 @@
                             </div>
                             </div>
 
-                            <div class="form-group mb-0">
-                                <p class="font-weight-bold">Recommended Programs</p>
+                            <p class="font-weight-bold">Recommended Programs</p>
+                            @if (!empty($jobPrograms))
+                            <p class="font-weight-bold">Recommended Programs</p>
+                            <div class="d-flex flex-row text-white flex-wrap">
+                                @foreach ($jobPrograms as $program)
+                                    <p class="bg-secondary p-1 mx-1 rounded">
+                                        <x-template.icon>tag-outline</x-template.icon>
+                                        {{ $program }} <!-- Display each program -->
+                                    </p>
+                                @endforeach
                             </div>
+                        @else
+                            <p>No recommended programs available.</p>
+                        @endif
 
-                            <div class="form-group mb-0">
-                                <p class="font-weight-bold">Provided Files</p>
-                                <div class="d-block">
-                                    <button class="btn btn-sm btn-info rounded">Requirement.pdf<x-template.icon>download</x-template.icon></button>
-                                    <button class="btn btn-sm btn-info rounded">Requirement.pdf<x-template.icon>download</x-template.icon></button>
-                                </div>
-                            </div>
+
                     </div>
 
 
@@ -214,9 +219,6 @@
                 <x-template.icon class="btn-icon-prepend">subdirectory-arrow-left</x-template.icon>
             back
             </button>
-            <x-template.button  variant="inverse" :rounded="true" color="primary" wire:click="goToJobList">
-                Add a Job List <i class="btn-icon-append"><x-template.icon>plus</x-template.icon></i>
-            </x-template.button>
         </div>
 
         <p class="h1 my-4">Job Listings of {{ $companyName }}</p>
