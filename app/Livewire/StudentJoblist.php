@@ -6,6 +6,7 @@ use App\Models\OjtRequirement;
 use App\Models\OjtStudent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
@@ -37,24 +38,26 @@ class StudentJoblist extends Component
 
     public function updatedResumeSelect()
     {
-        if ($this->resumeSelect == 'useResume') {
+        if ($this->resumeSelect == 1) {
             $student = OjtStudent::where('user_id', Auth::id())->first(); // Get the student associated with the user
 
             $requirement = OjtRequirement::where('student_id', $student->id)
                 ->where('req_id', 3)
                 ->where('locked_at', '!=', null)
                 ->first(); // Get the requirement
-            if ($requirement){
+            if ($requirement) {
                 $this->selectedResumeFileName = $requirement->req_orig_name;
-
             } else {
-                $this->selectedResumeFileName = 'No Uploaded Resume';
+                $this->selectedResumeFileName = null;
             }
         }
     }
 
     public function updatedResumeFile()
     {
+        $this->validate([
+            'resumeFile' => 'required|mimes:pdf,doc,docx|max:2048',
+        ]);
         if ($this->resumeFile) {
             // Store the uploaded file temporarily
             $this->temporaryUploadedResume = $this->resumeFile->store('temp');
@@ -65,6 +68,9 @@ class StudentJoblist extends Component
 
     public function updatedCoverFile()
     {
+        $this->validate([
+            'coverFile' => 'required|mimes:pdf,doc,docx|max:2048',
+        ]);
         if ($this->coverFile) {
             // Store the uploaded file temporarily
             $this->temporaryUploadedCover = $this->coverFile->store('temp');
@@ -74,18 +80,22 @@ class StudentJoblist extends Component
     }
     public function clearResumeFile()
     {
+        // Remove the stored temp file
+        Storage::delete($this->temporaryUploadedResume);
         // Clear the temporary file
         $this->resumeFile = null;
         $this->temporaryUploadedResume = null;
     }
     public function clearCoverFile()
     {
+        // Remove the stored temp file
+        Storage::delete($this->temporaryUploadedCover);
         // Clear the temporary file
         $this->coverFile = null;
         $this->temporaryUploadedCover = null;
     }
 
-    public function render()
+    public function updatedId()
     {
         if ($this->id) {
             $this->jobInfo = DB::table('ojt_job_listings')
@@ -106,6 +116,30 @@ class StudentJoblist extends Component
                 ->first();
             $this->jobPrograms = explode(',', $this->jobInfo->job_programs);
         }
+    }
+
+    public function submittable()
+    {
+        if (!$this->resumeSelect || !$this->coverSelect) return false;
+        if ($this->resumeSelect == 1 && !$this->selectedResumeFileName) return false;
+        if ($this->resumeSelect == 2 && !$this->temporaryUploadedResume) return false;
+        if ($this->coverSelect == 1 && !$this->temporaryUploadedCover) return false;
+        return true;
+    }
+
+    public function submitApplication()
+    {
+        // $this->validate([
+        //     'writeCover' => 'required|string|max:1000',
+        // ]);
+
+        return redirect()->route('view-cv-page');
+    }
+
+    public function render()
+    {
+        $this->updatedId();
+
 
         return view('livewire.student-joblist');
     }

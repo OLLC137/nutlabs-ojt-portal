@@ -34,64 +34,61 @@
                                     @endforeach
                                 </div>
                             @endif
-                            <div>
-                                <p class="font-weight-bold">Provided Files</p>
-                                <div class="d-block">
-                                    <button
-                                        class="btn btn-sm btn-info rounded">Requirement.pdf<x-template.icon>download</x-template.icon></button>
-                                    <button
-                                        class="btn btn-sm btn-info rounded">Requirement.pdf<x-template.icon>download</x-template.icon></button>
-                                </div>
-                            </div>
                         </div>
                         <div class="col-xl-6 p-4 border">
                             <div class="mb-4">
                                 <h2>Resumé</h2>
-                                <div class="my-0" wire:click="$set('resumeSelect', 'useResume')">
+                                <div class="my-0" wire:click="$set('resumeSelect', 1)">
                                     <label>
                                         <input class="form-check-input" type="radio" wire:model="resumeSelect"
-                                            value="useResume">
+                                            value=1>
                                         Use resumé from requirements
                                     </label>
                                 </div>
-                                @if ($resumeSelect == 'useResume')
+                                @if ($resumeSelect == 1)
                                     <div class="d-flex mt-2 px-4">
                                         <p class="font-weight-bold">
-                                            {{$selectedResumeFileName}}
-                                            @if ($selectedResumeFileName != 'No Uploaded Resume')
-                                            <x-template.icon>file</x-template.icon>
+                                            @if ($selectedResumeFileName)
+                                                {{ $selectedResumeFileName }}
+                                                <x-template.icon>file</x-template.icon>
+                                            @else
+                                                No Uploaded Resume
                                             @endif
-                                            </p>
+                                        </p>
                                     </div>
                                 @endif
-                                <div class="my-0" wire:click="$set('resumeSelect', 'uploadResume')">
+                                <div class="my-0" wire:click="$set('resumeSelect', 2)">
                                     <label>
                                         <input class="form-check-input" type="radio" wire:model="resumeSelect"
-                                            value="uploadResume">
+                                            value=2>
                                         Upload new resumé
                                     </label>
                                 </div>
-                                @if ($resumeSelect == 'uploadResume')
+                                @if ($resumeSelect == 2)
                                     <div class="d-inline-flex flex-column  mt-2 px-4">
                                         @if ($temporaryUploadedResume)
-                                            <span class="font-weight-bold">{{ $originalResumeName }}<x-template.icon>file</x-template.icon></span>
-                                            <span class="mb-4 mt-2" role="button" wire:click='clearResumeFile '><u>Upload New File</u></span>
+                                            <span
+                                                class="font-weight-bold">{{ $originalResumeName }}<x-template.icon>file</x-template.icon></span>
+                                            <span class="mb-4 mt-2" role="button"
+                                                wire:click='clearResumeFile '><u>Upload New File</u></span>
                                         @else
                                             <x-template.input type="file" text="" wire:model="resumeFile"
-                                                accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                                                class="mb-1" accept=".doc, .docx, .pdf"
                                                 style=""></x-template.input>
+                                            <p style="font-size: 12px" class="mt-0">Accepted file types: .doc, .docx,
+                                                .pdf (2MB limit).</p>
                                         @endif
                                         @error('resumeFile')
-                                            <div class="mt-2 alert alert-danger">
-                                                {{ $message }}
-                                            </div>
+                                            <span class="error">
+                                                Make sure the file is of correct type and under 2MB.
+                                            </span>
                                         @enderror
                                     </div>
                                 @endif
-                                <div class="my-0" wire:click="$set('resumeSelect', 'noResume')">
+                                <div class="my-0" wire:click="$set('resumeSelect', 3)">
                                     <label>
                                         <input class="form-check-input" type="radio" wire:model="resumeSelect"
-                                            value="noResume">
+                                            value=3>
                                         Do not include a resumé
                                     </label>
                                 </div>
@@ -99,49 +96,57 @@
 
                             <div class="mb-4">
                                 <h2>Cover Letter</h2>
-                                <div class="my-0" wire:click="$set('coverSelect', 'uploadCover')">
+                                <div class="my-0" wire:click="$set('coverSelect', 1)">
                                     <label>
-                                        <input class="form-check-input" type="radio" wire:model="coverSelect"
-                                            value="uploadCover">
+                                        <input class="form-check-input" type="radio" wire:model="coverSelect" value=1>
                                         Upload Cover Letter
                                     </label>
                                 </div>
-                                @if ($coverSelect == 'uploadCover')
+                                @if ($coverSelect == 1)
                                     <div class="d-inline-flex flex-column  mt-2 px-4">
                                         @if ($temporaryUploadedCover)
-                                            <span class="font-weight-bold">{{ $originalCoverName }}<x-template.icon>file</x-template.icon></span>
-                                            <span class="mb-4 mt-2" role="button" wire:click='clearCoverFile '><u>Upload New File</u></span>
+                                            <span
+                                                class="font-weight-bold">{{ $originalCoverName }}<x-template.icon>file</x-template.icon></span>
+                                            <span class="mb-4 mt-2" role="button"
+                                                wire:click='clearCoverFile '><u>Upload New File</u></span>
                                         @else
                                             <x-template.input type="file" text="" wire:model="coverFile"
-                                                accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                                                accept=".doc, .docx, .pdf"
                                                 style=""></x-template.input>
+                                            <p style="font-size: 12px" class="mt-0">Accepted file types: .doc, .docx,
+                                                .pdf (2MB limit).</p>
                                         @endif
                                         @error('coverFile')
-                                            <div class="mt-2 alert alert-danger">
-                                                {{ $message }}
-                                            </div>
+                                            <span class="error">
+                                                Make sure the file is of correct type and under 2MB.
+                                            </span>
                                         @enderror
                                     </div>
                                 @endif
-                                <div class="my-0" wire:click="$set('coverSelect', 'writeCover')">
+                                <div class="my-0" wire:click="$set('coverSelect', 2)">
                                     <label>
-                                        <input class="form-check-input" type="radio" wire:model="coverSelect"
-                                            value="writeCover">
+                                        <input class="form-check-input" type="radio" wire:model="coverSelect" value=2>
                                         Write a Cover Letter
                                     </label>
                                 </div>
-                                @if ($coverSelect == 'writeCover')
+                                @if ($coverSelect == 2)
                                     <div class="d-flex mt-2 px-4">
                                         <textarea class="form-control" wire:model="writeCover" rows="10"></textarea>
                                     </div>
+                                    @error('writeCover')
+                                        <span class="error">Please write your cover letter here.</span>
+                                    @enderror
                                 @endif
-                                <div class="my-0" wire:click="$set('coverSelect', 'noCover')">
+                                <div class="my-0" wire:click="$set('coverSelect', 3)">
                                     <label>
-                                        <input class="form-check-input" type="radio" wire:model="coverSelect"
-                                            value="noCover">
+                                        <input class="form-check-input" type="radio" wire:model="coverSelect" value=3>
                                         Do not include a Cover Letter
                                     </label>
                                 </div>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <button wire:click="submitApplication" class="btn btn-success"
+                                    @disabled(!$this->submittable())>Submit Application</button>
                             </div>
                         </div>
                     </div>
