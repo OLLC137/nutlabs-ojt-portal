@@ -2,7 +2,9 @@
 
 namespace App\Livewire;
 
+use App\Models\OjtApplicant;
 use App\Models\OjtRequirement;
+use App\Models\OjtDownloadable;
 use App\Models\OjtStudent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -22,6 +24,7 @@ class StudentJoblist extends Component
     public $jobPrograms;
 
     public $resumeSelect;
+    public $selectedResumeFileId;
     public $selectedResumeFileName;
 
     public $resumeFile;
@@ -47,6 +50,7 @@ class StudentJoblist extends Component
                 ->first(); // Get the requirement
             if ($requirement) {
                 $this->selectedResumeFileName = $requirement->req_orig_name;
+                $this->selectedResumeFileId = $requirement->id;
             } else {
                 $this->selectedResumeFileName = null;
             }
@@ -129,11 +133,52 @@ class StudentJoblist extends Component
 
     public function submitApplication()
     {
-        // $this->validate([
-        //     'writeCover' => 'required|string|max:1000',
-        // ]);
+        $coverFileId = null;
+        $resumeFileId = null;
+        if ($this->coverSelect == 1) {
+            $filepath = Storage::move($this->temporaryUploadedCover, 'application_files');
+            $newFile = OjtDownloadable::create([
+                'file_path' => $filepath,
+                'file_name' => basename($filepath),
+                'file_original_name' => $this->originalCoverName,
+                'file_type' => 'cover letter',
+            ]);
+            $coverFileId = $newFile->id;
+        }
+        if ($this->coverSelect == 2) {
+            $this->validate([
+                'writeCover' => 'required|string|max:1000',
+            ]);
+        } else {
+            $this->writeCover = null;
+        }
+        if ($this->resumeSelect == 1) {
+            $resumeFileId = $this->selectedResumeFileId;
+        }
+        if ($this->resumeSelect == 2) {
+            $filepath = Storage::move($this->temporaryUploadedResume, 'application_files');
+            $newFile = OjtDownloadable::create([
+                'file_path' => $filepath,
+                'file_name' => basename($filepath),
+                'file_original_name' => $this->originalResumeName,
+                'file_type' => 'resume letter',
+            ]);
+            $resumeFileId = $newFile->id;
+        }
 
-        return redirect()->route('view-cv-page');
+        $student = OjtStudent::where('user_id', Auth::id())->first();
+        $applicantData = [
+            'student_id' => $student->id,
+            'joblist_id' => $this->id,
+            'application_date' => now(),
+            'resume_mode' => $this->resumeSelect,
+            'resume_file_id' => $resumeFileId,
+            'cover_mode' => $this->coverSelect,
+            'cover_file_id' => $coverFileId,
+            'cover_text' => $this->writeCover,
+        ];
+        OjtApplicant::create($applicantData);
+        return redirect()->route('student-joblist', ['id' => $this->id]);
     }
 
     public function render()
