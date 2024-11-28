@@ -34,12 +34,12 @@ Route::middleware([
     Route::get('/dashboard', [LoginController::class, 'redirectAfterLogin'])->name('dashboard');
 });
 
-Route::post('/applicants/{applicant}/accept', function (Applicant $applicant) {
+Route::post('/applicants/{applicant}/accept', function (OjtApplicant $applicant) {
     $applicant->update(['status' => 1]); // Update the status to 1
     return response()->json(['message' => 'Applicant status updated successfully.'], 200);
 })->name('applicants.accept');
 
-Route::delete('/applicants/{applicant}', function (Applicant $applicant) {
+Route::delete('/applicants/{applicant}', function (OjtApplicant $applicant) {
     $applicant->delete(); // Delete the applicant
     return response()->json(['message' => 'Applicant deleted successfully.'], 200);
 })->name('applicants.delete');
