@@ -20,6 +20,8 @@ class JournalPost extends Component
 
     public $confirmDeletionID;
 
+    public $isTodayDone;
+
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
@@ -36,7 +38,7 @@ class JournalPost extends Component
         OjtAccomplishment::create($validated);
 
         return redirect('/posting')->with('message', 'Accomplishment Saved.');
-        
+
     }
 
     public function mount()
@@ -58,7 +60,7 @@ class JournalPost extends Component
     }
 
     public function updateJournalPost($journal_postsID)
-    {  
+    {
         return redirect('/posting')->with('editID', $journal_postsID);
     }
 
@@ -86,8 +88,17 @@ class JournalPost extends Component
         return redirect('/posting')->with('message', 'Accomplishment Updated.');
     }
 
+    public function checkToday(){
+        if(OjtAccomplishment::where('student_id', $this->student_id)
+        ->where('acc_date', now()->format('Y-m-d'))
+        ->exists()) return true;
+        else return false;
+    }
+
     public function render()
     {
+        $this->isTodayDone = $this->checkToday();
+
         return view('livewire.journal-post', [
             'ojt_accomplishments' => OjtAccomplishment::latest()
             ->where('student_id', $this->student_id)

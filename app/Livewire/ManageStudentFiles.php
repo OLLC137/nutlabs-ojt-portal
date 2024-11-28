@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\OjtStudent;
 use App\Models\OjtCoordinator;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -69,5 +70,32 @@ class ManageStudentFiles extends Component
         return view('livewire.manage-student-files', ['students' => $students, 'student' => $student]);
     }
 
-    // Other methods remain unchanged
+    #[On('confirm-delete')]
+    public function confirmDelete($id)
+    {
+        $this->requirementIdBuffer = $id;
+    }
+    #[On('confirm-unlock')]
+    public function confirmUnlock($id)
+    {
+        $this->requirementIdBuffer = $id;
+    }
+    #[On('confirm-exempt')]
+    public function confirmexempt($id)
+    {
+        $this->requirementIdBuffer = $id;
+    }
+
+    public function delete()
+    {
+        $this->dispatch('delete-confirmed', id: $this->requirementIdBuffer);
+    }
+    public function unlock()
+    {
+        $this->dispatch('unlock-confirmed', id: $this->requirementIdBuffer);
+    }
+    public function exempt()
+    {
+        $this->dispatch('exempt-confirmed', id: $this->requirementIdBuffer);
+    }
 }

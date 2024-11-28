@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('stud_senior_high_school');
             $table->string('stud_university');
             $table->string('stud_sr_code');
+            $table->string('stud_year_level');
             $table->string('stud_department');
             $table->string('stud_expected_graduation');
             $table->timestamps();

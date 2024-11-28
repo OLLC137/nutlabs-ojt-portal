@@ -30,7 +30,7 @@ class OjtRequirement extends Model
         // pre ojt requirements
         1 => 'Medical Certificate',
         2 => 'Vaccination Card',
-        3 => 'CV',
+        3 => 'Resume',
         4 => 'Personal History Statement',
         5 => 'Parent Consent Form',
         6 => 'Endorsement Letter',

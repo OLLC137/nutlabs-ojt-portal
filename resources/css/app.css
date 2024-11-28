@@ -7,6 +7,14 @@
     display: none;
 }
 
+ol {
+    list-style-type: decimal;
+}
+
+ul {
+    list-style-type: disc;
+}
+
 .landingpage-body {
     overflow: visible !important;
 }
@@ -522,9 +530,9 @@
 
 .display-box-disp {
     font-weight: bold;
+    font-size: 12pt;
     height: 70px;
     margin-bottom: 10px;
-    width: 200px;
     overflow-y: hidden;
     display: flex;
     align-items: center;
@@ -829,13 +837,25 @@
         align-self: start;
         border-radius: 5px;
     }
-    .joblist-job-info-contact {
-        p {
-            margin: 0 10px;
-        }
-        svg {
-            margin: 0;
-        }
+    .joblist-job-info-apply {
+        color: white;
+        padding: 8px 7px 4px;
+        justify-content: center;
+        align-self: start;
+        border-radius: 5px;
+        background-color: #fa575a;
+    }
+    .joblist-job-info-program {
+        background-color: #859098;
+        color: rgb(255, 255, 255);
+        padding: 3px 6px;
+        margin: 2px 0px;
+        border-radius: 50px;
+        transition: background-color 0.3s ease;
+    }
+
+    .joblist-job-info-program:hover {
+        background-color: #a1a6b0; /* Lightened background color */
     }
 }
 
@@ -904,11 +924,17 @@
 
 @media screen and (max-width: 1279px) and (min-width: 701px) {
     .joblist-search-area {
-        height: 25vw;
-        .joblist-search {
-        }
+        height: 40vw;
         .joblist-search-item {
             width: 25vw;
+        }
+        .joblist-search {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .joblist-search-item {
+            flex: 0 0 calc(50% - 2%);
+            margin: 1%;
         }
         label {
             font-size: 14pt !important;
@@ -919,12 +945,14 @@
         input[type="text"]:focus {
             height: 6vw !important;
         }
+        .joblist-search-item.has-button {
+            display: flex;
+            align-items: center;
+        }
         .joblist-search-button {
             font-size: 14pt;
-
             width: 12vw;
             height: 6vw;
-            margin: 5% 0 0;
         }
     }
     .joblist-card {
@@ -954,7 +982,8 @@
 
 @media screen and (max-width: 700px) {
     .joblist-search-area {
-        height: 340px;
+        background-size: cover;
+        height: 470px;
         .joblist-search {
             flex-direction: column;
         }
@@ -974,7 +1003,7 @@
             align-self: flex-end;
             width: 30vw;
             height: 50px;
-            margin: 5% 0 0;
+            margin: 20px 0 0;
         }
     }
     .joblist-main {

@@ -1,5 +1,4 @@
 <div>
-    REQUIREMENT ID BUFFER: {{ $requirementIdBuffer }}
     @if (!$studentId)
     <h1>Manage Student Files</h1>
     <div class="d-flex flex-row col-sm-4 my-2">
