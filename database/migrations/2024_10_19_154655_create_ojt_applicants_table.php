@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('ojt_applicants', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('student_id');  // Foreign key to ojt_students id
-            $table->unsignedBigInteger('company_id');  // Foreign key to ojt_companies id
+            $table->unsignedBigInteger('joblist_id');  // Foreign key to ojt_companies id
             $table->date('application_date');
             $table->integer('resume_mode'); // Value from 1 - 3
             $table->string('resume_file_id')->nullable(); // Foreign Key to downloadables which points to resume file
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('student_id')->references('id')->on('ojt_students')->onDelete('cascade');
-            $table->foreign('company_id')->references('id')->on('ojt_companies')->onDelete('cascade');
+            $table->foreign('joblist_id')->references('id')->on('ojt_job_listings')->onDelete('cascade');
         });
     }
 
