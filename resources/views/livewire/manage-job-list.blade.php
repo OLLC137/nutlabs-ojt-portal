@@ -65,20 +65,7 @@
                             </div>
                             @error('selectedCompanyId') <span class="error">A company is required!</span> @enderror
                         </div>
-                        <div class="form-group mb-0">
-                            <label for="" class="col-form-label mb-0">Contact Person</label>
-                            <select class="form-control" wire:model="selectedContact">
-                                @if ($this->editJobList)
-                                <option value="">(Unchanged)</option>
-                                @else
-                                <option value="">Select a contact person</option>
-                                @endif
-                                @foreach ($contactPeople as $contactPerson)
-                                <option value="{{ $contactPerson->id }}">{{ $contactPerson->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('selectedContact') <span class="error">A contact person is required!</span> @enderror
-                        </div>
+
                     </div>
                     @if($this->editJobList)
                     <div class="form-group mb-0 d-flex flex-column">
@@ -185,7 +172,6 @@
                             <th>Company Name</th>
                             <th>Job List</th>
                             <th>Job Category</th>
-                            <th>Contact Person</th>
                             <th>Job Status</th>
                             <th></th>
                         </tr>
@@ -237,7 +223,6 @@
                     <th>Job Ref #</th>
                     <th>Job List</th>
                     <th>Job Category</th>
-                    <th>Contact Person</th>
                     <th>Job Status</th>
                     <th></th>
                 </tr>

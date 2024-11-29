@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('ojt_downloadables', function (Blueprint $table) {
             $table->id();
+            $table->string('file_path');
             $table->string('file_name');
-            $table->string('file_file');
+            $table->string('file_original_name');
+            $table->string('file_type');
             $table->timestamps();
         });
     }

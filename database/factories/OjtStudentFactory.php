@@ -21,24 +21,23 @@ class OjtStudentFactory extends Factory
      */
     public function definition()
     {
-
-
         return [
             'user_id' => 1,
             'stud_first_name' => $this->faker->firstName,
             'stud_middle_initial' => $this->faker->randomLetter,
             'stud_last_name' => $this->faker->lastName,
             'stud_sex' => $this->faker->randomElement(['Male', 'Female']),
-            'stud_birthday' => $this->faker->date,
+            'stud_birthday' => now()->subYears(rand(18, 25))->toDateString(),
             'stud_birth_place' => $this->faker->city,
             'stud_student_telephone' => $this->faker->unique()->phoneNumber,
             'stud_email' => $this->faker->unique()->safeEmail,
-            'stud_junior_high_school' => $this->faker->word,
-            'stud_senior_high_school' => $this->faker->word,
-            'stud_university' => $this->faker->word,
-            'stud_sr_code' => $this->faker->word,
-            'stud_department' => $this->faker->randomElement(['COE','CICS','CAFAD','CET','CTE','CAS','CABEIHM','CONAHS']),
-            'stud_expected_graduation' => $this->faker->date,
+            'stud_junior_high_school' => 'JHS',
+            'stud_senior_high_school' => 'SHS',
+            'stud_university' => 'Alangilan',
+            'stud_sr_code' => 'SR_Code',
+            'stud_year_level' => 4,
+            'stud_department' => $this->faker->randomElement(['CIT', 'CAFAD', 'CICS', 'COE']),
+            'stud_expected_graduation' => now()->addYears(2)->toDateString(),
         ];
     }
 }

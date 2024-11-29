@@ -1,8 +1,8 @@
 <?php
 
-namespace Database\Factories\Public;
+namespace Database\Factories;
 
-use App\Models\Public\OjtCompany;
+use App\Models\OjtCompany;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,9 +18,9 @@ class OjtCompanyFactory extends Factory
             'co_name' => $this->faker->company,
             'co_address' => $this->faker->address,
             'co_contact_number' => $this->faker->phoneNumber,
-            'co_email' => $this->faker->unique()->companyEmail,
+            'co_email' => $this->faker->unique()->safeEmail(),
             'co_website' => $this->faker->url,
-            'co_isactive' => $this->faker->boolean(50),
+            'co_isactive' => $this->faker->boolean(true),
         ];
     }
 }

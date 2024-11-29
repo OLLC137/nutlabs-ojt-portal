@@ -1,6 +1,6 @@
 <div wire:key="{{ $post->id }}" class="journal-post-content-container">
     <div class="journal-post-content-card card-body">
-        <div class="journal-post-content-header row">  
+        <div class="journal-post-content-header row">
             <div class="col col-sm">
                 <h4 class="header-date mb-0">{{ $post->acc_date }}</h4>
                 <p class="mb-0">{{ $post->acc_hours }} Hours</p>

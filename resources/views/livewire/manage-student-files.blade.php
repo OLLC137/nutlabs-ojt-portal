@@ -1,5 +1,4 @@
 <div>
-    REQUIREMENT ID BUFFER: {{ $requirementIdBuffer }}
     @if (!$studentId)
     <h1>Manage Student Files</h1>
     <div class="d-flex flex-row col-sm-4 my-2">
@@ -36,7 +35,7 @@
     </div>
         {{ $students->links() }}
     @else
-    
+
     <div wire:ignore.self class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

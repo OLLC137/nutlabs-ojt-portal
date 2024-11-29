@@ -21,6 +21,7 @@ class EditCv extends Component
     public $stud_junior_high_school;
     public $stud_senior_high_school;
     public $stud_university;
+    public $stud_year_level;
     public $stud_sr_code;
     public $stud_department;
     public $stud_expected_graduation;
@@ -53,6 +54,7 @@ class EditCv extends Component
         $this->stud_junior_high_school = $student->stud_junior_high_school;
         $this->stud_senior_high_school = $student->stud_senior_high_school;
         $this->stud_university = $student->stud_university;
+        $this->stud_year_level = $student->stud_year_level;
         $this->stud_sr_code = $student->stud_sr_code;
         $this->stud_department = $student->stud_department;
         $this->stud_expected_graduation = $student->stud_expected_graduation;
@@ -76,6 +78,7 @@ class EditCv extends Component
             'stud_junior_high_school' => 'required|string|max:255',
             'stud_senior_high_school' => 'required|string|max:255',
             'stud_university' => 'required|string|max:255',
+            'stud_year_level' => 'required|string|max:255',
             'stud_sr_code' => 'required|string|max:255',
             'stud_department' => 'required|string|max:255',
             'stud_expected_graduation' => 'required|string|max:255',
@@ -97,6 +100,7 @@ class EditCv extends Component
                 'stud_junior_high_school' => $this->stud_junior_high_school,
                 'stud_senior_high_school' => $this->stud_senior_high_school,
                 'stud_university' => $this->stud_university,
+                'stud_year_level' => $this->stud_year_level,
                 'stud_sr_code' => $this->stud_sr_code,
                 'stud_department' => $this->stud_department,
                 'stud_expected_graduation' => $this->stud_expected_graduation,

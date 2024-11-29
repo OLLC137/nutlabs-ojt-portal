@@ -1,6 +1,6 @@
 <div class="wrapper">
     <div class="stepper">
-        @foreach([1, 2, 3] as $step)
+        @foreach([1, 2, 3, 4] as $step)
         <input class="c-stepper__item" type="radio" id="stepper-5-{{ $step }}" name="stepper-5" wire:model="currentStep" value="{{ $step }}" />
         <div class="stepper__step">
             <h6><label class="stepper__button" for="stepper-5-{{ $step }}" wire:click="goToStep({{ $step }})">Step {{ $step }}</label></h6>
@@ -20,11 +20,18 @@
                 <h1>Step 2: Upload the Requirements</h1><br>
                 <p>• After updating your CV Profile, proceed to the "Upload Requirements" section from the portal's dashboard.</p>
                 <p>• Check the list of documents required for OJT application and ensure you have them ready in the specified formats (e.g., PDF, JPEG).</p>
+                <p>• Upload OJT requirements first in order to be able to proceed to job application. Then upload company requirements.</p>
                 <p>• Upload each document according to the portal's guidelines. Verify that all documents are clear, legible, and meet the required specifications.</p>
                 <p>• Once uploaded, submit your documents for review and approval by the portal administrator.</p><br>
-            @elseif($currentStep == 3)
+                @elseif($currentStep == 3)
                 <!-- Step 3 content -->
-                <h1>Step 3: Submit your Accomplishment, Journal Viewing, and Journal Posting</h1><br>
+                <h1>Step 3: Apply For An Internship</h1><br>
+                <p>• Upon uploading of requirements, proceed to job list for application.</p>
+                <p>• Select an internship that is suited to your program and goals.</p>
+                <p>• On applying input necessary information and download company file requirements as needed.</p>
+            @elseif($currentStep == 4)
+                <!-- Step 4 content -->
+                <h1>Step 4: Submit your Accomplishment, Journal Viewing, and Journal Posting</h1><br>
                 <p>• Upon approval of your requirements, proceed to the "Accomplishments" section of the portal.</p>
                 <p>• Detail your tasks and achievements during the OJT period, emphasizing key learnings and contributions.</p>
                 <p>• Access the "Journal Viewing" feature to review and reflect on entries related to your OJT experiences.</p>
@@ -32,10 +39,10 @@
                 <p>• Carefully review all entries and ensure that your journal postings are complete and insightful. Submit them for final assessment and acknowledgment.</p><br>
             @endif
             <div class="stepper-buttons">
-                @if($currentStep == 3)
+                @if($currentStep == 4)
                 <x-template.button type="button" wire:click="getStarted" color="success" variant="" class="me-2" style="">Get Started</x-template.button>
                 @endif
-                @if($currentStep < 3)
+                @if($currentStep < 4)
                 <x-template.button type="button" wire:click="nextStep" color="primary" variant="" class="me-2">Next</x-template.button>
                 @endif
                 @if($currentStep > 1)
@@ -210,4 +217,3 @@
     </style>
 
 </div>
-
