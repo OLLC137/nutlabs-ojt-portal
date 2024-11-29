@@ -5,7 +5,8 @@ namespace App\Livewire;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\OjtApplicant;
-
+use App\Models\OjtCompany;
+use App\Models\OjtJobListing;
 use Illuminate\Support\Facades\Auth;
 
 class ApplicantTable extends Component
@@ -36,7 +37,7 @@ class ApplicantTable extends Component
 
         if ($applicant) {
             if ($this->actionType === 'accept') {
-                $applicant->update(['status' => 1]);
+                $applicant->update(['status' => 2]);
                 $this->successMessage = 'Applicant successfully accepted.';
             } elseif ($this->actionType === 'delete') {
                 $applicant->delete();
@@ -54,9 +55,9 @@ class ApplicantTable extends Component
     {
         $user = Auth::user();
 
-        $query = $user && $user->role === 4
-            ? OjtApplicant::where('company_id', $user->id)
-            : OjtApplicant::query();
+        $companyId = OjtCompany::where('user_id', $user->id)->first()->id;
+            $jobListIds = OjtJobListing::where('company_id', $companyId)->pluck('id')->toArray();
+            $query = OjtApplicant::query();
 
         // Apply search query if it exists
         if (!empty($this->searchQuery)) {
@@ -69,7 +70,7 @@ class ApplicantTable extends Component
         }
 
         // Exclude applicants with a status of 1 (accepted)
-        $applicants = $query->where('status', '!=', 1)->paginate(10, ['*'], 'applicants-page');
+        $applicants = $query->whereIn('joblist_id', $jobListIds)->paginate(10, ['*'], 'applicants-page');
 
         return view('livewire.applicant-table', [
             'applicants' => $applicants,
