@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('student_id')->constrained('ojt_students')->onDelete('cascade');
             $table->date('requested_date');
-            $table->string('reason', 255);
+            $table->string('reason');
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->string('acc_accomplishments');
             $table->string('acc_hours');

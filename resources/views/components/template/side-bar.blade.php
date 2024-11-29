@@ -157,6 +157,12 @@
             <span class="menu-title">Student Files</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('manage-journal-requests') }}">
+        <x-template.icon class="menu-icon"> book </x-template.icon>
+            <span class="menu-title">View Journal Requests</span>
+        </a>
+    </li>
     @endrole()
 
     @role(ADM)

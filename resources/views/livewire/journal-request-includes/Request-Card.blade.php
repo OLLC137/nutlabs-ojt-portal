@@ -27,8 +27,7 @@
         <div class='mt-4' id="mytextarea">
         <h4 class="journalp-accomplishment-header"> Reason for Request </h4>
             <div class="form-group mt-2 mb-0">
-                <x-input.rich-text disabled wire:model.debounce="requestReason"
-                    :initial-value="$requestReason"></x-input.rich-text>
+                <input wire:model="requestReason" id="requestDate" class="form-control" type="text" value="{{ $requestDate }}" placeholder="Reason for Request">
                 @error('requestReason')
                     <span style="color:red" class="block text-xs">{{ $message }}</span>
                 @enderror
