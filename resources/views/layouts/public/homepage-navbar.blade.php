@@ -8,8 +8,11 @@
             <a href="{{ route('joblist') }}" class="{{ request()->route()->getName() == 'joblist' ? 'red' : '' }}">JOB LIST</a>
         </li>
         <li>
+            @if(Auth::check())
+                <a href="{{ route('login') }}" class="{{ request()->route()->getName() == 'login' ? 'red' : '' }}">DASHBOARD</a>
+            @else
             <a href="{{ route('login') }}" class="{{ request()->route()->getName() == 'login' ? 'red' : '' }}">LOGIN</a>
+            @endif
         </li>
     </ul>
 </nav>
-

@@ -14,8 +14,8 @@ class CompanyEditInfo extends Component
     public $co_email;
     public $co_isactive;
     public $co_website;
+    public $updateStatus;
 
-    // TODO redirect to company profile dashboard on save
     public function save()
     {
         $this->validate([
@@ -37,6 +37,12 @@ class CompanyEditInfo extends Component
         $company->save();
 
         session()->flash('update-status', 'Company Successfully Updated.');
+
+        return redirect()->route('dashboard');
+    }
+    public function goToDashboard()
+    {
+        return redirect()->route('dashboard');
     }
 
     public function render()

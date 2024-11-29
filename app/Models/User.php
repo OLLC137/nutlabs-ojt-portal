@@ -29,7 +29,8 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
-        'role'
+        'role',
+        'company_id'
     ];
 
     /**
@@ -71,9 +72,13 @@ class User extends Authenticatable
     }
 
     public function company()
-    {
-        return $this->hasOne(OjtCompany::class);
+{
+    // Check if the user's role corresponds to a company user
+    if ($this->role == 4) {
+        return $this->belongsTo(OjtCompany::class, 'company_id');
     }
 
+    return null;
+}
 
 }

@@ -11,6 +11,7 @@ Route::middleware([
     Route::get('/get-started', fn () => view('pages.landing-page'))->name('landing-page');
     Route::get('/cv-profile-page', fn () => view('pages.cv-profile-page'))->name('cv-profile-page');
     Route::get('/edit-cv-page', fn () => view('pages.edit-cv-page'))->name('edit-cv-page');
+    Route::get('/student-joblist', fn () => view('pages.student.joblist'))->name('student-joblist');
 
     Route::middleware([
         'auth', CheckStudentId::class

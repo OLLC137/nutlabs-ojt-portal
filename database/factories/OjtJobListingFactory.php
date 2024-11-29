@@ -20,6 +20,7 @@ class OjtJobListingFactory extends Factory
         $companyIds = OjtCompany::pluck('id')->toArray();
         $companyCategories = OjtJobListCategory::pluck('id')->toArray();
 
+
         $companyId = $this->faker->randomElement($companyIds);
         $randomDigits = str_pad($this->faker->numberBetween(1, 9999), 4, '0', STR_PAD_LEFT);
         $jobRef = sprintf('OJT-%d-%s', $companyId, $randomDigits);
@@ -30,7 +31,24 @@ class OjtJobListingFactory extends Factory
             'job_list' => $this->faker->jobTitle,
             'job_desc' => $this->faker->paragraph(10),
             'job_category' => $this->faker->randomElement($companyCategories),
-            'job_status' => $this->faker->boolean(50),
+            'job_programs' => implode(', ', $this->faker->randomElements([
+                "Fine Arts and Design",
+                "BS Architecture",
+                "BS Chemical Engineering",
+                "BS Civil Engineering",
+                "BS Computer Engineering",
+                "BS Electrical Engineering",
+                "BS Aerospace Engineering",
+                "BS Biomedical Engineering",
+                "BS Electronics Engineering",
+                "BS Mechatronics Engineering",
+                "BS Industrial Engineering",
+                "BS Automotive Engineering",
+                "BS Mechanical Engineering",
+                "BS Computer Science",
+                "BS Information Technology"
+            ]
+            , rand(0, 3))),
         ];
     }
 }

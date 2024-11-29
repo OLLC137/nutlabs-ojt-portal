@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Applicant;
+use App\Models\OjtApplicant;
+use App\Models\OjtCompany;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -13,19 +14,20 @@ class OjtApplicantSeeder extends Seeder
         DB::table('applicants')->truncate();
 
         $students = \App\Models\OjtStudent::all();
+        $companies = OjtCompany::all();
 
-        if ($students->isEmpty()) {
+        if ($students->isEmpty() || $companies->isEmpty()) {
             echo "No students found to associate with applicants.\n";
             return;
         }
 
-        $shuffledStudents = $students->shuffle();
 
-        foreach ($shuffledStudents as $student) {
-            Applicant::create([
-                'student_id' => $student->id, // Student ID for each applicant
-                'application_date' => now()->subDays(rand(1, 30)), // Random application date within the last 30 days
-                'status' => rand(0, 1), // Random status (Pending = 0 or Approved = 1)
+        foreach ($students as $student) {
+            OjtApplicant::create([
+                'student_id' => $student->id,
+                'company_id' => $companies->random()->id, // Associate each applicant with a random company
+                'application_date' => now()->subDays(rand(1, 30)),
+                'status' => 0, // Default status
             ]);
         }
     }

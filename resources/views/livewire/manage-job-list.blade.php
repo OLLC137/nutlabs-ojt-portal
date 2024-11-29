@@ -9,109 +9,107 @@
         <x-template.icon class="btn-icon-prepend">subdirectory-arrow-left</x-template.icon>
     back
     </button>
-    <div class="card my-4 py-2 px-2">
-        <div class="card-body">
-            <div class="card-title">
-                <h2>Add a new job list</h2>
-            </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <h4 class="mb-0">Job Information</h4>
-                    <div class="form-group mb-0">
-                        <label for="" class="col-form-label mb-0">Job List Name</label>
-                        <div class=""><input wire:model="inputJobList" type="text" class="form-control" placeholder=""></div>
-                        @error('inputJobList') <span class="error">A job list name is required!</span> @enderror
-                    </div>
-                    <div class="form-group mb-0">
-                        <label for="" class="col-form-label mb-0">Category</label>
-                        <div class="position-relative bg-white">
-                            <input wire:click="toggleCategory" wire:model="selectedCategoryName" class="form-control text-muted" role="button" placeholder="Select Category" readonly></input>
-                            <div class="dropdown-box w-100 px-0" style="{{ $this->categoryDisplayNone() }}">
-                                <input wire:model.live='categorySearchTerm' class="form-control" type="search" placeholder="Search" aria-label="Search">
-                                <ul class="dropdown-options w-100 px-0">
-                                    @foreach ($categoryGroup as $item)
-                                    <li wire:key="{{ $item->id }}" wire:click="selectCategoryId({{ $item->id }}, '{{ $item->name }}')" class="dropdown-option d-flex align-items-center px-2 mx-0" role="button">{{ $item->name }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            @error('selectedCategoryId') <span class="error">A category is required!</span> @enderror
+
+
+    <div class="row">
+        <div class="card mt-3">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-xl-6 p-4 border">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h1>{{ $jobInfo->job_list }}</h1>
+                            <h4 class="bg-primary text-white p-1 rounded">{{ $selectedCategoryName }}</h4>
                         </div>
-                    </div>
-                    <div class="form-group mb-0">
-                        <label for="" class="col-form-label mb-0">Description</label>
-                        <x-input.rich-text wire:model.debounce="inputDescription" :initial-value="$inputDescription"></x-input.rich-text>
-                    </div>
-                    @error('inputDescription') <span class="error">A description is required!</span> @enderror
-                </div>
-                <div class="col-lg-6 d-flex flex-column justify-content-between">
-                    <div>
-                        <h4 class="mb-0">Company Information</h4>
-                        <div class="form-group mb-0">
-                            <label for="" class="col-form-label mb-0">Company</label>
-                            <div class="position-relative bg-white">
-                                @if (!$company)
-                                <input wire:click="toggleCompany" wire:model="selectedCompanyName" class="form-control text-muted" role="button" placeholder="Select Company" readonly></input>
-                                <div class="dropdown-box w-100 px-0" style="{{ $this->companyDisplayNone() }}">
-                                    <input wire:model.live='companySearchTerm' class="form-control" type="search" placeholder="Search" aria-label="Search">
-                                    <ul class="dropdown-options w-100 px-0">
-                                        @foreach ($companyGroup as $item)
-                                        <li wire:key="{{ $item->id }}" wire:click="selectCompanyId({{ $item->id }})" class="dropdown-option d-flex align-items-center px-2 mx-0" role="button">{{ $item->name }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                                @else
-                                <input class="form-control text-muted" placeholder="{{ $selectedCompanyName }}" readonly></input>
-                                @endif
+                            <div class="form-group mb-0">
+
+                            <p class="display-5 font-weight-bold mb-0">{{ $selectedCompanyName }}</p>
+                            <p class="">
+                                <x-template.icon>map-marker-outline</x-template.icon>
+                                {{ $jobInfo->co_address }}
+                            </p>
+                            <div class="mb-4">
+                                {!! $jobInfo->job_desc !!}
                             </div>
-                            @error('selectedCompanyId') <span class="error">A company is required!</span> @enderror
-                        </div>
-                        <div class="form-group mb-0">
-                            <label for="" class="col-form-label mb-0">Contact Person</label>
-                            <select class="form-control" wire:model="selectedContact">
-                                @if ($this->editJobList)
-                                <option value="">(Unchanged)</option>
-                                @else
-                                <option value="">Select a contact person</option>
-                                @endif
-                                @foreach ($contactPeople as $contactPerson)
-                                <option value="{{ $contactPerson->id }}">{{ $contactPerson->name }}</option>
+                            </div>
+
+                            <p class="font-weight-bold">Recommended Programs</p>
+                            @if (!empty($jobPrograms))
+                            <p class="font-weight-bold">Recommended Programs</p>
+                            <div class="d-flex flex-row text-white flex-wrap">
+                                @foreach ($jobPrograms as $program)
+                                    <p class="bg-secondary p-1 mx-1 rounded">
+                                        <x-template.icon>tag-outline</x-template.icon>
+                                        {{ $program }} <!-- Display each program -->
+                                    </p>
                                 @endforeach
-                            </select>
-                            @error('selectedContact') <span class="error">A contact person is required!</span> @enderror
+                            </div>
+                        @else
+                            <p>No recommended programs available.</p>
+                        @endif
+
+
+                    </div>
+
+
+
+                    <!--Right Side-->
+                    <div class="col-xl-6 p-4">
+                        <div>
+                            <h2>Resumé</h2>
+                            <div class="form-check mx-4 my-0">
+                                <input class="form-check-input" type="radio" wire:model="resumeSelect"
+                                    value="useResume" id="useResume">
+                                <label class="form-check-label" for="useResume">
+                                    Use resumé from requirements
+                                </label>
+                            </div>
+                            <div class="form-check mx-4 my-0">
+                                <input class="form-check-input" type="radio" wire:model="resumeSelect"
+                                    value="uploadResume" id="uploadResume">
+                                <label class="form-check-label" for="uploadResume">
+                                    Upload new resumé
+                                </label>
+                            </div>
+                            <div class="form-check mx-4 my-0">
+                                <input class="form-check-input" type="radio" wire:model="resumeSelect"
+                                    value="noResume" id="noResume">
+                                <label class="form-check-label" for="noResume">
+                                    Do not include a resumé
+                                </label>
+                            </div>
+
+                            <h2>Cover Letter</h2>
+                            <div class="form-check mx-4 my-0">
+                                <input class="form-check-input" type="radio" wire:model="coverSelect"
+                                    value="uploadCover" id="uploadCover">
+                                <label class="form-check-label" for="uploadCover">
+                                    Upload Cover Letter
+                                </label>
+                            </div>
+                            <div class="form-check mx-4 my-0">
+                                <input class="form-check-input" type="radio" wire:model="coverSelect"
+                                    value="writeCover" id="writeCover">
+                                <label class="form-check-label" for="writeCover">
+                                    Write a Cover
+                                </label>
+                            </div>
+                            <div class="form-check mx-4 my-0">
+                                <input class="form-check-input" type="radio" wire:model="coverSelect"
+                                    value="noCover" id="noCover">
+                                <label class="form-check-label" for="noCover">
+                                    Do not include a cover letter
+                                </label>
+                            </div>
                         </div>
+
                     </div>
-                    @if($this->editJobList)
-                    <div class="form-group mb-0 d-flex flex-column">
-                        <label for="" class="col-form-label mb-0">Job List Status</label>
-                        @if ($jobActiveStatus)
-                        <button class="btn btn-success" wire:click="$set('jobActiveStatus', false)">OPEN</button>
-                        @else
-                        <button class="btn btn-secondary" wire:click="$set('jobActiveStatus', true)">CLOSED</button>
-                        @endif
-                    </div>
-                    <div class="d-flex justify-content-end">
-                        @if ($this->confirmDeletion)
-                        <p class="align-self-end mx-5">Are you sure you want to delete?</p>
-                        <button class="btn btn-info mt-5" wire:click="$set('confirmDeletion', null)">No</button>
-                        <button class="btn btn-danger mx-2 mt-5" wire:click="deleteJobList">Yes</button>
-                        @else
-                        <x-template.button color="danger" class="mx-2 mt-5" wire:click="$set('confirmDeletion','true')">
-                            Delete
-                        </x-template.button>
-                        <x-template.button color="success" class="mx-2 mt-5" wire:click="updateJobList">
-                            Save
-                        </x-template.button>
-                        @endif
-                    </div>
-                    @else
-                    <x-template.button color="success" class="ml-auto mt-5 align-self-end" wire:click="createJobList">
-                        Create
-                    </x-template.button>
-                    @endif
+
                 </div>
             </div>
         </div>
     </div>
+
+
 
     @elseif (!$this->company)
     <h1>Manage Job Listings</h1>
@@ -137,9 +135,7 @@
                 <x-template.button variant="inverse" :rounded="true" color="primary" wire:click="setByCompany(false)">
                     All Job Lists
                 </x-template.button>
-                <x-template.button variant="inverse" :rounded="true" color="primary" wire:click="goToJobList">
-                    Add a Job List <i class="btn-icon-append"><x-template.icon>plus</x-template.icon></i>
-                </x-template.button>
+
 
             </div>
         </div>
@@ -185,7 +181,6 @@
                             <th>Company Name</th>
                             <th>Job List</th>
                             <th>Job Category</th>
-                            <th>Contact Person</th>
                             <th>Job Status</th>
                             <th></th>
                         </tr>
@@ -224,9 +219,6 @@
                 <x-template.icon class="btn-icon-prepend">subdirectory-arrow-left</x-template.icon>
             back
             </button>
-            <x-template.button  variant="inverse" :rounded="true" color="primary" wire:click="goToJobList">
-                Add a Job List <i class="btn-icon-append"><x-template.icon>plus</x-template.icon></i>
-            </x-template.button>
         </div>
 
         <p class="h1 my-4">Job Listings of {{ $companyName }}</p>
@@ -237,7 +229,6 @@
                     <th>Job Ref #</th>
                     <th>Job List</th>
                     <th>Job Category</th>
-                    <th>Contact Person</th>
                     <th>Job Status</th>
                     <th></th>
                 </tr>

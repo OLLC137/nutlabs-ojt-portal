@@ -17,6 +17,7 @@ class OjtJobListing extends Model
         'job_ref',
         'job_list',
         'job_desc',
+        'job_programs',
         'job_category',
         'job_status',
     ];

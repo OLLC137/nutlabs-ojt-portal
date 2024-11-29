@@ -59,5 +59,15 @@ class OjtStudent extends Model
     {
         return $this->hasMany(OjtAccomplishment::class);
     }
+      // Student.php
+    public function applicants()
+    {
+        return $this->hasMany(OjtApplicant::class, 'student_id');
+    }
+    public function scopeByDepartment($query, $department)
+    {
+    return $query->where('stud_department', $department);
+    }
+
 
 }

@@ -11,12 +11,8 @@ class ViewCompany extends Component
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
-
     public $searchQuery = '';
     public $filterStatus = null;
-    public $selectedCompanyId = null;
-    public $companyDetail;
-
     public $co_name;
     public $co_address;
     public $co_contact_number;
@@ -24,7 +20,7 @@ class ViewCompany extends Component
     public $co_isactive;
     public $co_website;
 
-    protected $queryString = ['searchQuery', 'filterStatus', 'selectedCompanyId'];
+    protected $queryString = ['searchQuery', 'filterStatus'];
 
     public function mount()
     {
@@ -62,13 +58,6 @@ class ViewCompany extends Component
         }
     }
 
-
-
-    public function selectCompany($companyId)
-    {
-        $this->selectedCompanyId = $companyId;
-    }
-
     public function triggerSearch()
     {
     }
@@ -76,12 +65,6 @@ class ViewCompany extends Component
     public function clearSearch()
     {
         $this->searchQuery = '';
-    }
-
-    public function resetCompanyDetail()
-    {
-        $this->selectedCompanyId = null;
-        $this->filterStatus = null;
     }
 
     public function render()
@@ -104,57 +87,9 @@ class ViewCompany extends Component
 
         $companies = $query->paginate(10);
 
-        if ($this->selectedCompanyId) {
-            if (!is_numeric($this->selectedCompanyId)) {
-                $this->selectedCompanyId = null;
-            } else {
-                $this->companyDetail = OjtCompany::findOrFail($this->selectedCompanyId);
-
-                // Set the editable fields
-                $this->co_name = $this->companyDetail->co_name;
-                $this->co_address = $this->companyDetail->co_address;
-                $this->co_contact_number = $this->companyDetail->co_contact_number;
-                $this->co_email = $this->companyDetail->co_email;
-                $this->co_isactive = $this->companyDetail->co_isactive;
-                $this->co_website = $this->companyDetail->co_website;
-            }
-        }
 
         return view('livewire.view-company', [
             'companies' => $companies,
         ]);
-    }
-
-    public function saveCompanyDetails()
-    {
-        $this->validate([
-            'co_name' => 'required|string|max:255',
-            'co_address' => 'nullable|string|max:255',
-            'co_contact_number' => 'nullable|string|max:255',
-            'co_email' => 'nullable|email|max:255',
-            'co_isactive' => 'required|boolean',
-            'co_website' => 'nullable|url|max:255',
-        ]);
-
-        $company = OjtCompany::findOrFail($this->selectedCompanyId);
-        $company->co_name = $this->co_name;
-        $company->co_address = $this->co_address;
-        $company->co_contact_number = $this->co_contact_number;
-        $company->co_email = $this->co_email;
-        $company->co_isactive = $this->co_isactive;
-        $company->co_website = $this->co_website;
-        $company->save();
-
-        session()->flash('update-status', 'Company Successfully Updated.');
-
-        // $this->resetCompanyDetail();
-
-        return $this->redirect('/view-company-page');
-    }
-
-    public function delete($companyId)
-    {
-        $company = OjtCompany::find($companyId);
-
     }
 }

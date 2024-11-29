@@ -2,22 +2,22 @@
 
 namespace Database\Factories;
 
-use App\Models\Applicant;
+use App\Models\OjtApplicant;
 use App\Models\OjtStudent;
+use App\Models\OjtCompany;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ApplicantFactory extends Factory
 {
-    protected $model = Applicant::class;
+    protected $model = OjtApplicant::class;
 
     public function definition()
     {
         return [
-            'student_id' => OjtStudent::inRandomOrder()->first()->id, // Random existing student
+            'student_id' => OjtStudent::inRandomOrder()->first()->id,
+            'company_id' => OjtCompany::inRandomOrder()->first()->id,
             'application_date' => $this->faker->date(),
-            'status' => $this->faker->numberBetween(0, 1), // Random status (Pending = 0 or Approved = 1)
-            'created_at' => now(),
-            'updated_at' => now(),
+            'status' => 0, // Set status to 0 by default
         ];
     }
 }
