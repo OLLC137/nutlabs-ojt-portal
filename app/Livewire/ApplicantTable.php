@@ -4,7 +4,8 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\Applicant;
+use App\Models\OjtApplicant;
+
 use Illuminate\Support\Facades\Auth;
 
 class ApplicantTable extends Component
@@ -31,7 +32,7 @@ class ApplicantTable extends Component
 
     public function executeAction()
     {
-        $applicant = Applicant::find($this->applicantIdToDelete);
+        $applicant = OjtApplicant::find($this->applicantIdToDelete);
 
         if ($applicant) {
             if ($this->actionType === 'accept') {
@@ -54,8 +55,8 @@ class ApplicantTable extends Component
         $user = Auth::user();
 
         $query = $user && $user->role === 4
-            ? Applicant::where('company_id', $user->id)
-            : Applicant::query();
+            ? OjtApplicant::where('company_id', $user->id)
+            : OjtApplicant::query();
 
         // Apply search query if it exists
         if (!empty($this->searchQuery)) {

@@ -2,14 +2,14 @@
 
 namespace Database\Factories;
 
-use App\Models\Applicant;
+use App\Models\OjtApplicant;
 use App\Models\OjtStudent;
 use App\Models\OjtCompany;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ApplicantFactory extends Factory
 {
-    protected $model = Applicant::class;
+    protected $model = OjtApplicant::class;
 
     public function definition()
     {

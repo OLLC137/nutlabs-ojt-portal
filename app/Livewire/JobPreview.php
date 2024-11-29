@@ -10,14 +10,24 @@ use Livewire\Attributes\Url;
 class JobPreview extends Component
 {
     public $jobInfo;
-    #[Url] public $id = 1;
+    public $jobPrograms;
+    #[Url] public $id;
 
+    public function mount(){
+        if($this->id == null){
+            return redirect()->route('joblist');
+        }
+    }
 
     public function render()
     {
         $this->updateJobInfo($this->id);
 
         return view('livewire.job-preview');
+    }
+
+    public function applyJob($id){
+        return redirect()->route('student-joblist', ['id' => $id]);
     }
 
     public function updateJobInfo($jobId){
@@ -33,9 +43,11 @@ class JobPreview extends Component
             'ojt_job_listings.job_desc as job_desc',
             'ojt_job_listings.job_ref as job_ref',
             'ojt_companies.co_name as company_name',
-            'ojt_companies.co_address as location'
+            'ojt_companies.co_address as location',
+            'ojt_job_listings.job_programs as job_programs'
         )
         ->first();
+        $this->jobPrograms = explode(',', $this->jobInfo->job_programs);
     }
 
     public function getColorForCategoryId($categoryId) {
@@ -55,5 +67,9 @@ class JobPreview extends Component
         }
 
         return $style;
+    }
+
+    public function searchProgram($program){
+        return redirect()->route('joblist', ['program' => $program]);
     }
 }

@@ -9,7 +9,9 @@ class OjtDownloadable extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'file_path',
         'file_name',
-        'file_file',
+        'file_original_name',
+        'file_type'
     ];
 }

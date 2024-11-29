@@ -4,6 +4,8 @@ use App\Livewire\JobListPage;
 use App\Livewire\JobPreview;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Middleware\CheckRole;
+use App\Models\OjtApplicant;
 
 require_once __DIR__.'/ojt-coordinator-route.php';
 require_once __DIR__.'/ojt-head-route.php';

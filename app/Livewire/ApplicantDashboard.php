@@ -3,7 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\Applicant;
+use App\Models\OjtApplicant;
 use Illuminate\Support\Facades\Auth;
 
 class ApplicantDashboard extends Component
@@ -23,7 +23,7 @@ class ApplicantDashboard extends Component
         // Check if user is a company (role 4)
         if ($user && $user->role === 4) {
             // Fetch applicants for the logged-in company
-            $applicants = Applicant::with('student')
+            $applicants = OjtApplicant::with('student')
                 ->where('company_id', $user->id)
                 ->get();
 

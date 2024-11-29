@@ -32,22 +32,21 @@
                             <tr>
                                 <th>SR-Code</th>
                                 <th>First Name</th>
-                                <th>M.I.</th>
                                 <th>Last Name</th>
-                                <th>Suffix</th>
                                 <th>Department</th>
+                                <th>Year Level</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
+                        
                         <tbody>
                             @foreach($applicants as $applicant)
                                 <tr>
                                     <td>{{ $applicant->student->stud_sr_code }}</td>
                                     <td>{{ $applicant->student->stud_first_name }}</td>
-                                    <td>{{ $applicant->student->stud_middle_initial }}</td>
                                     <td>{{ $applicant->student->stud_last_name }}</td>
-                                    <td>{{ $applicant->student->stud_suffix }}</td>
                                     <td>{{ $applicant->student->stud_department }}</td>
+                                    <td>{{ $applicant->student->stud_year_level }}</td>
                                     <td>
                                         <button class="btn btn-success btn-sm" wire:click="confirmAction({{ $applicant->id }}, 'accept')">Accept</button>
                                         <button class="btn btn-danger btn-sm" wire:click="confirmAction({{ $applicant->id }}, 'delete')">Delete</button>

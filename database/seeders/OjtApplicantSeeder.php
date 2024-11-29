@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Applicant;
+use App\Models\OjtApplicant;
 use App\Models\OjtCompany;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +23,7 @@ class OjtApplicantSeeder extends Seeder
 
 
         foreach ($students as $student) {
-            Applicant::create([
+            OjtApplicant::create([
                 'student_id' => $student->id,
                 'company_id' => $companies->random()->id, // Associate each applicant with a random company
                 'application_date' => now()->subDays(rand(1, 30)),

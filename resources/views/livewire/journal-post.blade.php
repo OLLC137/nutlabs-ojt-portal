@@ -3,18 +3,24 @@
         <div class="col-xl-8 mb-4">
             <div class="card">
                 <div class="card-body">
+                    @if(!$isTodayDone)
                     @include('livewire.journal-post-includes.Task-Card')
+                    @endif
                     <div class="mt-4">
+                        @if($isTodayDone)
+                        <h4 class="journalp-accomplishment-header"> Journal for Today is Already Completed </h4>
+                        @else
                         <h4 class="journalp-accomplishment-header"> Accomplishments for Today </h4>
                         <div class="form-group mt-2 mb-0">
-                            <x-input.rich-text wire:model.debounce="acc_accomplishments"
+                            <x-input.rich-text disabled wire:model.debounce="acc_accomplishments"
                                 :initial-value="$acc_accomplishments"></x-input.rich-text>
                         </div>
+                        @endif
                         @error('acc_accomplishments')
                             <span style="color:red" class="text-xs mt-3 block">{{ $message }}</span>
                         @enderror
                     </div>
-
+                    @if(!$isTodayDone)
                     @if ($editID)
                     <button wire:click.prevent="editJournal" type="submit"
                             class="btn btn-success btn-icon-text mt-3">
@@ -32,6 +38,7 @@
                         Submit
                     </button>
                     @endif
+                    @endif
                 </div>
             </div>
         </div>
@@ -46,8 +53,8 @@
                 </div>
             </div>
             @if(session()->has('message'))
-                <div class="alert alert-success" x-data="{ show: false }" 
-                x-show.transition.opacity.duration.1500ms="show" 
+                <div class="alert alert-success" x-data="{ show: false }"
+                x-show.transition.opacity.duration.1500ms="show"
                 x-init="show = true; setTimeout(() => { show = false; }, 4000)">
                     {{ session('message') }}
                 </div>
