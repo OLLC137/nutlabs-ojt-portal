@@ -90,40 +90,49 @@
     </li>
     @endrole()
 
-    @role(STUDENT)
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('landing-page') }}">
-        <x-template.icon class="menu-icon"> account-box </x-template.icon>
-            <span class="menu-title">Get Started</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('view-cv-page') }}">
-        <x-template.icon class="menu-icon"> account-box </x-template.icon>
-            <span class="menu-title">CV Profile</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('intern-requirements') }}">
-            <x-template.icon class="menu-icon"> clipboard-check </x-template.icon>
-            <span class="menu-title">Upload Requirements</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-        <x-template.icon class="menu-icon"> book </x-template.icon>
-            <span class="menu-title">Accomplishment</span>
-            <i class="menu-arrow"></i>
+            @role(STUDENT)
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('landing-page') }}">
+                        <x-template.icon class="menu-icon"> account-box </x-template.icon>
+                        <span class="menu-title">Get Started</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('view-cv-page') }}">
+                        <x-template.icon class="menu-icon"> account-box </x-template.icon>
+                        <span class="menu-title">CV Profile</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('intern-requirements') }}">
+                        <x-template.icon class="menu-icon"> clipboard-check </x-template.icon>
+                        <span class="menu-title">Upload Requirements</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('student-joblist') }}">
+                        <x-template.icon class="menu-icon"> format-list-bulleted </x-template.icon>
+                        <span class="menu-title">Job Listing</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
+                        aria-controls="ui-basic">
+                        <x-template.icon class="menu-icon"> book </x-template.icon>
+                        <span class="menu-title">Accomplishment</span>
+                        <i class="menu-arrow"></i>
 
-        </a>
-        <div class="collapse" id="ui-basic">
-            <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{{ route('journal.journal-post') }}">Journal Posting</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{{ route('journal.journal-view') }}">Journal Viewing</a></li>
-            </ul>
-        </div>
-    </li>
-    @endrole()
+                    </a>
+                    <div class="collapse" id="ui-basic">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="{{ route('journal.journal-post') }}">Journal
+                                    Posting</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{ route('journal.journal-view') }}">Journal
+                                    Viewing</a></li>
+                        </ul>
+                    </div>
+                </li>
+            @endrole()
 
     @role(HEAD)
     <li class="nav-item">
