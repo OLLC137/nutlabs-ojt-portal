@@ -188,4 +188,5 @@ class StudentJoblist extends Component
 
         return view('livewire.student-joblist');
     }
+
 }
