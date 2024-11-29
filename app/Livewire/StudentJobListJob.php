@@ -176,7 +176,7 @@ class StudentJobListJob extends Component
 
         $student = OjtStudent::where('user_id', Auth::id())->first();
         $applicantData = [
-            'status' => 1,
+            'status' => 2,
             'student_id' => $student->id,
             'joblist_id' => $this->id,
             'application_date' => now(),

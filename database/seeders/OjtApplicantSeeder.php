@@ -21,7 +21,7 @@ class OjtApplicantSeeder extends Seeder
 
             foreach ($joblistIds as $joblistId) {
                 OjtApplicant::create([
-                    'status' => 1,
+                    'status' => 2,
                     'student_id' => $student->id,
                     'joblist_id' => $joblistId, // Associate with unique joblist ID
                     'application_date' => now()->subDays(rand(1, 30)),

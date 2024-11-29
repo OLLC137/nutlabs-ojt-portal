@@ -23,8 +23,8 @@ class OjtApplicant extends Model
     ];
 
     const STATUS = [
-        1 => "Pending", // default value
-        2 => "Accepted",
+        1 => "Accepted", // default value
+        2 => "Pending",
         3 => "Rejected"
     ];
 
