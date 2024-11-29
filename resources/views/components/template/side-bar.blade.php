@@ -138,6 +138,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('student-applications') }}">
+                        <x-template.icon class="menu-icon"> book-multiple-variant </x-template.icon>
+                        <span class="menu-title">Job Applications</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
                         aria-controls="ui-basic">
                         <x-template.icon class="menu-icon"> book </x-template.icon>
