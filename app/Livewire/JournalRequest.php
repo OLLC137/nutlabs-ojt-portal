@@ -14,6 +14,7 @@ class JournalRequest extends Component
     public $acc_hours;
     public $requestDate;
     public $requestReason;
+    public $status;
 
     protected $rules = [
         'acc_hours' => 'required|numeric|min:1',
@@ -35,7 +36,6 @@ class JournalRequest extends Component
             'student_id' => $this->student_id,
             'requested_date' => $this->requestDate,
             'reason' => $this->requestReason,
-            'status' => 'pending',
             'acc_accomplishments' => $this->acc_accomplishments,
             'acc_hours' => $this->acc_hours
         ]);

@@ -129,6 +129,7 @@
                                     Posting</a></li>
                             <li class="nav-item"> <a class="nav-link" href="{{ route('journal.journal-view') }}">Journal
                                     Viewing</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{ route('journal.journal-request') }}">Journal Request</a></li>
                         </ul>
                     </div>
                 </li>
