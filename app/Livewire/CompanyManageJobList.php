@@ -24,6 +24,7 @@ class CompanyManageJobList extends Component
     public $inputDescription;
     public $inputPrograms;
     public $inputSlots;
+    public $jobActiveStatus = true;
 
     public $confirmDeletion = false;
 
@@ -74,6 +75,7 @@ class CompanyManageJobList extends Component
         $this->inputPrograms = $jobList->job_programs;
         $this->inputDescription = $jobList->job_desc;
         $this->inputSlots = $jobList->job_slots;
+        $this->jobActiveStatus = $jobList->job_status;
     }
 
     public function categoryDisplayNone()
@@ -113,7 +115,8 @@ class CompanyManageJobList extends Component
                 'job_desc' => $this->inputDescription,
                 'job_programs' => $this->inputPrograms,
                 'job_category' => $this->selectedCategoryId,
-                'job_slots' => $this->inputSlots
+                'job_slots' => $this->inputSlots,
+                'job_status' => $this->jobActiveStatus
             ]);
 
         $this->reset('inputJobList');
@@ -121,6 +124,7 @@ class CompanyManageJobList extends Component
         $this->reset('inputPrograms');
         $this->reset('inputDescription');
         $this->reset('inputSlots');
+        $this->reset('jobActiveStatus');
         $this->selectedCategoryName = '';
 
         $this->joblist = null;
@@ -139,6 +143,7 @@ class CompanyManageJobList extends Component
             $this->reset('selectedCategoryId');
             $this->reset('inputPrograms');
             $this->reset('inputDescription');
+            $this->reset('jobActiveStatus');
             $this->selectedCategoryName = '';
             $this->joblist = null;
         }
@@ -151,6 +156,7 @@ class CompanyManageJobList extends Component
         $this->reset('inputPrograms');
         $this->reset('inputDescription');
         $this->reset('inputSlots');
+        $this->reset('jobActiveStatus');
         $this->selectedCategoryName = '';
         $this->joblist = true;
     }
@@ -184,7 +190,8 @@ class CompanyManageJobList extends Component
             'job_programs' => $this->inputPrograms,
             'job_desc' => $this->inputDescription,
             'job_category' => $this->selectedCategoryId,
-            'job_slots' => $this->inputSlots
+            'job_slots' => $this->inputSlots,
+            'job_status' => $this->jobActiveStatus
         ];
 
         OjtJobListing::create($jobData);
@@ -194,6 +201,7 @@ class CompanyManageJobList extends Component
         $this->reset('inputPrograms');
         $this->reset('inputDescription');
         $this->reset('inputSlots');
+        $this->reset('jobActiveStatus');
         $this->selectedCategoryName = '';
         $this->closeCategory();
 

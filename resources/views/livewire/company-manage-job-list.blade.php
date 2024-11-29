@@ -54,7 +54,8 @@
                             </div>
                         </div>
                         <div class="form-group mb-0">
-                            <label for="" class="col-form-label mb-0">Recommended Programs <span style="font-size: 0.8em;">(Separated by comma)</span></label>
+                            <label for="" class="col-form-label mb-0">Recommended Programs <span
+                                    style="font-size: 0.8em;">(Separated by comma)</span></label>
                             <div class=""><input wire:model="inputPrograms" type="text" class="form-control"
                                     placeholder=""></div>
                         </div>
@@ -74,6 +75,16 @@
                         @error('inputDescription')
                             <span class="error">A description is required!</span>
                         @enderror
+                        <div class="form-group mb-0 d-flex flex-column">
+                            <label for="" class="col-form-label mb-0">Job List Status</label>
+                            @if ($jobActiveStatus)
+                                <button class="btn btn-success"
+                                    wire:click="$set('jobActiveStatus', false)">OPEN</button>
+                            @else
+                                <button class="btn btn-secondary"
+                                    wire:click="$set('jobActiveStatus', true)">CLOSED</button>
+                            @endif
+                        </div>
                         <div class="d-flex justify-content-end">
                             @if ($this->joblist === true)
                                 <x-template.button color="success" class="ml-auto mt-5 align-self-end"
