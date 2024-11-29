@@ -155,7 +155,7 @@ class StudentJobListJob extends Component
         }
         if ($this->coverSelect == 2) {
             $this->validate([
-                'writeCover' => 'required|string|max:1000',
+                'writeCover' => 'required|string|max:2000',
             ]);
         } else {
             $this->writeCover = null;
