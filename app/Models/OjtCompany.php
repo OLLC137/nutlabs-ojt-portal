@@ -5,14 +5,11 @@ namespace App\Models;
 use App\Models\OjtCompanyFile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
 
 class OjtCompany extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
     protected $fillable = [
         'user_id',
@@ -24,10 +21,6 @@ class OjtCompany extends Model
         'co_isactive',
     ];
 
-    public function jobListing()
-    {
-        return $this->hasMany(OjtJobListing::class, 'id');
-    }
 
     public function companyFile()
     {
@@ -38,4 +31,3 @@ class OjtCompany extends Model
         return $this->belongsTo(User::class);
     }
 }
-
