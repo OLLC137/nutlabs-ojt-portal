@@ -103,7 +103,7 @@ class JobListPage extends Component
     }
 
     public function applyJob($id){
-        return redirect()->route('student-joblist', ['id' => $id]);
+        return redirect()->route('student-joblist-job', ['id' => $id]);
     }
 
     public function updateJobInfo($jobId){

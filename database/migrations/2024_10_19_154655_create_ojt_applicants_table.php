@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('ojt_applicants', function (Blueprint $table) {
             $table->id();
+            $table->integer('status'); // Value from 1 - 3
             $table->unsignedBigInteger('student_id');  // Foreign key to ojt_students id
             $table->unsignedBigInteger('joblist_id');  // Foreign key to ojt_companies id
             $table->date('application_date');
