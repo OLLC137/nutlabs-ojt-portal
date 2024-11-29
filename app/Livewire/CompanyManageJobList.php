@@ -8,9 +8,13 @@ use App\Models\OjtJobListing;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Url;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class CompanyManageJobList extends Component
 {
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
+
     public $company_id;
     public $company_name;
     public $joblist;
@@ -19,6 +23,7 @@ class CompanyManageJobList extends Component
     public $selectedCategoryId;
     public $inputDescription;
     public $inputPrograms;
+    public $inputSlots;
 
     public $confirmDeletion = false;
 
@@ -68,6 +73,7 @@ class CompanyManageJobList extends Component
         $this->selectedCategoryName = $jobList->cat_name;
         $this->inputPrograms = $jobList->job_programs;
         $this->inputDescription = $jobList->job_desc;
+        $this->inputSlots = $jobList->job_slots;
     }
 
     public function categoryDisplayNone()
@@ -97,6 +103,7 @@ class CompanyManageJobList extends Component
             'selectedCategoryId' => 'required',
             'inputPrograms' => 'string|max:1024',
             'inputDescription' => 'required|string|max:5000',
+            'inputSlots' => 'required|int'
         ]);
 
         OjtJobListing::find($this->joblist)
@@ -105,13 +112,15 @@ class CompanyManageJobList extends Component
                 'job_list' => $this->inputJobList,
                 'job_desc' => $this->inputDescription,
                 'job_programs' => $this->inputPrograms,
-                'job_category' => $this->selectedCategoryId
+                'job_category' => $this->selectedCategoryId,
+                'job_slots' => $this->inputSlots
             ]);
 
         $this->reset('inputJobList');
         $this->reset('selectedCategoryId');
         $this->reset('inputPrograms');
         $this->reset('inputDescription');
+        $this->reset('inputSlots');
         $this->selectedCategoryName = '';
 
         $this->joblist = null;
@@ -119,12 +128,13 @@ class CompanyManageJobList extends Component
         $this->mount();
         session()->flash('status', 'Information successfully saved.');
     }
-    public function deleteJobList(){
+    public function deleteJobList()
+    {
         $jobList = OjtJobListing::find($this->joblist);
         if ($jobList) {
             $jobList->delete();
             session()->flash('status', 'Job List Successfully Deleted.');
-            $this->confirmDeletion=false;
+            $this->confirmDeletion = false;
             $this->reset('inputJobList');
             $this->reset('selectedCategoryId');
             $this->reset('inputPrograms');
@@ -134,26 +144,30 @@ class CompanyManageJobList extends Component
         }
     }
 
-    public function addJobList(){
+    public function addJobList()
+    {
         $this->reset('inputJobList');
         $this->reset('selectedCategoryId');
         $this->reset('inputPrograms');
         $this->reset('inputDescription');
+        $this->reset('inputSlots');
         $this->selectedCategoryName = '';
         $this->joblist = true;
     }
 
-    public function createJobList(){
+    public function createJobList()
+    {
         $this->validate([
             'inputJobList' => 'required|string|max:225',
             'selectedCategoryId' => 'required',
             'inputPrograms' => 'string|max:1024',
-            'inputDescription' =>'required|string|max:1024',
+            'inputDescription' => 'required|string|max:5000',
+            'inputSlots' => 'required|int'
         ]);
 
-        $lastJob = OjtJobListing::where('job_ref','like',"OJT-{$this->company_id}-%")
-                ->orderBy('id','desc')
-                ->first();
+        $lastJob = OjtJobListing::where('job_ref', 'like', "OJT-{$this->company_id}-%")
+            ->orderBy('id', 'desc')
+            ->first();
         if ($lastJob) {
             $lastNumber = explode('-', $lastJob->job_ref)[2];
             $nextNumber = intval($lastNumber) + 1;
@@ -169,7 +183,8 @@ class CompanyManageJobList extends Component
             'job_list' => $this->inputJobList,
             'job_programs' => $this->inputPrograms,
             'job_desc' => $this->inputDescription,
-            'job_category' => $this->selectedCategoryId
+            'job_category' => $this->selectedCategoryId,
+            'job_slots' => $this->inputSlots
         ];
 
         OjtJobListing::create($jobData);
@@ -178,10 +193,11 @@ class CompanyManageJobList extends Component
         $this->reset('selectedCategoryId');
         $this->reset('inputPrograms');
         $this->reset('inputDescription');
+        $this->reset('inputSlots');
         $this->selectedCategoryName = '';
         $this->closeCategory();
 
-        $this->joblist=null;
+        $this->joblist = null;
         session()->flash('status', 'Information successfully saved.');
     }
 }

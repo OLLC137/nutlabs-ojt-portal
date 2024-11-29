@@ -59,6 +59,14 @@
                                     placeholder=""></div>
                         </div>
                         <div class="form-group mb-0">
+                            <label for="" class="col-form-label mb-0">Number of Slots</label>
+                            <div class=""><input wire:model="inputSlots" type="text" class="form-control"
+                                    placeholder=""></div>
+                            @error('inputSlots')
+                                <span class="error">Please add number of slots for the job listing.</span>
+                            @enderror
+                        </div>
+                        <div class="form-group mb-0">
                             <label for="" class="col-form-label mb-0">Description</label>
                             <x-input.rich-text wire:model.debounce="inputDescription"
                                 :initial-value="$inputDescription"></x-input.rich-text>
@@ -113,7 +121,6 @@
                     <th>Job List</th>
                     <th>Job Category</th>
                     <th></th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -122,7 +129,6 @@
                         <td>{{ $job->job_ref }}</td>
                         <td>{{ $job->job_list }}</td>
                         <td>{{ $job->job_category }}</td>
-                        <td>{{ $job->job_person }}</td>
                         <td>
                             <label>
                                 <x-template.icon> lead-pencil </x-template.icon>
