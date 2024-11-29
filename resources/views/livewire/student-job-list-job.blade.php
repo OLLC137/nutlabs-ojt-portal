@@ -150,7 +150,13 @@
                                     <textarea class="form-control" wire:model="writeCover" rows="10"></textarea>
                                 </div>
                                 @error('writeCover')
-                                    <span class="error">Please write your cover letter here.</span>
+                                    <span class="error">
+                                        @if (empty($writeCover))
+                                            Please write your cover letter here.
+                                        @elseif (strlen($writeCover) > 2000) {{-- Adjust the length as needed --}}
+                                            Your cover letter is too long. Please shorten it.
+                                        @endif
+                                    </span>
                                 @enderror
                             @endif
                             <div class="my-0" wire:click="$set('coverSelect', 3)">
