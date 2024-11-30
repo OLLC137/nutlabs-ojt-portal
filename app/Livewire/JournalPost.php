@@ -61,7 +61,7 @@ class JournalPost extends Component
 
     public function updateJournalPost($journal_postsID)
     {
-        return redirect('/posting')->with('editID', $journal_postsID);
+        return redirect('/request')->with('editID', $journal_postsID);
     }
 
     public function confirmDeletion($id){

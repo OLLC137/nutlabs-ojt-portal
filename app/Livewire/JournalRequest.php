@@ -49,6 +49,19 @@ class JournalRequest extends Component
         $student = OjtStudent::where('user_id', $currentUserId)->first();
         $this->student_id = $student ? $student->id : null;
 
+        if (session()->has('editID')) {
+            $editID = session('editID');
+            $journalPost = \App\Models\OjtAccomplishment::where('id', $editID)
+            ->where('student_id', $this->student_id)
+            ->first();
+
+        if ($journalPost) {
+            $this->acc_accomplishments = $journalPost->acc_accomplishments;
+            $this->acc_hours = $journalPost->acc_hours;
+            $this->requestDate = $journalPost->acc_date;
+        }
+        }
+
         // $this->requestDate = now()->format('Y-m-d');
     }
 
