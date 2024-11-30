@@ -129,6 +129,7 @@
                                     Posting</a></li>
                             <li class="nav-item"> <a class="nav-link" href="{{ route('journal.journal-view') }}">Journal
                                     Viewing</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{ route('journal.journal-request') }}">Journal Request</a></li>
                         </ul>
                     </div>
                 </li>
@@ -167,6 +168,12 @@
         <a class="nav-link" href="{{ route('manage-student-files') }}">
         <x-template.icon class="menu-icon"> account-multiple </x-template.icon>
             <span class="menu-title">Student Files</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('manage-journal-requests') }}">
+        <x-template.icon class="menu-icon"> book </x-template.icon>
+            <span class="menu-title">View Journal Requests</span>
         </a>
     </li>
     @endrole()
