@@ -63,6 +63,7 @@ class StudentJobListJob extends Component
         $this->validate([
             'resumeFile' => 'required|mimes:pdf,doc,docx|max:2048',
         ]);
+
         if ($this->resumeFile) {
             // Store the uploaded file temporarily
             $this->temporaryUploadedResume = $this->resumeFile->store('temp');
@@ -144,7 +145,8 @@ class StudentJobListJob extends Component
         $coverFileId = null;
         $resumeFileId = null;
         if ($this->coverSelect == 1) {
-            $filepath = Storage::move($this->temporaryUploadedCover, 'application_files');
+            $filepath = 'application_files/' . basename($this->temporaryUploadedCover);
+            Storage::move($this->temporaryUploadedCover, $filepath);
             $newFile = OjtDownloadable::create([
                 'file_path' => $filepath,
                 'file_name' => basename($filepath),
@@ -164,12 +166,13 @@ class StudentJobListJob extends Component
             $resumeFileId = $this->selectedResumeFileId;
         }
         if ($this->resumeSelect == 2) {
-            $filepath = Storage::move($this->temporaryUploadedResume, 'application_files');
+            $filepath = 'application_files/' . basename($this->temporaryUploadedResume);
+            Storage::move($this->temporaryUploadedResume, $filepath);
             $newFile = OjtDownloadable::create([
                 'file_path' => $filepath,
                 'file_name' => basename($filepath),
                 'file_original_name' => $this->originalResumeName,
-                'file_type' => 'resume letter',
+                'file_type' => 'resume',
             ]);
             $resumeFileId = $newFile->id;
         }
@@ -189,10 +192,12 @@ class StudentJobListJob extends Component
         OjtApplicant::create($applicantData);
         return redirect()->route('student-joblist');
     }
-    public function return() {
+    public function return()
+    {
         return redirect()->route('student-joblist');
     }
-    public function mount($id){
+    public function mount($id)
+    {
         $this->id = $id;
         $this->updatedId();
     }

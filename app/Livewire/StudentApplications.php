@@ -47,15 +47,19 @@ class StudentApplications extends Component
             $this->jobPrograms = explode(',', $this->jobInfo->job_programs);
             if ($this->selectedApplication->resume_mode == 2) {
                 $this->selectedResumeFile = OjtDownloadable::where('id', $this->selectedApplication->resume_file_id)->first();
-            }
+            } else $this->selectedResumeFile = null;
             if ($this->selectedApplication->cover_mode == 1) {
                 $this->selectedCoverFile = OjtDownloadable::where('id', $this->selectedApplication->cover_file_id)->first();
-            }
+            } else $this->selectedCoverFile = null;
         }
     }
-    public function downloadResume($id)
+    public function downloadFile($id)
     {
+        $file = OjtDownloadable::where('id', $id)
+                                    ->first();
 
+        $filePath = storage_path('app/' . $file->file_path);
+        return response()->download($filePath, $file->file_original_name);
     }
     public function render()
     {
