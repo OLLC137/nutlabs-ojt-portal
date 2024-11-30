@@ -162,36 +162,40 @@
 
         <p class="h1 my-4">Job Listings of {{ $companyName }}</p>
 
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Job Ref #</th>
-                    <th>Job List</th>
-                    <th>Job Category</th>
-                    <th>Job Status</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($jobListings as $job)
-                    <tr wire:click="selectJob({{ $job->id }})" role="button">
-                        <td>{{ $job->job_ref }}</td>
-                        <td>{{ $job->job_list }}</td>
-                        <td>{{ $job->job_category }}</td>
-                        @if ($job->job_status)
-                            <td><label class="badge badge-success">OPEN</label></td>
-                        @else
-                            <td><label class="badge badge-primary">CLOSED</label></td>
-                        @endif
-                        <td>
-                            <label>
-                                <x-template.icon> lead-pencil </x-template.icon>
-                            </label>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Job Ref #</th>
+                            <th>Job List</th>
+                            <th>Job Category</th>
+                            <th>Job Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($jobListings as $job)
+                            <tr wire:click="selectJob({{ $job->id }})" role="button">
+                                <td>{{ $job->job_ref }}</td>
+                                <td>{{ $job->job_list }}</td>
+                                <td>{{ $job->job_category }}</td>
+                                @if ($job->job_status)
+                                    <td><label class="badge badge-success">OPEN</label></td>
+                                @else
+                                    <td><label class="badge badge-primary">CLOSED</label></td>
+                                @endif
+                                <td>
+                                    <label>
+                                        <x-template.icon> lead-pencil </x-template.icon>
+                                    </label>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
         {{ $jobListings->links() }}
     @endif
 </div>
