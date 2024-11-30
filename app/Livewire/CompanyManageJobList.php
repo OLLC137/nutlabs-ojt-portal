@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\OjtApplicant;
 use App\Models\OjtCompany;
 use App\Models\OjtJobListCategory;
 use App\Models\OjtJobListing;
@@ -33,7 +34,7 @@ class CompanyManageJobList extends Component
     public $selectedCategoryName;
     public $isCategoryOpen = false;
 
-    public function mount() {}
+    public $jobApplicants;
 
     public function render()
     {
@@ -76,6 +77,11 @@ class CompanyManageJobList extends Component
         $this->inputDescription = $jobList->job_desc;
         $this->inputSlots = $jobList->job_slots;
         $this->jobActiveStatus = $jobList->job_status;
+
+        $this->jobApplicants = OjtApplicant::join('ojt_students', 'ojt_students.id', '=', 'ojt_applicants.student_id')
+            ->where('joblist_id', $this->joblist)
+            ->orderBy('ojt_applicants.status', 'asc')
+            ->get();
     }
 
     public function categoryDisplayNone()
@@ -207,5 +213,10 @@ class CompanyManageJobList extends Component
 
         $this->joblist = null;
         session()->flash('status', 'Information successfully saved.');
+    }
+    public function viewApplicant($id)
+    {
+        session(['applicantId' => $id]);
+        return redirect()->route('view-applicants');
     }
 }
