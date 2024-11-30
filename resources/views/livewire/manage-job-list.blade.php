@@ -115,7 +115,7 @@
         @else
             <div class="card my-2">
                 <div class="card-body">
-                    <table class="table table-hover" role="button">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th>Job Ref #</th>
@@ -128,7 +128,7 @@
                         </thead>
                         <tbody>
                             @foreach ($jobListings as $job)
-                                <tr wire:click="selectJob({{ $job->id }})">
+                                <tr role="button" wire:click="selectJob({{ $job->id }})">
                                     <td>{{ $job->job_ref }}</td>
                                     <td>{{ $job->co_name }}</td>
                                     <td>{{ $job->job_list }}</td>
