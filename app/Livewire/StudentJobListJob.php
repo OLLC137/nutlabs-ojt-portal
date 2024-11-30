@@ -122,7 +122,7 @@ class StudentJobListJob extends Component
                 )
                 ->first();
             $this->jobPrograms = explode(',', $this->jobInfo->job_programs);
-            $this->jobSlots = ($this->jobInfo->job_slots - OjtApplicant::where('joblist_id', $this->jobInfo->job_id)->where('status', 2)->count());
+            $this->jobSlots = ($this->jobInfo->job_slots - OjtApplicant::where('joblist_id', $this->jobInfo->job_id)->where('status', 1)->count());
 
             $studentId = OjtStudent::where('user_id', Auth::id())->first()->id;
             $this->appliedStatus = !OjtApplicant::where('joblist_id', $this->jobInfo->job_id)->where('student_id', $studentId)->exists();
