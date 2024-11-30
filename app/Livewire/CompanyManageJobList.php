@@ -78,8 +78,15 @@ class CompanyManageJobList extends Component
         $this->inputSlots = $jobList->job_slots;
         $this->jobActiveStatus = $jobList->job_status;
 
-        $this->jobApplicants = OjtApplicant::join('ojt_students', 'ojt_students.id', '=', 'ojt_applicants.student_id')
-            ->where('joblist_id', $this->joblist)
+        $this->jobApplicants = OjtApplicant::where('joblist_id', $this->joblist)
+            ->join('ojt_students', 'ojt_students.id', '=', 'ojt_applicants.student_id')
+            ->select(
+                'ojt_applicants.*',
+                'stud_first_name',
+                'stud_last_name',
+                'stud_department',
+                'stud_year_level'
+            )
             ->orderBy('ojt_applicants.status', 'asc')
             ->get();
     }
@@ -135,7 +142,6 @@ class CompanyManageJobList extends Component
 
         $this->joblist = null;
 
-        $this->mount();
         session()->flash('status', 'Information successfully saved.');
     }
     public function deleteJobList()
