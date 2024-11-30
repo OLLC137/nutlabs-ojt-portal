@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\OjtStudent;
 use App\Models\OjtCoordinator;
+use App\Models\OjtAccomplishment;
 use App\Models\JournalEditRequest;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -106,24 +107,44 @@ class ManageJournalRequests extends Component
     // public function confirmDelete($id){
     //     $this->requirementIdBuffer = $id;
     // }
-    // #[On('confirm-unlock')]
-    // public function confirmUnlock($id){
-    //     $this->requirementIdBuffer = $id;
-    // }
 
     // public function delete(){
     //     $this->dispatch('delete-confirmed', id: $this->requirementIdBuffer);
     // }
+    public function acceptJournalRequest($studentId)
+    {
+        $journalRequest = JournalEditRequest::where('student_id', $studentId)->latest()->first();
+
+        if ($journalRequest) {
+            OjtAccomplishment::create([
+                'student_id' => $studentId,
+                'acc_accomplishments' => $journalRequest->acc_accomplishments,
+                'acc_hours' => $journalRequest->acc_hours,
+                'acc_date' => now()->format('Y-m-d'),
+            ]);
+
+            $journalRequest->update(['status' => 'approved']);
+
+            session()->flash('message', 'Journal request accepted and stored successfully.');
+        } else {
+            session()->flash('error', 'No valid journal request found for the student.');
+        }
+    }
+
 
     public function confirmDeletion($id){
         $this->confirmDeletionID = $id;
     }
     public function deleteJournalRequest()
     {
-        JournalEditRequest::find($this->confirmDeletionID)->delete();
-    }
+        $journalRequest = JournalEditRequest::find($this->confirmDeletionID);
 
-    public function unlock(){
-        $this->dispatch('unlock-confirmed', id: $this->requirementIdBuffer);
+        if ($journalRequest) {
+            $journalRequest->delete();
+            session()->flash('message', 'Journal request deleted successfully.');
+        } else {
+            session()->flash('error', 'Journal request not found');
+        }
+        // JournalEditRequest::find($this->confirmDeletionID)->delete();
     }
 }

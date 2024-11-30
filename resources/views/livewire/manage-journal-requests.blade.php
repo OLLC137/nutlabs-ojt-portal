@@ -1,4 +1,4 @@
-<div>
+<div class="container">
     {{-- REQUIREMENT ID BUFFER: {{ $requirementIdBuffer }} --}}
     @if (!$studentId)
     <h1>Manage Journal Requests</h1>
@@ -39,42 +39,25 @@
         {{ $students->links() }}
     @else
 
-    <div wire:ignore.self class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="deleteModalLabel">Are you sure you want to permanently delete this file?</h1>
-                </div>
-                <div class="modal-body">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                    <button type="button" wire:click.stop="delete"  class="btn btn-primary" data-bs-dismiss="modal">Yes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div wire:ignore.self class="modal fade" id="unlockModal" tabindex="-1" aria-labelledby="unlockModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="unlockModalLabel">This will unsubmit the requirement and will not delete the file. Do you wish to proceed?</h1>
-                </div>
-                <div class="modal-body">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                    <button type="button" wire:click.stop="unlock"  class="btn btn-primary" data-bs-dismiss="modal">Yes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <button wire:click="$set('studentId',null)" class="btn btn-primary btn-icon-text btn-small mb-2">
         <x-template.icon class="btn-icon-prepend">subdirectory-arrow-left</x-template.icon>
     back
     </button>
+
+    @if(session()->has('message'))
+            <div class="alert alert-success mt-4" x-data="{ show: false }"
+                x-show.transition.opacity.duration.1500ms="show"
+                x-init="show = true; setTimeout(() => { show = false; }, 4000)">
+                    {{ session('message') }}
+            </div>
+        @endif
+        @if(session()->has('error'))
+            <div class="alert alert-danger mt-4" x-data="{ show: false }"
+                x-show.transition.opacity.duration.1500ms="show"
+                x-init="show = true; setTimeout(() => { show = false; }, 4000)">
+                    {{ session('error') }}
+            </div>
+        @endif
 
     <div class="card mt-3">
         <div class="card-body">
@@ -97,13 +80,14 @@
                             {!! $requestReason !!}
                         </div>
                         </div>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Accept</button>
-                    <button type="button" wire:click.stop="deleteJournalRequest"  class="btn btn-primary" data-bs-dismiss="modal">Delete</button>
+                    <button type="button" class="btn btn-success" wire:click="acceptJournalRequest({{ $studentId }})" data-bs-dismiss="modal">Accept</button>
+                    <button type="button" wire:click="deleteJournalRequest"  class="btn btn-primary" data-bs-dismiss="modal" data-bs-target="#deleteModal">Delete</button>
                     {{-- <button wire:click="confirmDeletion({{ $journal_edit_requests->id }})" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal"> Deny
                     </button> --}}
                 </div>
             </div>
         </div>
+
     </div>
     <div wire:ignore.self class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -115,11 +99,12 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                    <button type="button" wire:click.stop="deleteJournalRequest"  class="btn btn-primary" data-bs-dismiss="modal">Yes</button>
+                    <button type="button" wire:click="deleteJournalRequest"  class="btn btn-primary" data-bs-dismiss="modal">Yes</button>
                 </div>
             </div>
         </div>
     </div>
 
     @endif
+
 </div>

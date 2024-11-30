@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('journal_edit_requests', function (Blueprint $table) {
-            $table->id();
+            $table->id('id');
             $table->foreignId('student_id')->constrained('ojt_students')->onDelete('cascade');
             $table->date('requested_date');
             $table->string('reason');

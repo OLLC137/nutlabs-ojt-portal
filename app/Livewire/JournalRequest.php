@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\OjtStudent;
 use App\Models\JournalEditRequest;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,6 +42,24 @@ class JournalRequest extends Component
         ]);
 
         return redirect('/request')->with('message', 'Request submitted to OJT Coordinator.');
+    }
+
+    public function updateStatus()
+    {
+        $this->validate([
+            'status' => [
+                'required',
+                Rule::in(['Pending', 'Rejected', 'Approved'])
+            ],
+        ]);
+
+        $request = JournalEditRequest::findOrFail($this->requestId);
+        $request->update([
+            'status' => $this->status,
+            'updated_at' => now(),
+        ]);
+
+        session()->flash('message', 'Status updated successfully!');
     }
 
     public function mount()
