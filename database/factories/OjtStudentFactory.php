@@ -34,7 +34,7 @@ class OjtStudentFactory extends Factory
             'stud_junior_high_school' => 'JHS',
             'stud_senior_high_school' => 'SHS',
             'stud_university' => 'Alangilan',
-            'stud_sr_code' => 'SR_Code',
+            'stud_sr_code' => $this->faker->randomElement([20, 21, 22]) . '-' . $this->faker->unique()->numberBetween(1000, 9999),
             'stud_year_level' => 4,
             'stud_department' => $this->faker->randomElement(['CIT', 'CAFAD', 'CICS', 'COE']),
             'stud_expected_graduation' => now()->addYears(2)->toDateString(),
