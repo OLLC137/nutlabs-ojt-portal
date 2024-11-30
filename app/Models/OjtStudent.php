@@ -59,6 +59,10 @@ class OjtStudent extends Model
     {
         return $this->hasMany(OjtAccomplishment::class);
     }
+    public function journaleditrequest(): HasMany
+    {
+        return $this->hasMany(JournalEditRequest::class);
+    }
       // Student.php
     public function applicants()
     {

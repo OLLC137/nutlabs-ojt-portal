@@ -1,5 +1,4 @@
 <div class="container">
-    {{-- REQUIREMENT ID BUFFER: {{ $requirementIdBuffer }} --}}
     @if (!$studentId)
     <h1>Manage Journal Requests</h1>
     <div class="d-flex flex-row col-sm-4 my-2">
@@ -81,9 +80,7 @@
                         </div>
                         </div>
                     <button type="button" class="btn btn-success" wire:click="acceptJournalRequest({{ $studentId }})" data-bs-dismiss="modal">Accept</button>
-                    <button type="button" wire:click="deleteJournalRequest"  class="btn btn-primary" data-bs-dismiss="modal" data-bs-target="#deleteModal">Delete</button>
-                    {{-- <button wire:click="confirmDeletion({{ $journal_edit_requests->id }})" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal"> Deny
-                    </button> --}}
+                    <button type="button" wire:click="confirmDeletion({{ $studentId }})"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
                 </div>
             </div>
         </div>
@@ -99,7 +96,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                    <button type="button" wire:click="deleteJournalRequest"  class="btn btn-primary" data-bs-dismiss="modal">Yes</button>
+                    <button type="button" wire:click="deleteJournalRequest"  class="btn btn-primary" data-bs-toggle="modal">Yes</button>
                 </div>
             </div>
         </div>

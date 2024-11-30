@@ -25,7 +25,7 @@ class ManageJournalRequests extends Component
     public $acc_hours;
     public $requestDate;
     public $status;
-    public $confirmDeletionID;
+    public $confirmDeletionID2;
 
     public function render()
     {
@@ -58,7 +58,7 @@ class ManageJournalRequests extends Component
 
         // Fetch the latest requestReason from the JournalEditRequest table
         $journalRequest = JournalEditRequest::where('student_id', $this->studentId)
-        ->latest() // Fetch the most recent request
+        ->latest()
         ->first();
 
         if ($journalRequest) {
@@ -103,14 +103,6 @@ class ManageJournalRequests extends Component
         ]);
     }
 
-    // #[On('confirm-delete')]
-    // public function confirmDelete($id){
-    //     $this->requirementIdBuffer = $id;
-    // }
-
-    // public function delete(){
-    //     $this->dispatch('delete-confirmed', id: $this->requirementIdBuffer);
-    // }
     public function acceptJournalRequest($studentId)
     {
         $journalRequest = JournalEditRequest::where('student_id', $studentId)->latest()->first();
@@ -132,19 +124,46 @@ class ManageJournalRequests extends Component
     }
 
 
-    public function confirmDeletion($id){
-        $this->confirmDeletionID = $id;
+    public function confirmDeletion($studentId){
+        $this->confirmDeletionID2 = $studentId;
+
     }
+
     public function deleteJournalRequest()
     {
-        $journalRequest = JournalEditRequest::find($this->confirmDeletionID);
+        // Fetch the latest journal request for the current student
+        $journalRequest = JournalEditRequest::where('student_id', $this->confirmDeletionID2)
+        ->latest()
+        ->first();
 
         if ($journalRequest) {
             $journalRequest->delete();
+            $journalRequest->update(['status' => 'rejected']);
+
+            $remainingRequests = JournalEditRequest::where('student_id', $this->confirmDeletionID2)->count();
+
+            if ($remainingRequests == 0) {
+                $this->removeStudentFromList($this->confirmDeletionID2);
+                session()->flash('message', 'Journal request deleted successfully, and no more requests are left for this student.');
+            } else {
+                session()->flash('message', 'Journal request deleted successfully.');
+            }
+            // $this->studentId = $this->studentId->filter(function ($studentId) {
+            //     return $studentId->id !== $this->confirmDeletionID;
+            // });
             session()->flash('message', 'Journal request deleted successfully.');
         } else {
-            session()->flash('error', 'Journal request not found');
+            session()->flash('error', 'Journal request not found.');
         }
-        // JournalEditRequest::find($this->confirmDeletionID)->delete();
+
+        $this->confirmDeletionID2 = null;
+    }
+    public function removeStudentFromList($studentId)
+    {
+        $this->studentId = $this->studentId->filter(function ($student) use ($studentId) {
+            return $student->id !== $studentId;
+        });
+
+        $this->resetPage();
     }
 }
