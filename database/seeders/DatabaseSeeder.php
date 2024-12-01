@@ -79,6 +79,7 @@ class DatabaseSeeder extends Seeder
             OjtStudentSeeder::class,
             OjtRequirementSeeder::class,
             OjtCoordinatorSeeder::class, // Ensure this comes after the User seeder
+            OjtApplicantSeeder::class
         ]);
     }
 }

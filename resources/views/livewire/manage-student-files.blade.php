@@ -17,6 +17,7 @@
                         <th>SR Code</th>
                         <th>First Name</th>
                         <th>Last Name</th>
+                        <th>Year Level</th>
                         <th>Department</th>
                     </tr>
                 </thead>
@@ -26,6 +27,7 @@
                         <td>{{ $student->sr_code }}</td>
                         <td>{{ $student->first_name }}</td>
                         <td>{{ $student->last_name }}</td>
+                        <td>{{ $student->year_level }}</td>
                         <td>{{ $student->department }}</td>
                     </tr>
                     @endforeach
@@ -98,6 +100,7 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Department</th>
+                    <th>Year Level</th>
                     <th>Email</th>
                 </tr>
             </thead>
@@ -107,6 +110,7 @@
                     <td>{{ $student->first_name }}</td>
                     <td>{{ $student->last_name }}</td>
                     <td>{{ $student->department }}</td>
+                    <td>{{ $student->year_level }}</td>
                     <td>{{ $student->email }}</td>
                 </tr>
             </tbody>

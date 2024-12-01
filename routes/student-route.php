@@ -12,6 +12,8 @@ Route::middleware([
     Route::get('/cv-profile-page', fn () => view('pages.cv-profile-page'))->name('cv-profile-page');
     Route::get('/edit-cv-page', fn () => view('pages.edit-cv-page'))->name('edit-cv-page');
     Route::get('/student-joblist', fn () => view('pages.student.joblist'))->name('student-joblist');
+    Route::get('/student-applications', fn () => view('pages.student.applications'))->name('student-applications');
+    Route::get('/student-joblist/{id}', fn ($id) => view('pages.student.joblist-job', ['id' => $id]))->name('student-joblist-job');
 
     Route::middleware([
         'auth', CheckStudentId::class

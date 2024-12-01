@@ -40,7 +40,8 @@ class ManageStudentFiles extends Component
                     'stud_first_name as first_name',
                     'stud_last_name as last_name',
                     'stud_department as department',
-                    'stud_email as email'
+                    'stud_email as email',
+                    'stud_year_level as year_level'
                 )
                 ->first();
         } else {
@@ -51,7 +52,8 @@ class ManageStudentFiles extends Component
                 'stud_sr_code as sr_code',
                 'stud_first_name as first_name',
                 'stud_last_name as last_name',
-                'stud_department as department'
+                'stud_department as department',
+                'stud_year_level as year_level'
             )
                 ->where('stud_department', $department) // Filter by department
                 ->when($searchTerms, function ($query, $searchTerms) {

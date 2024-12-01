@@ -11,6 +11,7 @@ class OjtApplicant extends Model
     use HasFactory;
 
     protected $fillable = [
+        'status',
         'student_id',
         'joblist_id',
         'application_date',
@@ -19,6 +20,12 @@ class OjtApplicant extends Model
         'cover_mode',
         'cover_file_id',
         'cover_text'
+    ];
+
+    const STATUS = [
+        1 => "Accepted", // default value
+        2 => "Pending",
+        3 => "Rejected"
     ];
 
     public function student(): BelongsTo

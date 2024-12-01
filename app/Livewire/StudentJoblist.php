@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\OjtApplicant;
 use App\Models\OjtRequirement;
 use App\Models\OjtDownloadable;
+use App\Models\OjtJobListing;
 use App\Models\OjtStudent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -13,180 +14,67 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 
 use Livewire\WithFileUploads;
-
+use Livewire\WithPagination;
 
 class StudentJoblist extends Component
 {
-    use WithFileUploads;
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
-    #[Url()] public $id;
-    public $jobInfo;
-    public $jobPrograms;
+    public $search;
+    public $category;
+    public $location;
+    public $program;
+    public $categories;
 
-    public $resumeSelect;
-    public $selectedResumeFileId;
-    public $selectedResumeFileName;
-
-    public $resumeFile;
-    public $temporaryUploadedResume;
-    public $originalResumeName;
-
-    public $coverSelect;
-
-    public $coverFile;
-    public $temporaryUploadedCover;
-    public $originalCoverName;
-
-    public $writeCover;
-
-    public function updatedResumeSelect()
+    public function selectJob($id)
     {
-        if ($this->resumeSelect == 1) {
-            $student = OjtStudent::where('user_id', Auth::id())->first(); // Get the student associated with the user
-
-            $requirement = OjtRequirement::where('student_id', $student->id)
-                ->where('req_id', 3)
-                ->where('locked_at', '!=', null)
-                ->first(); // Get the requirement
-            if ($requirement) {
-                $this->selectedResumeFileName = $requirement->req_orig_name;
-                $this->selectedResumeFileId = $requirement->id;
-            } else {
-                $this->selectedResumeFileName = null;
-            }
-        }
+        return redirect('/student-joblist/' . $id);
     }
+    public function doSearch(){
 
-    public function updatedResumeFile()
-    {
-        $this->validate([
-            'resumeFile' => 'required|mimes:pdf,doc,docx|max:2048',
-        ]);
-        if ($this->resumeFile) {
-            // Store the uploaded file temporarily
-            $this->temporaryUploadedResume = $this->resumeFile->store('temp');
-            // Store the original file name
-            $this->originalResumeName = $this->resumeFile->getClientOriginalName();
-        }
     }
-
-    public function updatedCoverFile()
-    {
-        $this->validate([
-            'coverFile' => 'required|mimes:pdf,doc,docx|max:2048',
-        ]);
-        if ($this->coverFile) {
-            // Store the uploaded file temporarily
-            $this->temporaryUploadedCover = $this->coverFile->store('temp');
-            // Store the original file name
-            $this->originalCoverName = $this->coverFile->getClientOriginalName();
-        }
-    }
-    public function clearResumeFile()
-    {
-        // Remove the stored temp file
-        Storage::delete($this->temporaryUploadedResume);
-        // Clear the temporary file
-        $this->resumeFile = null;
-        $this->temporaryUploadedResume = null;
-    }
-    public function clearCoverFile()
-    {
-        // Remove the stored temp file
-        Storage::delete($this->temporaryUploadedCover);
-        // Clear the temporary file
-        $this->coverFile = null;
-        $this->temporaryUploadedCover = null;
-    }
-
-    public function updatedId()
-    {
-        if ($this->id) {
-            $this->jobInfo = DB::table('ojt_job_listings')
-                ->join('ojt_companies', 'ojt_job_listings.company_id', '=', 'ojt_companies.id')
-                ->join('ojt_job_list_categories', 'ojt_job_listings.job_category', '=', 'ojt_job_list_categories.id')
-                ->where('ojt_job_listings.id', $this->id)
-                ->select(
-                    'ojt_job_listings.id as job_id',
-                    'ojt_job_listings.job_list as job_list',
-                    'ojt_job_list_categories.id as job_category_id', // Include category ID
-                    'ojt_job_list_categories.cat_name as job_category', // Select cat_name instead of job_category
-                    'ojt_job_listings.job_desc as job_desc',
-                    'ojt_job_listings.job_ref as job_ref',
-                    'ojt_companies.co_name as company_name',
-                    'ojt_companies.co_address as location',
-                    'ojt_job_listings.job_programs as job_programs'
-                )
-                ->first();
-            $this->jobPrograms = explode(',', $this->jobInfo->job_programs);
-        }
-    }
-
-    public function submittable()
-    {
-        if (!$this->resumeSelect || !$this->coverSelect) return false;
-        if ($this->resumeSelect == 1 && !$this->selectedResumeFileName) return false;
-        if ($this->resumeSelect == 2 && !$this->temporaryUploadedResume) return false;
-        if ($this->coverSelect == 1 && !$this->temporaryUploadedCover) return false;
-        return true;
-    }
-
-    public function submitApplication()
-    {
-        $coverFileId = null;
-        $resumeFileId = null;
-        if ($this->coverSelect == 1) {
-            $filepath = Storage::move($this->temporaryUploadedCover, 'application_files');
-            $newFile = OjtDownloadable::create([
-                'file_path' => $filepath,
-                'file_name' => basename($filepath),
-                'file_original_name' => $this->originalCoverName,
-                'file_type' => 'cover letter',
-            ]);
-            $coverFileId = $newFile->id;
-        }
-        if ($this->coverSelect == 2) {
-            $this->validate([
-                'writeCover' => 'required|string|max:1000',
-            ]);
-        } else {
-            $this->writeCover = null;
-        }
-        if ($this->resumeSelect == 1) {
-            $resumeFileId = $this->selectedResumeFileId;
-        }
-        if ($this->resumeSelect == 2) {
-            $filepath = Storage::move($this->temporaryUploadedResume, 'application_files');
-            $newFile = OjtDownloadable::create([
-                'file_path' => $filepath,
-                'file_name' => basename($filepath),
-                'file_original_name' => $this->originalResumeName,
-                'file_type' => 'resume letter',
-            ]);
-            $resumeFileId = $newFile->id;
-        }
-
-        $student = OjtStudent::where('user_id', Auth::id())->first();
-        $applicantData = [
-            'student_id' => $student->id,
-            'joblist_id' => $this->id,
-            'application_date' => now(),
-            'resume_mode' => $this->resumeSelect,
-            'resume_file_id' => $resumeFileId,
-            'cover_mode' => $this->coverSelect,
-            'cover_file_id' => $coverFileId,
-            'cover_text' => $this->writeCover,
-        ];
-        OjtApplicant::create($applicantData);
-        return redirect()->route('student-joblist', ['id' => $this->id]);
-    }
-
     public function render()
     {
-        $this->updatedId();
+        $query = OjtJobListing::query()
+            ->join('ojt_companies', 'ojt_companies.id', '=', 'ojt_job_listings.company_id')
+            ->join('ojt_job_list_categories', 'ojt_job_listings.job_category', '=', 'ojt_job_list_categories.id')
+            ->select(
+                'ojt_job_listings.id',
+                'job_ref',
+                'co_name',
+                'job_list',
+                'ojt_job_list_categories.cat_name as job_category',
+                'job_status'
+            );
 
+        // Apply search filters if they exist
+        if ($this->search) {
+            $searchTerm = '%' . strtolower($this->search) . '%';
+            $query->where(function ($query) use ($searchTerm) {
+                $query->whereRaw('LOWER(ojt_job_listings.job_list) LIKE ?', [$searchTerm])
+                    ->orWhereRaw('LOWER(ojt_companies.co_name) LIKE ?', [$searchTerm])
+                    ->orWhereRaw('LOWER(ojt_job_listings.job_ref) LIKE ?', [$searchTerm]);
+            });
+        }
+        if ($this->location) {
+            $query->whereRaw('LOWER(ojt_companies.co_address) LIKE ?', ['%' . strtolower($this->location) . '%']);
+        }
+        if ($this->category) {
+            $query->whereRaw('LOWER(ojt_job_list_categories.cat_name) = ?', [strtolower($this->category)]);
+        }
+        if ($this->program) {
+            $programTerm = '%' . strtolower($this->program) . '%';
+            $query->where(function ($query) use ($programTerm) {
+                $query->whereRaw('LOWER(ojt_job_listings.job_programs) LIKE ?', [$programTerm]);
+            });
+        }
 
-        return view('livewire.student-joblist');
+        $this->categories = DB::table('ojt_job_list_categories')
+            ->orderBy('cat_name')
+            ->pluck('cat_name', 'id');
+        return view('livewire.student-joblist', [
+            'jobListings' => $query->paginate(10),
+        ]);
     }
-
 }

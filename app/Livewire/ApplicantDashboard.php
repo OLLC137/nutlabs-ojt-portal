@@ -4,6 +4,8 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\OjtApplicant;
+use App\Models\OjtCompany;
+use App\Models\OjtJobListing;
 use Illuminate\Support\Facades\Auth;
 
 class ApplicantDashboard extends Component
@@ -19,13 +21,11 @@ class ApplicantDashboard extends Component
     public function loadApplicantData()
     {
         $user = Auth::user();
-
         // Check if user is a company (role 4)
         if ($user && $user->role === 4) {
-            // Fetch applicants for the logged-in company
-            $applicants = OjtApplicant::with('student')
-                ->where('company_id', $user->id)
-                ->get();
+            $companyId = OjtCompany::where('user_id', $user->id)->first()->id;
+            $jobListIds = OjtJobListing::where('company_id', $companyId)->pluck('id')->toArray();
+            $applicants = OjtApplicant::whereIn('joblist_id', $jobListIds)->get();
 
             // Calculate total applicants
             $this->totalApplicants = $applicants->count();

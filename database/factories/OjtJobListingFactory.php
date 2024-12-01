@@ -49,6 +49,7 @@ class OjtJobListingFactory extends Factory
                 "BS Information Technology"
             ]
             , rand(0, 3))),
+            'job_slots' => $this->faker->numberBetween(2, 6),
         ];
     }
 }

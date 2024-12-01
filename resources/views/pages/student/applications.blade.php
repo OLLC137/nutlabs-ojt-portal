@@ -1,4 +1,4 @@
 <x-app-layout>
     <x-slot name="header"></x-slot>
-    @livewire('applicant-table')
+    @livewire('student-applications')
 </x-app-layout>

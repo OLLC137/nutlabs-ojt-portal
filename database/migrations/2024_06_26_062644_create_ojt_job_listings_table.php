@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('job_programs')->nullable();
             $table->integer('job_category');
             $table->boolean('job_status')->default(true);
+            $table->integer('job_slots');
             $table->timestamps();
         });
     }
