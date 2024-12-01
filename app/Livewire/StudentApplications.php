@@ -68,6 +68,7 @@ class StudentApplications extends Component
         $totalApplications = OjtApplicant::where('student_id', $studentId)->count();
         $applications = OjtApplicant::where('student_id', $studentId)
             ->join('ojt_job_listings', 'ojt_job_listings.id', '=', 'ojt_applicants.joblist_id')
+            ->whereNull('ojt_job_listings.deleted_at')
             ->join('ojt_companies', 'ojt_companies.id', '=', 'ojt_job_listings.company_id')
             ->select('ojt_applicants.*', 'ojt_job_listings.job_list', 'ojt_companies.co_name')
             ->orderBy('ojt_applicants.status', 'asc')
