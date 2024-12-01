@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('journal_posts', function (Blueprint $table) {
-            $table->id();
-            $table->date('acc_date');
-            $table->string('acc_accomplishments');
-            $table->integer('acc_hours');
-            $table->timestamps();
+        Schema::table('journal_edit_requests', function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('journal_posts');
+        Schema::table('journal_edit_requests', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

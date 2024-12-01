@@ -151,6 +151,7 @@
                                     Posting</a></li>
                             <li class="nav-item"> <a class="nav-link" href="{{ route('journal.journal-view') }}">Journal
                                     Viewing</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{ route('journal.journal-request') }}">Journal Request</a></li>
                         </ul>
                     </div>
                 </li>
@@ -171,26 +172,33 @@
                 </li>
             @endrole()
 
-            @role(COORDINATOR)
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('view-company-page') }}">
-                        <x-template.icon class="menu-icon"> account-multiple-outline </x-template.icon>
-                        <span class="menu-title">Partner Industries</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('managejobs') }}">
-                        <x-template.icon class="menu-icon"> briefcase </x-template.icon>
-                        <span class="menu-title">Job Listings</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('manage-student-files') }}">
-                        <x-template.icon class="menu-icon"> account-multiple </x-template.icon>
-                        <span class="menu-title">Student Files</span>
-                    </a>
-                </li>
-            @endrole()
+    @role(COORDINATOR)
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('view-company-page') }}">
+        <x-template.icon class="menu-icon"> account-multiple-outline </x-template.icon>
+            <span class="menu-title">Partner Industries</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('managejobs') }}">
+        <x-template.icon class="menu-icon"> briefcase </x-template.icon>
+            <span class="menu-title">Job Listings</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('manage-student-files') }}">
+        <x-template.icon class="menu-icon"> account-multiple </x-template.icon>
+            <span class="menu-title">Student Files</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('manage-journal-requests') }}">
+        <x-template.icon class="menu-icon"> book </x-template.icon>
+            <span class="menu-title">View Journal Requests</span>
+        </a>
+    </li>
+    @endrole()
 
             @role(ADM)
                 <li class="nav-item">
