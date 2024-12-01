@@ -1,7 +1,7 @@
 <div class="grid-margin stretch-card">
     <x-template.card>
         <x-template.card-body>
-            <canvas id="departmentChart"></canvas>
+            <canvas class ="company-dashobard-chart" id="departmentChart"></canvas>
         </x-template.card-body>
     </x-template.card>
 </div>
