@@ -25,7 +25,7 @@ class ApplicantDashboard extends Component
         if ($user && $user->role === 4) {
             $companyId = OjtCompany::where('user_id', $user->id)->first()->id;
             $jobListIds = OjtJobListing::where('company_id', $companyId)->pluck('id')->toArray();
-            $applicants = OjtApplicant::whereIn('joblist_id', $jobListIds)->get();
+            $applicants = OjtApplicant::whereIn('joblist_id', $jobListIds)->where('status', '!=', 3)->get();
 
             // Calculate total applicants
             $this->totalApplicants = $applicants->count();
