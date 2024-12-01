@@ -1,7 +1,15 @@
 <div>
     @if (session('status'))
-        <div id="flash-message" class="alert alert-success">
+        <div id="flash-message" class="alert alert-success" style="transition: opacity 0.5s">
             {{ session('status') }}
+            <script>
+                setTimeout(function() {
+                    document.getElementById('flash-message').style.opacity = 0;
+                    setTimeout(function() {
+                        document.getElementById('flash-message').remove();
+                    }, 500);
+                }, 3000);
+            </script>
         </div>
     @endif
     @if ($joblist)
@@ -76,59 +84,63 @@
                             <span class="error">A description is required!</span>
                         @enderror
                     </div>
-                    <div class="col-lg-6 d-flex flex-column justify-content-between">
-                        <div>
-                            <div class="form-group mb-0 d-flex flex-column">
-                                <label for="" class="col-form-label mb-0 font-weight-bold">Job List
-                                    Status</label>
-                                @if ($jobActiveStatus)
-                                    <button class="btn btn-success"
-                                        wire:click="$set('jobActiveStatus', false)">OPEN</button>
-                                @else
-                                    <button class="btn btn-secondary"
-                                        wire:click="$set('jobActiveStatus', true)">CLOSED</button>
-                                @endif
-                            </div>
-                            <h3 class="mt-4">Applicants</h3>
-                            <p>Click to View Application (unsaved changes will be lost).</p>
-                            <div style="overflow-y: auto; height:300px;">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Name</th>
-                                            <th>Department</th>
-                                            <th>Year Level</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($jobApplicants as $applicant)
-                                            <tr role="button" wire:click="viewApplicant({{ $applicant->id }})" >
-                                                <td>{{ $applicant->application_date }}</td>
-                                                <td>{{ $applicant->student->stud_first_name }}
-                                                    {{ $applicant->student->stud_last_name }}</td>
-                                                <td>{{ $applicant->student->stud_department }}</td>
-                                                <td>{{ $applicant->student->stud_year_level }}</td>
-                                                <td>
-                                                    @switch($applicant->status)
-                                                        @case(1)
-                                                            <span class="badge badge-success">Accepted</span>
-                                                        @break
-                                                        @case(2)
-                                                            <span class="badge badge-warning">Pending</span>
-                                                        @break
-                                                        @case(3)
-                                                            <span class="badge badge-danger">Rejected</span>
-                                                        @break
-                                                    @endswitch
-                                                </td>
+                    <div class="col-lg-6 d-flex flex-column {{ $this->joblist === true ? 'justify-content-end' : 'justify-content-between' }}">
+                        @if ($this->joblist !== true)
+                            <div>
+                                <div class="form-group mb-0 d-flex flex-column">
+                                    <label for="" class="col-form-label mb-0 font-weight-bold">Job List
+                                        Status</label>
+                                    @if ($jobActiveStatus)
+                                        <button class="btn btn-success"
+                                            wire:click="$set('jobActiveStatus', false)">OPEN</button>
+                                    @else
+                                        <button class="btn btn-secondary"
+                                            wire:click="$set('jobActiveStatus', true)">CLOSED</button>
+                                    @endif
+                                </div>
+                                <h3 class="mt-4">Applicants</h3>
+                                <p>Click to View Application (unsaved changes will be lost).</p>
+                                <div style="overflow-y: auto; height:300px;">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Name</th>
+                                                <th>Department</th>
+                                                <th>Year Level</th>
+                                                <th>Status</th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($jobApplicants as $applicant)
+                                                <tr role="button" wire:click="viewApplicant({{ $applicant->id }})">
+                                                    <td>{{ $applicant->application_date }}</td>
+                                                    <td>{{ $applicant->student->stud_first_name }}
+                                                        {{ $applicant->student->stud_last_name }}</td>
+                                                    <td>{{ $applicant->student->stud_department }}</td>
+                                                    <td>{{ $applicant->student->stud_year_level }}</td>
+                                                    <td>
+                                                        @switch($applicant->status)
+                                                            @case(1)
+                                                                <span class="badge badge-success">Accepted</span>
+                                                            @break
+
+                                                            @case(2)
+                                                                <span class="badge badge-warning">Pending</span>
+                                                            @break
+
+                                                            @case(3)
+                                                                <span class="badge badge-danger">Rejected</span>
+                                                            @break
+                                                        @endswitch
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                         <div class="d-flex justify-content-end">
                             @if ($this->joblist === true)
                                 <x-template.button color="success" class="ml-auto mt-5 align-self-end"
@@ -195,6 +207,7 @@
         {{ $jobListings->links() }}
     @endif
 </div>
+
 
 @assets
     <style>
