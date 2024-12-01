@@ -1,4 +1,17 @@
 <div>
+    @if (session('status'))
+        <div id="flash-message" class="alert alert-success" style="transition: opacity 0.5s">
+            {{ session('status') }}
+            <script>
+                setTimeout(function() {
+                    document.getElementById('flash-message').style.opacity = 0;
+                    setTimeout(function() {
+                        document.getElementById('flash-message').remove();
+                    }, 500);
+                }, 3000);
+            </script>
+        </div>
+    @endif
     <div class="row align-items-end px-3">
         <div class="col-lg-2 px-1 my-lg-0 my-2">
             Search

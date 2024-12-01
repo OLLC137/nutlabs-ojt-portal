@@ -190,6 +190,7 @@ class StudentJobListJob extends Component
             'cover_text' => $this->writeCover,
         ];
         OjtApplicant::create($applicantData);
+        session()->flash('status', 'Successfully submitted application.');
         return redirect()->route('student-joblist');
     }
     public function return()
