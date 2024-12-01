@@ -102,10 +102,24 @@ class ApplicantTable extends Component
     {
         $this->applicantId = $id;
     }
+    public function checkFull()
+    {
+        $application = OjtApplicant::where('id', $this->applicantId)->first();
+        $joblist = OjtJobListing::where('id', $application->joblist_id)->first();
+
+        $applicants = OjtApplicant::where('joblist_id', $joblist->id)->where('status', 1)->count();
+        $slots = $joblist->job_slots;
+
+        if ($applicants == $slots) {
+            OjtJobListing::where('id', $joblist->id)->update(['job_status' => false]);
+        }
+    }
+
     public function accept()
     {
         session()->flash('status', 'Successfully accepted applicant.');
         OjtApplicant::where('id', $this->applicantId)->update(['status' => 1]);
+        $this->checkFull();
     }
     public function reject()
     {
