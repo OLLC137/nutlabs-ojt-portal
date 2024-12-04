@@ -38,7 +38,13 @@ class ManageJournalRequests extends Component
         $searchTerms = explode(' ', strtolower($this->searchBar));
 
         if ($this->requestId) {
-            $request = JournalEditRequest::where('id', $this->requestId)->first();
+            $request = JournalEditRequest::join('ojt_students', 'journal_edit_requests.student_id', '=', 'ojt_students.id')
+                ->select(
+                    'journal_edit_requests.*',
+                    'ojt_students.stud_first_name as first_name',
+                    'ojt_students.stud_last_name as last_name',
+            )
+                ->where('journal_edit_requests.id', $this->requestId)->first();
             return view('livewire.manage-journal-requests',
                 ['request' => $request]);
         } else {

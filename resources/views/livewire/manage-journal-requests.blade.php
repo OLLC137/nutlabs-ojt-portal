@@ -81,7 +81,7 @@
                 <div class="p-4 border">
                         <p>Request submitted on {{$request->created_at}}</p>
                     <div class="d-flex align-items-center justify-content-between">
-                        <p class="font-weight-bold">Student Name: Oliver Luis </p>
+                        <p class="font-weight-bold">Student Name: {{$request->first_name}} {{ $request->last_name}} </p>
                         <h4 class="bg-warning text-white p-1 rounded">Pending</h4>
                     </div>
                     <div class="form-group mb-0">
