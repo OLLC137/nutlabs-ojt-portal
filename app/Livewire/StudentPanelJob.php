@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Livewire;
-
 use App\Models\OjtApplicant;
 use App\Models\OjtDownloadable;
 use App\Models\OjtRequirement;
@@ -13,7 +12,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 
-class StudentJobListJob extends Component
+class StudentPanelJob extends Component
 {
     use WithFileUploads;
 
@@ -204,6 +203,7 @@ class StudentJobListJob extends Component
     }
     public function render()
     {
-        return view('livewire.student-job-list-job');
+
+        return view('livewire.student-panel-job');
     }
 }
