@@ -8,17 +8,16 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
-
+                'resources/css/journal-view.css',
+                'resources/css/view-cv.css', // <-- Add this line to include view-cv.css
                 'resources/assets/css/style.css',
                 'resources/assets/js/jquery.cookie.js',
                 'resources/assets/js/off-canvas.js',
                 'resources/assets/js/hoverable-collapse.js',
                 'resources/assets/js/misc.js',
-                
                 'resources/assets/js/dashboard.js',
                 'resources/assets/js/todolist.js',
-                
-                'resources/assets/js/chart.js'
+                'resources/assets/js/chart.js',
             ],
             refresh: true,
         }),
