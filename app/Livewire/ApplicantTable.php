@@ -83,7 +83,7 @@ class ApplicantTable extends Component
         $file = OjtDownloadable::where('id', $id)
             ->first();
 
-        $filePath = storage_path('app/' . $file->file_path);
+        $filePath = storage_path('app/public/' . $file->file_path);
         return response()->download($filePath, $file->file_original_name);
     }
     public function downloadRequirement($id)
@@ -91,7 +91,7 @@ class ApplicantTable extends Component
         $file = OjtRequirement::where('id', $id)
             ->first();
 
-        $filePath = storage_path('app/' . $file->req_file_path);
+        $filePath = storage_path('app/public/' . $file->req_file_path);
         return response()->download($filePath, $file->req_orig_name);
     }
     public function clearSearch()
