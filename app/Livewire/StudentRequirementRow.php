@@ -39,7 +39,7 @@ class StudentRequirementRow extends Component
 
     public function downloadFile()
     {
-        $filePath = storage_path('app/' . $this->requirement->req_file_path);
+        $filePath = storage_path('app/public/' . $this->requirement->req_file_path);
         return response()->download($filePath, $this->requirement->req_orig_name);
     }
 
