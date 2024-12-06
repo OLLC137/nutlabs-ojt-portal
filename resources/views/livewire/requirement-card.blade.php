@@ -29,7 +29,6 @@
                     Download
                     <i class="mdi mdi-download btn-icon-append"></i>
                 </button>
-                {{$test}}
                 <a href={{$fileUrl}} target="_blank">
                     <button class="btn btn-info btn-icon-text btn-sm" color="primary">
                         <i class="mdi mdi-eye btn-icon"></i>

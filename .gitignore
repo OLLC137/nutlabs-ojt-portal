@@ -21,3 +21,4 @@ yarn-error.log
 /resources/assets/node_modules
 
 /storage/app/livewire-tmp
+/storage/app/temp
