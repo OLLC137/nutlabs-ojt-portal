@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\OjtRequirement;
 use App\Models\OjtStudent;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -21,10 +22,12 @@ class RequirementCard extends Component
     public $filename;
     public $isLocked = false;
     public $isExempted = false;
+    public $fileUrl;
 
     protected $listeners = ['fileUploaded' => '$refresh'];
 
-    public function uploadFile(){
+    public function uploadFile()
+    {
         $this->validate([
             'requirementFile' => 'required|file|max:10240|mimes:pdf,doc,docx,jpg,jpeg,png',
         ]);
@@ -33,7 +36,9 @@ class RequirementCard extends Component
         $originalFileName = $this->requirementFile->getClientOriginalName();
 
         // Store the file and get the file path
-        $filePath = $this->requirementFile->store('intern_files');
+        $filePath = $this->requirementFile->store('intern_files', 'public');
+
+        $fileUrl = asset('storage/' . $filePath);
 
         // Get the updated file name (hashed name)
         $updatedFileName = basename($filePath);
@@ -48,6 +53,7 @@ class RequirementCard extends Component
             'req_file_name' => $updatedFileName,
             'req_orig_name' => $originalFileName,
             'req_file_path' => $filePath,
+            'req_file_url' => $fileUrl
         ]);
     }
 
@@ -55,7 +61,6 @@ class RequirementCard extends Component
     {
         $this->reqId = $reqId;
         $this->requirement = OjtRequirement::REQUIREMENTS[$reqId];
-
     }
 
     public function downloadFile()
@@ -64,12 +69,16 @@ class RequirementCard extends Component
         $student = OjtStudent::where('user_id', $currentUserId)->first();
         $studentId = $student->id;
         $requirement = OjtRequirement::where('student_id', $studentId)
-                                    ->where('req_id', $this->reqId)
-                                    ->first();
+            ->where('req_id', $this->reqId)
+            ->first();
 
-        $filePath = storage_path('app/' . $requirement->req_file_path);
+        $filePath = storage_path('app/public/' . $requirement->req_file_path);
+
+        if (!file_exists($filePath)) {
+            abort(404, 'File not found.');
+        }
+
         return response()->download($filePath, $requirement->req_orig_name);
-
     }
 
     public function deleteFile()
@@ -78,12 +87,12 @@ class RequirementCard extends Component
         $student = OjtStudent::where('user_id', $currentUserId)->first();
         $studentId = $student->id;
         $requirement = OjtRequirement::where('student_id', $studentId)
-                                    ->where('req_id', $this->reqId)
-                                    ->first();
-        // Delete file from storage
-        $filePath = storage_path('app/' . $requirement->req_file_path);
-        if (file_exists($filePath)) {
-            unlink($filePath);
+            ->where('req_id', $this->reqId)
+            ->first();
+
+        if (Storage::disk('public')->exists($requirement->req_file_path)) {
+            // Delete the file
+            Storage::disk('public')->delete($requirement->req_file_path);
         }
 
         // Delete record from database
@@ -96,21 +105,23 @@ class RequirementCard extends Component
         $this->dispatch('requirementRemoved', id: $this->reqId);
     }
 
-    public function submit(){
+    public function submit()
+    {
         $this->dispatch('confirm-submit', id: $this->reqId);
     }
 
     #[On('submit-confirmed')]
-    public function confirmedSubmit($id){
-        if ($id==$this->reqId){
+    public function confirmedSubmit($id)
+    {
+        if ($id == $this->reqId) {
             $currentUserId = Auth::id(); //get user id
             $student = OjtStudent::where('user_id', $currentUserId)->first(); //get student from user id
             $studentId = $student ? $student->id : null; //get student id from student
             $requirement = OjtRequirement::where('student_id', $studentId)
-                                    ->where('req_id', $this->reqId)
-                                    ->first(); // Get the requirement
+                ->where('req_id', $this->reqId)
+                ->first(); // Get the requirement
 
-            $requirement->update(['locked_at'=>now()]);
+            $requirement->update(['locked_at' => now()]);
             $this->isLocked = true;
         }
     }
@@ -123,16 +134,17 @@ class RequirementCard extends Component
 
         $studentId = $student->id; // Get the student ID
         $requirement = OjtRequirement::where('student_id', $studentId)
-                                    ->where('req_id', $this->reqId)
-                                    ->first(); // Get the requirement
+            ->where('req_id', $this->reqId)
+            ->first(); // Get the requirement
 
         if ($requirement) {
             // Requirement exists, set the filename to original file name
             $this->filename = $requirement->req_orig_name;
             $this->isUploaded = true;
+            $this->fileUrl = $requirement->req_file_url;
             $this->dispatch('hasRequirement', id: $this->reqId);
-            if($requirement->locked_at) $this->isLocked = true;
-            if($requirement->req_file_name == "exempted") $this->isExempted = true;
+            if ($requirement->locked_at) $this->isLocked = true;
+            if ($requirement->req_file_name == "exempted") $this->isExempted = true;
         } else {
             // Requirement does not exist
             $this->isUploaded = false;

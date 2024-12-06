@@ -19,3 +19,5 @@ yarn-error.log
 /.idea
 # /.vscode
 /resources/assets/node_modules
+
+/storage/app/livewire-tmp

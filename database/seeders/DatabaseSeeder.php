@@ -77,7 +77,7 @@ class DatabaseSeeder extends Seeder
             OjtJobListCategorySeeder::class,
             OjtJobListingSeeder::class,
             OjtStudentSeeder::class,
-            OjtRequirementSeeder::class,
+            // OjtRequirementSeeder::class,
             OjtCoordinatorSeeder::class, // Ensure this comes after the User seeder
             OjtApplicantSeeder::class
         ]);

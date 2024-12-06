@@ -20,6 +20,7 @@ class OjtRequirement extends Model
         'req_file_name',
         'req_orig_name',
         'req_file_path',
+        'req_file_url',
         'locked_at'
     ];
 

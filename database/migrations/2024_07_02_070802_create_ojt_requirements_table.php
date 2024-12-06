@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('req_file_name');
             $table->string('req_orig_name');
             $table->string('req_file_path');
+            $table->string('req_file_url');
             $table->timestamps();
         });
     }
