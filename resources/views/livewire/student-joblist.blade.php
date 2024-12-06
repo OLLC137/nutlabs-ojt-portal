@@ -43,7 +43,7 @@
             <x-template.button color="primary" wire:click="doSearch">
                 <i class="mdi mdi-magnify"></i>
             </x-template.button>
-            <x-template.icon wire:click="$set('search', ''); $set('program', ''); $set('location', '')"
+            <x-template.icon wire:click="resetSearch"
                 class="text-danger" role="button">close</x-template.icon>
         </div>
 

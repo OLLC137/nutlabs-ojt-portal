@@ -34,6 +34,9 @@ class StudentJoblist extends Component
     public function doSearch(){
 
     }
+    public function resetSearch(){
+        $this->reset(['search', 'category', 'location', 'program']);
+    }
     public function render()
     {
         $query = OjtJobListing::query()
