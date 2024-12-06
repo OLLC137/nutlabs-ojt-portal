@@ -98,9 +98,15 @@
                                         @break
 
                                         @case(2)
-                                            <button wire:click='downloadFile({{ $selectedResumeFile->id }})' class="btn btn-sm btn-primary">Download
+                                            <button wire:click='downloadFile({{ $selectedResumeFile->id }})'
+                                                class="btn btn-sm btn-primary">Download
                                                 <x-template.icon>download</x-template.icon></button>
-                                            {{$selectedResumeFile->file_original_name}}
+                                            <a href={{ $selectedResumeFile->file_url }} target="_blank">
+                                                <button class="btn btn-icon-text btn-sm btn-primary">
+                                                    <i class="mdi mdi-eye btn-icon"></i>
+                                                </button>
+                                            </a>
+                                            <p>{{ $selectedResumeFile->file_original_name }}</p>
                                         @break
 
                                         @case(3)
@@ -112,9 +118,15 @@
                                     <h4>Cover Letter</h4>
                                     @switch($selectedApplication->cover_mode)
                                         @case(1)
-                                            <button wire:click='downloadFile({{ $selectedCoverFile->id }})' class="btn btn-sm btn-primary">Download
+                                            <button wire:click='downloadFile({{ $selectedCoverFile->id }})'
+                                                class="btn btn-sm btn-primary">Download
                                                 <x-template.icon>download</x-template.icon></button>
-                                            {{$selectedCoverFile->file_original_name}}
+                                            <a href={{ $selectedCoverFile->file_url }} target="_blank">
+                                                <button class="btn btn-icon-text btn-sm btn-primary">
+                                                    <i class="mdi mdi-eye btn-icon"></i>
+                                                </button>
+                                            </a>
+                                            <p> {{ $selectedCoverFile->file_original_name }}</p>
                                         @break
 
                                         @case(2)

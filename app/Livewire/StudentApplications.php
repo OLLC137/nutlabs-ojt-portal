@@ -58,7 +58,7 @@ class StudentApplications extends Component
         $file = OjtDownloadable::where('id', $id)
                                     ->first();
 
-        $filePath = storage_path('app/' . $file->file_path);
+        $filePath = storage_path('app/public/' . $file->file_path);
         return response()->download($filePath, $file->file_original_name);
     }
     public function render()
@@ -72,6 +72,7 @@ class StudentApplications extends Component
             ->join('ojt_companies', 'ojt_companies.id', '=', 'ojt_job_listings.company_id')
             ->select('ojt_applicants.*', 'ojt_job_listings.job_list', 'ojt_companies.co_name')
             ->orderBy('ojt_applicants.status', 'asc')
+            ->orderBy('ojt_applicants.created_at', 'desc')
             ->paginate(4);
 
         return view('livewire.student-applications', [

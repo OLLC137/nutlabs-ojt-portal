@@ -12,6 +12,7 @@ class OjtDownloadable extends Model
         'file_path',
         'file_name',
         'file_original_name',
-        'file_type'
+        'file_type',
+        'file_url'
     ];
 }

@@ -65,7 +65,7 @@ class StudentPanelJob extends Component
 
         if ($this->resumeFile) {
             // Store the uploaded file temporarily
-            $this->temporaryUploadedResume = $this->resumeFile->store('temp');
+            $this->temporaryUploadedResume = $this->resumeFile->store('temp', 'public');
             // Store the original file name
             $this->originalResumeName = $this->resumeFile->getClientOriginalName();
         }
@@ -78,7 +78,7 @@ class StudentPanelJob extends Component
         ]);
         if ($this->coverFile) {
             // Store the uploaded file temporarily
-            $this->temporaryUploadedCover = $this->coverFile->store('temp');
+            $this->temporaryUploadedCover = $this->coverFile->store('temp', 'public');
             // Store the original file name
             $this->originalCoverName = $this->coverFile->getClientOriginalName();
         }
@@ -145,12 +145,13 @@ class StudentPanelJob extends Component
         $resumeFileId = null;
         if ($this->coverSelect == 1) {
             $filepath = 'application_files/' . basename($this->temporaryUploadedCover);
-            Storage::move($this->temporaryUploadedCover, $filepath);
+            Storage::disk('public')->move($this->temporaryUploadedCover, $filepath);
             $newFile = OjtDownloadable::create([
                 'file_path' => $filepath,
                 'file_name' => basename($filepath),
                 'file_original_name' => $this->originalCoverName,
                 'file_type' => 'cover letter',
+                'file_url' => asset('storage/' . $filepath)
             ]);
             $coverFileId = $newFile->id;
         }
@@ -166,12 +167,13 @@ class StudentPanelJob extends Component
         }
         if ($this->resumeSelect == 2) {
             $filepath = 'application_files/' . basename($this->temporaryUploadedResume);
-            Storage::move($this->temporaryUploadedResume, $filepath);
+            Storage::disk('public')->move($this->temporaryUploadedResume, $filepath);
             $newFile = OjtDownloadable::create([
                 'file_path' => $filepath,
                 'file_name' => basename($filepath),
                 'file_original_name' => $this->originalResumeName,
                 'file_type' => 'resume',
+                'file_url' => asset('storage/' . $filepath)
             ]);
             $resumeFileId = $newFile->id;
         }

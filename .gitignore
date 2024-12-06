@@ -22,3 +22,5 @@ yarn-error.log
 
 /storage/app/livewire-tmp
 /storage/app/temp
+/storage/app/public/temp
+/storage/app/public/intern_files
