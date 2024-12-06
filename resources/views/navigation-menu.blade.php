@@ -24,7 +24,7 @@
                         @role(ADM)
                         <a class="dropdown-item" href="{{ route('manage-users') }}"> <x-template.icon class="me-2"> account-multiple </x-template.icon> Manage Users </a>
                         @endrole()
-                        <a class="dropdown-item" href="{{ route('profile.show') }}"> <x-template.icon class="me-2"> face </x-template.icon> Profile </a>
+                        <a class="dropdown-item" href="/"> <x-template.icon class="me-2"> home </x-template.icon> Landing Page </a>
                         <div class="dropdown-divider"></div>
 
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
