@@ -116,7 +116,7 @@ class CompanyManageJobList extends Component
         $this->validate([
             'inputJobList' => 'required|string|max:225',
             'selectedCategoryId' => 'required',
-            'inputPrograms' => 'string|max:1024',
+            'inputPrograms' => 'nullable|string|max:1024',
             'inputDescription' => 'required|string|max:5000',
             'inputSlots' => 'required|int'
         ]);
@@ -178,7 +178,7 @@ class CompanyManageJobList extends Component
         $this->validate([
             'inputJobList' => 'required|string|max:225',
             'selectedCategoryId' => 'required',
-            'inputPrograms' => 'string|max:1024',
+            'inputPrograms' => 'nullable|string|max:1024',
             'inputDescription' => 'required|string|max:5000',
             'inputSlots' => 'required|int'
         ]);
