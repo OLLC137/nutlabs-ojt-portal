@@ -10,41 +10,81 @@
             back
         </button>
 
-        <div class="row">
-            <div class="card mt-3 col-xl-6">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="p-4 border">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <h1>{{ $jobInfo->job_list }}</h1>
-                                <h4 class="bg-primary text-white p-1 rounded">{{ $jobInfo->job_category }}</h4>
+        <div class="card mt-3">
+            <div class="card-body">
+                <div class="row">
+                    <div class="p-4 col-xl-6">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h1>{{ $jobInfo->job_list }}</h1>
+                            <h4 class="bg-primary text-white p-1 rounded">{{ $jobInfo->job_category }}</h4>
+                        </div>
+                        <p class="display-5 font-weight-bold mb-0">{{ $jobInfo->company_name }}</p>
+                        <p class="">
+                            <x-template.icon>map-marker-outline</x-template.icon>
+                            {{ $jobInfo->location }}
+                        </p>
+                        <div class="mb-4">
+                            {!! $jobInfo->job_desc !!}
+                        </div>
+                        @if (!empty($jobPrograms) && count(array_filter($jobPrograms)) > 0)
+                            <p class="font-weight-bold">Recommended Programs</p>
+                            <div class="d-flex flex-row text-white flex-wrap">
+                                @foreach ($jobPrograms as $program)
+                                    <p class="bg-secondary p-1 mx-1 rounded">
+                                        <x-template.icon>tag-outline</x-template.icon>
+                                        {{ $program }}
+                                    </p>
+                                @endforeach
                             </div>
-                            <p class="display-5 font-weight-bold mb-0">{{ $jobInfo->company_name }}</p>
-                            <p class="">
-                                <x-template.icon>map-marker-outline</x-template.icon>
-                                {{ $jobInfo->location }}
-                            </p>
-                            <div class="mb-4">
-                                {!! $jobInfo->job_desc !!}
-                            </div>
-                            @if (!empty($jobPrograms) && count(array_filter($jobPrograms)) > 0)
-                                <p class="font-weight-bold">Recommended Programs</p>
-                                <div class="d-flex flex-row text-white flex-wrap">
-                                    @foreach ($jobPrograms as $program)
-                                        <p class="bg-secondary p-1 mx-1 rounded">
-                                            <x-template.icon>tag-outline</x-template.icon>
-                                            {{ $program }}
-                                        </p>
-                                    @endforeach
-                                </div>
-                            @endif
-                            <h3>Total Job Vacancy: {{ $jobInfo->job_slots }}</h3>
-                            <h5>Number of Applicants: {{$totalApplicants}}</h5>
-                            <h5>Number of Accepted Applicants: {{$acceptedApplicants}}
+                        @endif
+                        <h3>Total Job Vacancy: {{ $jobInfo->job_slots }}</h3>
+                        <h5>Number of Applicants: {{ $totalApplicants }}</h5>
+                        <h5>Number of Accepted Applicants: {{ $acceptedApplicants }}
                             @if ($jobInfo->job_slots == $acceptedApplicants)
                                 <span class="text-danger"> Job Listing Full</span>
                             @endif
-                            </h5>
+                        </h5>
+                    </div>
+                    <div class="p-4 col-xl-6">
+                        <h3 class="mt-4">Applicants</h3>
+                        <div style="overflow-y: auto; height:300px;">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Name</th>
+                                        <th>Department</th>
+                                        <th>Year Level</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($applicants as $applicant)
+                                        <tr>
+                                            <td>{{ $applicant->application_date }}</td>
+                                            <td>{{ $applicant->student->stud_first_name }}
+                                                {{ $applicant->student->stud_last_name }}</td>
+                                            <td>{{ $applicant->student->stud_department }}</td>
+                                            <td>{{ $applicant->student->stud_year_level }}</td>
+                                            <td>
+                                                @switch($applicant->status)
+                                                    @case(1)
+                                                        <span class="badge badge-success">Accepted</span>
+                                                    @break
+
+                                                    @case(2)
+                                                        <span class="badge badge-warning">Pending</span>
+                                                    @break
+
+                                                    @case(3)
+                                                        <span class="badge badge-danger">Rejected</span>
+                                                    @break
+                                                @endswitch
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
