@@ -1,4 +1,5 @@
 <div class="container">
+    <h1>Journal Request</h1>
     <div class="row justify-content-md-center">
         <div class="col-xl-10 mb-4">
             @if(session()->has('message'))

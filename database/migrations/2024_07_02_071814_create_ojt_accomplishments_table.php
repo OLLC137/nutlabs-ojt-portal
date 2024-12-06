@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('ojt_accomplishments', function (Blueprint $table) {
             $table->id();
             $table->integer('student_id');
-            $table->string('acc_date');
+            $table->date('acc_date');
             $table->string('acc_accomplishments');
             $table->string('acc_hours');
             $table->timestamps();
