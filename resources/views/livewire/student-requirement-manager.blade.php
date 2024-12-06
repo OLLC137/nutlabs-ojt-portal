@@ -8,8 +8,8 @@
             <livewire:requirement-card reqId=2>
             <livewire:requirement-card reqId=4>
             <livewire:requirement-card reqId=5>
-            <livewire:requirement-card reqId=6>
             <h4>Company Related Requirements</h4>
+            <livewire:requirement-card reqId=6>
             <livewire:requirement-card reqId=7>
             <livewire:requirement-card reqId=8>
             <livewire:requirement-card reqId=9>
@@ -21,6 +21,8 @@
             <livewire:requirement-card reqId=12>
             <livewire:requirement-card reqId=13>
             <livewire:requirement-card reqId=14>
+            <livewire:requirement-card reqId=15>
+            <livewire:requirement-card reqId=16>
         </div>
     </div>
 

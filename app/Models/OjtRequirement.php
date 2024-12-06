@@ -43,6 +43,8 @@ class OjtRequirement extends Model
         12 => 'Student Trainee Feedback Form',
         13 => 'Training Supervisor Feedback Form',
         14 => 'Student Trainee Performance Appraisal Report',
+        15 => 'Narrative Report',
+        16 => 'Certificate of Completion'
     ];
 
     // Accessor to get the requirement name
