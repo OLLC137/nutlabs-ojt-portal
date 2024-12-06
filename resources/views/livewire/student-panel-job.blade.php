@@ -61,7 +61,18 @@
                             <h2>Resumé</h2>
                             <div class="my-0" wire:click="$set('resumeSelect', 1)">
                                 <label>
-                                    <input class="form-check-input" type="radio" wire:model="resumeSelect" value=1>
+                                    <span class="text-primary">
+                                        @if ($resumeSelect == 1)
+                                            <x-template.icon class="test-primary">
+                                                check-circle
+                                            </x-template.icon>
+                                        @else
+                                            <x-template.icon class="test-primary">
+                                                checkbox-blank-circle-outline
+                                            </x-template.icon>
+                                        @endif
+                                    </span>
+
                                     Use resumé from requirements
                                 </label>
                             </div>
@@ -79,7 +90,17 @@
                             @endif
                             <div class="my-0" wire:click="$set('resumeSelect', 2)">
                                 <label>
-                                    <input class="form-check-input" type="radio" wire:model="resumeSelect" value=2>
+                                    <span class="text-primary">
+                                        @if ($resumeSelect == 2)
+                                            <x-template.icon class="test-primary">
+                                                check-circle
+                                            </x-template.icon>
+                                        @else
+                                            <x-template.icon class="test-primary">
+                                                checkbox-blank-circle-outline
+                                            </x-template.icon>
+                                        @endif
+                                    </span>
                                     Upload new resumé
                                 </label>
                             </div>
@@ -105,7 +126,18 @@
                             @endif
                             <div class="my-0" wire:click="$set('resumeSelect', 3)">
                                 <label>
-                                    <input class="form-check-input" type="radio" wire:model="resumeSelect" value=3>
+                                    <span class="text-primary">
+                                        @if ($resumeSelect == 3)
+                                            <x-template.icon class="test-primary">
+                                                check-circle
+                                            </x-template.icon>
+                                        @else
+                                            <x-template.icon class="test-primary">
+                                                checkbox-blank-circle-outline
+                                            </x-template.icon>
+                                        @endif
+                                    </span>
+
                                     Do not include a resumé
                                 </label>
                             </div>
@@ -115,7 +147,17 @@
                             <h2>Cover Letter</h2>
                             <div class="my-0" wire:click="$set('coverSelect', 1)">
                                 <label>
-                                    <input class="form-check-input" type="radio" wire:model="coverSelect" value=1>
+                                    <span class="text-primary">
+                                        @if ($coverSelect == 1)
+                                            <x-template.icon class="test-primary">
+                                                check-circle
+                                            </x-template.icon>
+                                        @else
+                                            <x-template.icon class="test-primary">
+                                                checkbox-blank-circle-outline
+                                            </x-template.icon>
+                                        @endif
+                                    </span>
                                     Upload Cover Letter
                                 </label>
                             </div>
@@ -141,8 +183,17 @@
                             @endif
                             <div class="my-0" wire:click="$set('coverSelect', 2)">
                                 <label>
-                                    <input class="form-check-input" type="radio" wire:model="coverSelect" value=2>
-                                    Write a Cover Letter
+                                    <span class="text-primary">
+                                        @if ($coverSelect == 2)
+                                            <x-template.icon class="test-primary">
+                                                check-circle
+                                            </x-template.icon>
+                                        @else
+                                            <x-template.icon class="test-primary">
+                                                checkbox-blank-circle-outline
+                                            </x-template.icon>
+                                        @endif
+                                    </span> Write a Cover Letter
                                 </label>
                             </div>
                             @if ($coverSelect == 2)
@@ -153,7 +204,8 @@
                                     <span class="error">
                                         @if (empty($writeCover))
                                             Please write your cover letter here.
-                                        @elseif (strlen($writeCover) > 2000) {{-- Adjust the length as needed --}}
+                                        @elseif (strlen($writeCover) > 2000)
+                                            {{-- Adjust the length as needed --}}
                                             Your cover letter is too long. Please shorten it.
                                         @endif
                                     </span>
@@ -161,8 +213,17 @@
                             @endif
                             <div class="my-0" wire:click="$set('coverSelect', 3)">
                                 <label>
-                                    <input class="form-check-input" type="radio" wire:model="coverSelect" value=3>
-                                    Do not include a Cover Letter
+                                    <span class="text-primary">
+                                        @if ($coverSelect == 3)
+                                            <x-template.icon class="test-primary">
+                                                check-circle
+                                            </x-template.icon>
+                                        @else
+                                            <x-template.icon class="test-primary">
+                                                checkbox-blank-circle-outline
+                                            </x-template.icon>
+                                        @endif
+                                    </span> Do not include a Cover Letter
                                 </label>
                             </div>
                         </div>
