@@ -15,6 +15,7 @@ class StudentRequirementRow extends Component
     public $studentId;
     public $isSubmitted = false;
     public $isExempted = false;
+    public $requirementUrl;
 
     public function mount()
     {
@@ -30,8 +31,8 @@ class StudentRequirementRow extends Component
         if($this->requirement){
             $this->isSubmitted = true;
             if($this->requirement->req_file_name == "exempted") $this->isExempted = true;
+            $this->requirementUrl = $this->requirement->req_file_url;
         }
-        
 
         return view('livewire.student-requirement-row');
     }
@@ -95,6 +96,7 @@ class StudentRequirementRow extends Component
                 'req_file_name' => "exempted",
                 'req_orig_name' => "exempted",
                 'req_file_path' => "exempted",
+                'req_file_url' => "exempted",
                 'locked_at' => now(),
             ]);
 

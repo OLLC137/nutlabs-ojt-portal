@@ -162,6 +162,8 @@
                     <livewire:student-requirement-row studentId="{{ $studentId }}" reqId=12 />
                     <livewire:student-requirement-row studentId="{{ $studentId }}" reqId=13 />
                     <livewire:student-requirement-row studentId="{{ $studentId }}" reqId=14 />
+                    <livewire:student-requirement-row studentId="{{ $studentId }}" reqId=15 />
+                    <livewire:student-requirement-row studentId="{{ $studentId }}" reqId=16 />
                 </tbody>
             </table>
         </div>
