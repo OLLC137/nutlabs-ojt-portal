@@ -24,7 +24,15 @@
 
         <div class="form-group">
             <x-label for="password" value="{{ __('Password') }}" />
-            <x-input id="password" class="form-control form-control-lg" type="password" name="password" required autocomplete="current-password" placeholder="Password" />
+            <div class="input-group">
+                <x-input id="password" class="form-control form-control-lg" type="password" name="password" required
+                    autocomplete="current-password" placeholder="Password" />
+                <div class="input-group-append">
+                    <button class="btn btn-outline btn-sm form-control form-control-lg" type="button" id="togglePassword">
+                        <i class="mdi mdi-eye-outline" id="passwordIcon"></i>
+                    </button>
+                </div>
+            </div>
         </div>
 
         <div class="mt-3">
