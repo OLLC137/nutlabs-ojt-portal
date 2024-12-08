@@ -56,3 +56,19 @@
         </div>
     </form>
 </x-guest-layout>
+
+<script>
+    document.getElementById('togglePassword').addEventListener('click', function () {
+        const passwordInput = document.getElementById('password');
+        const passwordIcon = document.getElementById('passwordIcon');
+        const type = passwordInput.type === 'password' ? 'text' : 'password';
+        passwordInput.type = type;
+        passwordIcon.classList.toggle('mdi-eye-outline');
+        passwordIcon.classList.toggle('mdi-eye-off-outline');
+    });
+</script>
+<style>
+    input::-ms-reveal {
+        display: none;
+    }
+</style>
