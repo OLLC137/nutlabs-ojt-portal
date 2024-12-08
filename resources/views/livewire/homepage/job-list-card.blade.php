@@ -9,6 +9,13 @@
         <p class="jobist-company-name">{{ $companyName }}</p>
         <p class="joblist-company-address">{{ $address }}</p>
     </div>
+    @if(!empty($jobPrograms) && count(array_filter($jobPrograms)) > 0)
+    <div class="my-2">
+        @foreach ($jobPrograms as $program)
+            <div><x-template.icon>tag-outline</x-template.icon>{{ $program }}</div>
+        @endforeach
+    </div>
+    @endif
     <div class="joblist-card-status">
         @switch($status)
         @case(1)

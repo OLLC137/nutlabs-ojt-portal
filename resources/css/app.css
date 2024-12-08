@@ -903,8 +903,6 @@ ul {
 }
 .joblist-card-status {
     border-top: 1px solid lightgray;
-    margin: 50px 0 0;
-
     p {
         margin: 0;
         padding: 10px 0 0 0;

@@ -33,6 +33,7 @@ class JobListPage extends Component
             'ojt_job_list_categories.id as job_category_id', // Include category ID
             'ojt_job_list_categories.cat_name as job_category', // Select cat_name instead of job_category
             'ojt_job_listings.job_status as job_status',
+            'ojt_job_listings.job_programs as job_programs',
             'ojt_companies.co_name as company_name',
             'ojt_companies.co_address as location'
         )

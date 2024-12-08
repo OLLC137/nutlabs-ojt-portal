@@ -20,6 +20,7 @@
                             'companyName' => $jobList->company_name,
                             'address' => $jobList->location,
                             'status' => $jobList->job_status,
+                            'programs' => explode(',', $jobList->job_programs)
                         ],
                         key($jobList->job_id)
                     )
