@@ -9,4 +9,5 @@ Route::middleware([
 ])->group(function () {
     Route::get('/ojt-head-dashboard', fn () => view('pages.ojt-head.dashboard'))->name('ojt-head-dashboard');
     Route::get('/delete-cv-page', fn () => view('pages.delete-cv-page'))->name('delete-cv-page');
+    Route::get('/manage-student-files', fn () => view('pages.manage-student-files-page'))->name('manage-student-files');
 });

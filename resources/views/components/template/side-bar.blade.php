@@ -170,6 +170,12 @@
                         <span class="menu-title">Student List</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('manage-student-files') }}">
+                    <x-template.icon class="menu-icon"> account-multiple </x-template.icon>
+                        <span class="menu-title">Student Files</span>
+                    </a>
+                </li>
             @endrole()
 
     @role(COORDINATOR)

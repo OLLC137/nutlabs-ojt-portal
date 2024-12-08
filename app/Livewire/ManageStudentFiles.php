@@ -24,52 +24,91 @@ class ManageStudentFiles extends Component
         $students = null;
         $student = null;
 
-        // Get the logged-in OJT Coordinator's department
-        $coordinator = OjtCoordinator::where('user_id', Auth::id())->first();
-        if (!$coordinator) {
-            abort(403, 'Unauthorized access'); // Prevent access if the user is not an OJT Coordinator
-        }
+        if (Auth::user()->role == 2) {
+            if ($this->studentId) {
+                $student = OjtStudent::where('id', $this->studentId)
+                    ->select(
+                        'stud_sr_code as sr_code',
+                        'stud_first_name as first_name',
+                        'stud_last_name as last_name',
+                        'stud_department as department',
+                        'stud_email as email',
+                        'stud_year_level as year_level'
+                    )
+                    ->first();
+            } else {
+                $searchTerms = explode(' ', strtolower($this->searchBar));
 
-        $department = $coordinator->department;
-
-        if ($this->studentId) {
-            $student = OjtStudent::where('id', $this->studentId)
-                ->where('stud_department', $department) // Restrict to same department
-                ->select(
+                $students = OjtStudent::select(
+                    'id as id',
                     'stud_sr_code as sr_code',
                     'stud_first_name as first_name',
                     'stud_last_name as last_name',
                     'stud_department as department',
-                    'stud_email as email',
                     'stud_year_level as year_level'
                 )
-                ->first();
+                    ->when($searchTerms, function ($query, $searchTerms) {
+                        foreach ($searchTerms as $term) {
+                            $query->where(function ($q) use ($term) {
+                                $q->whereRaw('LOWER(stud_first_name) like ?', ['%' . $term . '%'])
+                                    ->orWhereRaw('LOWER(stud_last_name) like ?', ['%' . $term . '%'])
+                                    ->orWhereRaw('LOWER(stud_sr_code) like ?', ['%' . $term . '%']);
+                            });
+                        }
+                    })
+                    ->orderBy('last_name', 'asc')
+                    ->paginate(20);
+            }
+
+            return view('livewire.manage-student-files', ['students' => $students, 'student' => $student]);
         } else {
-            $searchTerms = explode(' ', strtolower($this->searchBar));
+            // Get the logged-in OJT Coordinator's department
+            $coordinator = OjtCoordinator::where('user_id', Auth::id())->first();
+            if (!$coordinator) {
+                abort(403, 'Unauthorized access'); // Prevent access if the user is not an OJT Coordinator
+            }
 
-            $students = OjtStudent::select(
-                'id as id',
-                'stud_sr_code as sr_code',
-                'stud_first_name as first_name',
-                'stud_last_name as last_name',
-                'stud_department as department',
-                'stud_year_level as year_level'
-            )
-                ->where('stud_department', $department) // Filter by department
-                ->when($searchTerms, function ($query, $searchTerms) {
-                    foreach ($searchTerms as $term) {
-                        $query->where(function ($q) use ($term) {
-                            $q->whereRaw('LOWER(stud_first_name) like ?', ['%' . $term . '%'])
-                                ->orWhereRaw('LOWER(stud_last_name) like ?', ['%' . $term . '%'])
-                                ->orWhereRaw('LOWER(stud_sr_code) like ?', ['%' . $term . '%']);
-                        });
-                    }
-                })
-                ->orderBy('sr_code', 'asc')
-                ->paginate(20);
+            $department = $coordinator->department;
+
+            if ($this->studentId) {
+                $student = OjtStudent::where('id', $this->studentId)
+                    ->where('stud_department', $department) // Restrict to same department
+                    ->select(
+                        'stud_sr_code as sr_code',
+                        'stud_first_name as first_name',
+                        'stud_last_name as last_name',
+                        'stud_department as department',
+                        'stud_email as email',
+                        'stud_year_level as year_level'
+                    )
+                    ->first();
+            } else {
+                $searchTerms = explode(' ', strtolower($this->searchBar));
+
+                $students = OjtStudent::select(
+                    'id as id',
+                    'stud_sr_code as sr_code',
+                    'stud_first_name as first_name',
+                    'stud_last_name as last_name',
+                    'stud_department as department',
+                    'stud_year_level as year_level'
+                )
+                    ->where('stud_department', $department) // Filter by department
+                    ->when($searchTerms, function ($query, $searchTerms) {
+                        foreach ($searchTerms as $term) {
+                            $query->where(function ($q) use ($term) {
+                                $q->whereRaw('LOWER(stud_first_name) like ?', ['%' . $term . '%'])
+                                    ->orWhereRaw('LOWER(stud_last_name) like ?', ['%' . $term . '%'])
+                                    ->orWhereRaw('LOWER(stud_sr_code) like ?', ['%' . $term . '%']);
+                            });
+                        }
+                    })
+                    ->orderBy('sr_code', 'asc')
+                    ->paginate(20);
+            }
+
+            return view('livewire.manage-student-files', ['students' => $students, 'student' => $student]);
         }
-
-        return view('livewire.manage-student-files', ['students' => $students, 'student' => $student]);
     }
 
     #[On('confirm-delete')]
