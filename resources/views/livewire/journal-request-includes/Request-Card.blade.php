@@ -9,7 +9,7 @@
         </div>
         <div class='col-sm-6' id="mytextarea2">
             <h4>Request Date: </h4>
-            <input wire:model="requestDate" type="date" id="requestDate" class="form-control" value="{{ $requestDate }}">
+            <input wire:model="requestDate" type="date" id="requestDate" class="form-control" value="{{ $requestDate }}" {{ $editID ? 'readonly' : '' }}>
             @error('requestDate')
                 <span style="color:red" class="block text-xs">{{ $message }}</span>
             @enderror

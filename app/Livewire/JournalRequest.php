@@ -7,15 +7,23 @@ use App\Models\JournalEditRequest;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use Livewire\WithPagination;
 
 class JournalRequest extends Component
 {
+
+    use WithPagination;
+
+    protected $paginationTheme = 'bootstrap';
+
     public $student_id;
     public $acc_accomplishments;
     public $acc_hours;
     public $requestDate;
     public $requestReason;
-    public $status;
+
+    public $editID;
+    public $confirmDeletionID;
 
     protected $rules = [
         'acc_hours' => 'required|numeric|min:1',
@@ -43,25 +51,6 @@ class JournalRequest extends Component
 
         return redirect('/request')->with('message', 'Request submitted to OJT Coordinator.');
     }
-
-    public function updateStatus()
-    {
-        $this->validate([
-            'status' => [
-                'required',
-                Rule::in(['Pending', 'Rejected', 'Approved'])
-            ],
-        ]);
-
-        $request = JournalEditRequest::findOrFail($this->requestId);
-        $request->update([
-            'status' => $this->status,
-            'updated_at' => now(),
-        ]);
-
-        session()->flash('message', 'Status updated successfully!');
-    }
-
     public function mount()
     {
         $currentUserId = Auth::id();
@@ -69,23 +58,64 @@ class JournalRequest extends Component
         $this->student_id = $student ? $student->id : null;
 
         if (session()->has('editID')) {
-            $editID = session('editID');
-            $journalPost = \App\Models\OjtAccomplishment::where('id', $editID)
-            ->where('student_id', $this->student_id)
-            ->first();
-
-        if ($journalPost) {
-            $this->acc_accomplishments = $journalPost->acc_accomplishments;
-            $this->acc_hours = $journalPost->acc_hours;
-            $this->requestDate = $journalPost->acc_date;
+            $this->editID = session('editID');
         }
+        if ($this->editID) {
+            $accomplishment = JournalEditRequest::where('id', $this->editID)->first();
+            $this->acc_accomplishments = $accomplishment->acc_accomplishments;
+            $this->requestDate = $accomplishment->requested_date;
+            $this->acc_hours = $accomplishment->acc_hours;
+            $this->requestReason = $accomplishment->reason;
         }
-
-        // $this->requestDate = now()->format('Y-m-d');
     }
 
+    public function updateRequest($id)
+    {
+        return redirect('/request')->with('editID', $id);
+    }
+    public function cancelEdit()
+    {
+        return redirect('/request');
+    }
+    public function editRequest()
+    {
+        $this->validate([
+            'requestDate' => 'required|date|before:today',
+            'requestReason' => 'required|min:10|max:255',
+            'acc_accomplishments' => 'required|min:10|max:255',
+            'acc_hours' => 'required|numeric|min:1',
+        ]);
+        JournalEditRequest::where('student_id', $this->student_id)
+            ->where('id', $this->editID)
+            ->first()
+            ->update([
+                'requested_date' => $this->requestDate,
+                'reason' => $this->requestReason,
+                'acc_accomplishments' => $this->acc_accomplishments,
+                'acc_hours' => $this->acc_hours,
+                'status' => 'pending'
+            ]);
+
+        return redirect('/request')->with('message', 'Request Updated.');
+    }
+    public function confirmDelete($id)
+    {
+        $this->confirmDeletionID = $id;
+    }
+    public function deleteAccomplishment()
+    {
+        JournalEditRequest::find($this->confirmDeletionID)->delete();
+        return redirect('/request')->with('message', 'Accomplishment Deleted.');
+    }
     public function render()
     {
-        return view('livewire.journal-request');
+        $requests = JournalEditRequest::where('student_id', $this->student_id)
+            ->whereIn('status', ['pending', 'rejected'])
+            ->orderBy('requested_date', 'desc')
+            ->paginate(5);
+
+        return view('livewire.journal-request', [
+            'requests' => $requests
+        ]);
     }
 }

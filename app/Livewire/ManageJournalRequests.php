@@ -113,7 +113,6 @@ class ManageJournalRequests extends Component
             ->first();
 
         if ($journalRequest) {
-            $journalRequest->delete();
             $journalRequest->update(['status' => 'rejected']);
         }
         $this->reset('requestId');
