@@ -124,7 +124,7 @@
         @if ($this->byCompany)
             <div class="card my-2">
                 <div class="card-body">
-                    <h2 class="card-title">Select a company to edit its job lists</h2>
+                    <h2 class="card-title">Select a company to view its job lists</h2>
                     <table class="table table-hover">
                         <thead>
                             <tr>
